@@ -9,7 +9,9 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/home/header/header.component';
 import { SearchComponent } from './components/home/search/search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
@@ -25,9 +27,12 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [MatInputModule, MatAutocompleteModule, MatButtonModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
