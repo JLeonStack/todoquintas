@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class SearchComponent implements OnInit {
   constructor() {}
 
-  private onSubmit(userForm) {
+  public onSubmit() {
     console.log('Click form');
   }
   disableSelect = new FormControl(false);
