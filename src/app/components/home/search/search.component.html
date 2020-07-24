@@ -12,10 +12,20 @@
                       >Ubicación <span class="fa fa-search"></span
                     ></mat-label>
                     <input
-                      matInput
+                      type="text"
                       placeholder="¿Dónde querés hospedarte?"
                       value=""
+                      matInput
+                      [matAutocomplete]="auto"
                     />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let option of options"
+                        [value]="option"
+                      >
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
                   </mat-form-field>
                 </div>
               </div>

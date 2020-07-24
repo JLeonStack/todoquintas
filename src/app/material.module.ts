@@ -11,9 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [],
   imports: [
     MatInputModule,
-    MatAutocompleteModule,
     MatSelectModule,
     MatButtonModule,
+    MatAutocompleteModule,
   ], //Vamos a darle los módulos que queremos importar
   exports: [
     MatInputModule,
