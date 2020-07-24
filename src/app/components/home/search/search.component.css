@@ -13,27 +13,6 @@
   width: 100%;
 }
 
-/* Propiedades imput ubicación */
-::ng-deep .mat-focused .mat-form-field-label {
-  /*change color of label*/
-  color: white !important;
-}
-
-::ng-deep.mat-form-field-underline {
-  /*change color of underline*/
-  background-color: white !important;
-}
-
-::ng-deep.mat-form-field-ripple {
-  /*change color of underline when focused*/
-  background-color: #00a699 !important;
-}
-
-::ng-deep.mat-label {
-  color: white;
-}
-/* Propiedades imput ubicación */
-
 ::ng-deep.mat-select {
   color: white !important;
 }

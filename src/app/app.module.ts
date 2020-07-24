@@ -15,6 +15,7 @@ import { SearchComponent } from './components/home/search/search.component';
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { LocationComponent } from './components/home/search/location/location.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +25,13 @@ import { MaterialModule } from './material.module';
     HomeComponent,
     HeaderComponent,
     SearchComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // ReactiveFormsModule,
+    ReactiveFormsModule,
     MaterialModule,
   ],
   providers: [],

@@ -9,6 +9,5 @@ import { FormControl } from '@angular/forms';
 export class SearchComponent implements OnInit {
   constructor() {}
   disableSelect = new FormControl(false);
-  options: string[] = ['Angular', 'Vue', 'React'];
   ngOnInit(): void {}
 }

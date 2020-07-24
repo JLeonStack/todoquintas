@@ -7,64 +7,7 @@
             <div class="row">
               <div class="col-12 col-sm-12 col-md-4 col-lg-4 align-items-end">
                 <div class="form-group pt-3">
-                  <mat-form-field class="example-full-width">
-                    <mat-label class="text-white"
-                      >Ubicación <span class="fa fa-search"></span
-                    ></mat-label>
-                    <input
-                      type="text"
-                      placeholder="¿Dónde querés hospedarte?"
-                      value=""
-                      matInput
-                      [matAutocomplete]="auto"
-                    />
-                    <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option
-                        *ngFor="let option of options"
-                        [value]="option"
-                      >
-                        {{ option }}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                <div class="form-group pt-3">
-                  <mat-form-field>
-                    <mat-label class="text-white">Propiedad</mat-label>
-                    <mat-select [disabled]="disableSelect.value">
-                      <mat-option value="option1">Quinta</mat-option>
-                      <mat-option value="option2">Cabaña</mat-option>
-                      <mat-option value="option3">Casa country</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="col-12 col-sm-6 col-md-3 col-lg-3 align-items-end">
-                <div class="form-group pt-3">
-                  <mat-form-field>
-                    <mat-label class="text-white">Huéspedes</mat-label>
-                    <mat-select [disabled]="disableSelect.value">
-                      <mat-option value="option1">1</mat-option>
-                      <mat-option value="option2">2</mat-option>
-                      <mat-option value="option3">3</mat-option>
-                      <mat-option value="option3">4 o más</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-
-              <div class="col-12 col-sm-12 col-md-2 col-lg-2 align-self-end">
-                <div class="form-group">
-                  <div class="form-field p-0">
-                    <button mat-raised-button></button>
-                    <input
-                      type="submit"
-                      value="Buscar"
-                      class="form-control btn boton-buscar"
-                    />
-                  </div>
+                  <app-location></app-location>
                 </div>
               </div>
             </div>
@@ -74,3 +17,67 @@
     </div>
   </div>
 </section>
+
+<!-- <form action="#" class="" autocomplete="off">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4 align-items-end">
+      <div class="form-group pt-3">
+        <mat-form-field class="example-full-width">
+          <mat-label class="text-white"
+            >Ubicación <span class="fa fa-search"></span
+          ></mat-label>
+          <input
+            type="text"
+            placeholder="¿Dónde querés hospedarte?"
+            value=""
+            matInput
+            [matAutocomplete]="auto"
+            [formControl]="myControl"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of options" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="form-group pt-3">
+        <mat-form-field>
+          <mat-label class="text-white">Propiedad</mat-label>
+          <mat-select [disabled]="disableSelect.value">
+            <mat-option value="option1">Quinta</mat-option>
+            <mat-option value="option2">Cabaña</mat-option>
+            <mat-option value="option3">Casa country</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-3 col-lg-3 align-items-end">
+      <div class="form-group pt-3">
+        <mat-form-field>
+          <mat-label class="text-white">Huéspedes</mat-label>
+          <mat-select [disabled]="disableSelect.value">
+            <mat-option value="option1">1</mat-option>
+            <mat-option value="option2">2</mat-option>
+            <mat-option value="option3">3</mat-option>
+            <mat-option value="option3">4 o más</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-2 col-lg-2 align-self-end">
+      <div class="form-group">
+        <div class="form-field p-0">
+          <input
+            type="submit"
+            value="Buscar"
+            class="form-control btn boton-buscar"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form> -->
