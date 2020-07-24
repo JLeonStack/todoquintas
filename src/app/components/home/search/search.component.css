@@ -1,3 +1,8 @@
+:root {
+  --main-color: #00a699;
+  --second-color: #24a148;
+}
+
 .example-form {
   min-width: 150px;
   max-width: 500px;
@@ -21,7 +26,7 @@
 
 ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
-  background-color: #24a148 !important;
+  background-color: #00a699 !important;
 }
 
 ::ng-deep.mat-label {
@@ -59,7 +64,7 @@ input {
   color: white;
 }
 ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
-  color: #24a148 !important;
+  color: #00a699 !important;
 }
 
 button:focus {
@@ -71,4 +76,9 @@ button:focus {
   position: relative;
   text-align: left;
   width: 100%;
+}
+
+.boton-buscar {
+  background-color: #00a699 !important;
+  color: white !important;
 }
