@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 
 // Imports para el filtro
 import { Observable } from 'rxjs';
-import { map, startWith, filter } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-location',

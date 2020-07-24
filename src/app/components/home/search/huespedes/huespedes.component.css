@@ -1,0 +1,63 @@
+:root {
+  --main-color: #00a699;
+  --second-color: #24a148;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+::ng-deep.mat-select {
+  color: white !important;
+}
+
+::placeholder {
+  color: #ccd1d9;
+}
+
+input {
+  color: white;
+}
+.not-empty-select.mat-selected {
+  color: white !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: white !important;
+}
+
+/* Select input  */
+::ng-deep .mat-select-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid;
+  margin: 0 4px;
+  color: white;
+}
+::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #00a699 !important;
+}
+
+button:focus {
+  outline: white;
+}
+
+.mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.boton-buscar {
+  background-color: #00a699 !important;
+  color: white !important;
+}
