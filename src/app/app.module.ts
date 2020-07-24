@@ -8,11 +8,13 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/home/header/header.component';
 import { SearchComponent } from './components/home/search/search.component';
+
+// Forms
+// import { ReactiveFormsModule } from '@angular/forms';
+
+// Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -27,12 +29,9 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    MatSelectModule,
-    MatButtonModule,
+    MaterialModule,
   ],
-  providers: [MatInputModule, MatAutocompleteModule, MatButtonModule],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
