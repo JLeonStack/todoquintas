@@ -7,6 +7,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
+//Servicios 
+import { LugaresSearchUbicacionService } from './services/lugares-search-ubicacion.service';
+
 // Componentes
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
@@ -15,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/home/header/header.component';
 import { SearchComponent } from './components/home/search/search.component';
 import { LocationComponent } from './components/home/search/location/location.component';
+import { LocationmComponent } from './components/home/search-mobile/location/location-m.component';
 import { PropiedadComponent } from './components/home/search/propiedad/propiedad.component';
 import { HuespedesComponent } from './components/home/search/huespedes/huespedes.component';
 
@@ -26,6 +30,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NavbarMobileComponent } from './components/shared/navbar-mobile/navbar-mobile.component';
+import { SearchMobileComponent } from './components/home/search-mobile/search-mobile.component';
 
 
 @NgModule({
@@ -40,6 +45,8 @@ import { NavbarMobileComponent } from './components/shared/navbar-mobile/navbar-
     PropiedadComponent,
     HuespedesComponent,
     NavbarMobileComponent,
+    SearchMobileComponent,
+    LocationmComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,7 @@ import { NavbarMobileComponent } from './components/shared/navbar-mobile/navbar-
     MaterialModule,
     LayoutModule
   ],
-  providers: [],
+  providers: [LugaresSearchUbicacionService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

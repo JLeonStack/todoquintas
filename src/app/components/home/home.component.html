@@ -1,6 +1,10 @@
-    <!-- <app-navbar *ngIf="navbar == true"></app-navbar> -->
-    <app-navbar-mobile></app-navbar-mobile>
+    <!-- Si estoy en escritorio mstraré la barra de desktop -->
+    <app-navbar *ngIf="navbar_desktop"></app-navbar>
+    
+    <app-navbar-mobile *ngIf="navbar_mobile"></app-navbar-mobile>
+    
     <app-header></app-header>
     
-    <app-search></app-search>
+    <app-search-mobile *ngIf="navbar_mobile"></app-search-mobile>
+    <app-search *ngIf="navbar_desktop"></app-search>
 

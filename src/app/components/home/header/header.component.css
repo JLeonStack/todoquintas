@@ -1,14 +1,34 @@
 .texto-principal {
   font-weight: 200 !important;
 }
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   
-  
+  .texto-principal {
+    font-size: 50px; 
+    transition: 1s;
+  }
   
 }
 
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
 
+@media (min-width: 481px) and (max-width: 767px) {
+  
+  .texto-principal {
+    font-size: 42px; 
+    transition: 1s;
+
+  }
+  
+}
 /* 
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
@@ -16,7 +36,9 @@
 @media (min-width: 320px) and (max-width: 480px) {
   
   .texto-principal {
-    font-size: 36px; 
+    font-size: 36px;
+    transition: 1s;
+
   }
   
 }

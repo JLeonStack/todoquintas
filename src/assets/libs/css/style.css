@@ -10694,11 +10694,14 @@ h5,
   right: 0;
   z-index: 3;
 }
-@media (max-width: 991.98px) {
+@media (max-width: 400.98px) {
   .ftco-navbar-light {
-    background: #000000 !important;
+    background: transparent !important;
     position: relative;
-    top: 0;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 3;
   }
 }
 .ftco-navbar-light .navbar-brand {
@@ -10709,7 +10712,7 @@ h5,
 }
 @media (max-width: 991.98px) {
   .ftco-navbar-light .navbar-brand {
-    color: #fff;
+    color: transparent;
   }
 }
 @media (max-width: 991.98px) {
@@ -10730,14 +10733,14 @@ h5,
 .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
   color: #24a148;
 }
-@media (max-width: 991.98px) {
+/* @media (max-width: 991.98px) {
   .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 0;
     color: #fff;
   }
-}
+} */
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
   border: none;
   background: #fff;
