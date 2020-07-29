@@ -4,26 +4,30 @@
       <a
         href="../Diseño2/single-list.html"
         class="img"
-        style="background-image: url(assets/images/des/work-1.jpg);"
+        style="background-image: url({{propiedad.imagen}});"
       >
-        <div class="rent-sale">
-          <span class="sale">No disponible</span>
+
+        <div class="rent-sale" *ngIf="propiedad.estado == 'disponible'">
+          <span class="rent"> ¡{{propiedad.estado | titlecase}}!  </span>
         </div>
+        
+        <div class="rent-sale" *ngIf="propiedad.estado == 'no disponible'">
+          <span class="sale"> {{propiedad.estado | titlecase}} </span>
+        </div>
+
         <p class="price">
-          <span class="orig-price">$4500<small> / día</small></span>
+          <span class="orig-price">${{propiedad.precio}}<small> / día</small></span>
         </p>
       </a>
       <div class="feature-text border-0">
         <div class="text-center feature-title">
-          <h5>Estancias del Pilar</h5>
+          <h5>{{propiedad.nombre | titlecase}}</h5>
           <p>
-            <i class="fa fa-map-marker"></i> Pilar, Buenos Aires.
+            <i class="fa fa-map-marker"></i> {{propiedad.ubicacion | titlecase}}
           </p>
         </div>
         <div class="col-md-12 text-center text-warning">
-          <i class="fa fa-star"></i><i class="fa fa-star"></i
-          ><i class="fa fa-star"></i><i class="fa fa-star"></i
-          ><i class="fa fa-star"></i>
+          <i class="fa fa-star" *ngFor="let n of numSequence(propiedad.calificacion)"></i>
         </div>
         <div class="room-info-warp">
           <div class="room-info">
@@ -37,8 +41,8 @@
               <p><i class="fa fa-bath"></i> 2 Baños</p>
             </div>
           </div>
-          <div class="room-info">
-            <div class="text mb-3">
+          <div class="room-info pb-3">
+            <!-- <div class="text mb-3">
               <div class="list-team d-flex align-items-center">
                 <div class="d-flex align-items-center">
                   <div
@@ -51,7 +55,7 @@
                 </div>
                 <span class="text-right">Hace 2 días</span>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

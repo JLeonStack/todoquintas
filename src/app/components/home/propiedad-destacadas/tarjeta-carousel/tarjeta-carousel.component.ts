@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tarjeta-carousel',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TarjetaCarouselComponent implements OnInit {
 
+  @Input() propiedad: any = {}
+  
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  numSequence(n: number): Array<number> { 
+    return Array(n); 
+  } 
 
 }

@@ -3,7 +3,7 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-            <span class="subheading"
+            <span class="subheading mb-4"
               >Una experiencia calificada por nuestros
               <u
                 style="text-decoration: none; border-bottom: 1px solid #00A699;"
@@ -18,7 +18,7 @@
           <div class="col-md-12">
             <div class="carousel-properties owl-carousel">
   
-              <app-tarjeta-carousel *ngFor="let number of numbers"></app-tarjeta-carousel>
+              <app-tarjeta-carousel [propiedad]="propiedad" *ngFor="let propiedad of propiedades"></app-tarjeta-carousel>
 
             </div>
           </div>
