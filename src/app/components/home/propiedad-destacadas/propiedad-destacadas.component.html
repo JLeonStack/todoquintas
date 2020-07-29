@@ -1,0 +1,31 @@
+<div class="container">
+  <section class="ftco-section goto-here">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+            <span class="subheading"
+              >Una experiencia calificada por nuestros
+              <u
+                style="text-decoration: none; border-bottom: 1px solid #00A699;"
+                >usuarios</u
+              >
+            </span>
+            <h2 class="mb-2">Propiedades destacadas del mes</h2>
+          </div>
+        </div>
+        <!-- Inicio Carousel -->
+        <div class="row ftco-animate">
+          <div class="col-md-12">
+            <div class="carousel-properties owl-carousel">
+  
+              <app-tarjeta-carousel *ngFor="let number of numbers"></app-tarjeta-carousel>
+
+            </div>
+          </div>
+        </div>
+  
+        <!-- Fin carousel -->
+      </div>
+    </section>
+
+</div>

@@ -31,6 +31,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NavbarMobileComponent } from './components/shared/navbar-mobile/navbar-mobile.component';
 import { SearchMobileComponent } from './components/home/search-mobile/search-mobile.component';
+import { PropiedadDestacadasComponent } from './components/home/propiedad-destacadas/propiedad-destacadas.component';
+import { TarjetaCarouselComponent } from './components/home/propiedad-destacadas/tarjeta-carousel/tarjeta-carousel.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { SearchMobileComponent } from './components/home/search-mobile/search-mo
     HuespedesComponent,
     NavbarMobileComponent,
     SearchMobileComponent,
-    LocationmComponent
+    LocationmComponent,
+    PropiedadDestacadasComponent,
+    TarjetaCarouselComponent
   ],
   imports: [
     BrowserModule,
