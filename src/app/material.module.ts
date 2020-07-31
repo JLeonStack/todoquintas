@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -14,13 +15,15 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatButtonModule,
     MatAutocompleteModule,
-  ], //Vamos a darle los módulos que queremos importar
+    MatDialogModule
+  ], // Vamos a darle los módulos que queremos importar desde las librerías
   exports: [
     MatInputModule,
     MatAutocompleteModule,
     MatSelectModule,
     MatButtonModule,
-  ], //Modulos que queremos exportar
+    MatDialogModule
+  ], //Modulos que queremos exportar para que puedan ser utilizados en todo el programa
   providers: [],
 })
 export class MaterialModule {}

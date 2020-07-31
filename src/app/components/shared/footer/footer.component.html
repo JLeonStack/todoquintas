@@ -15,7 +15,7 @@
             <p>
               Queremos brindarte la mejor experiencia en hospedajes.
             </p>
-            <p class="p-0 m0">Seguinos en redes</p>
+
             <div class="social">
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -85,27 +85,21 @@
         </div>
         <div class="col-md">
           <div class="ftco-footer-widget mb-2">
-            <h2 class="ftco-heading-2">Más</h2>
-            <ul class="list-unstyled">
-              <li>
-                <a href="#"
-                  ><span class="fa fa-chevron-right mr-2"></span>Términos y
-                  Condiciones de Uso
-                </a>
-              </li>
-              <li>
-                <a href="#"
-                  ><span class="fa fa-chevron-right mr-2"></span>Términos y
-                  Condiciones de Contratación</a
-                >
-              </li>
-              <li>
-                <a href="#"
-                  ><span class="fa fa-chevron-right mr-2"></span>Política de
-                  privacidad</a
-                >
-              </li>
-            </ul>
+            <h2 class="ftco-heading-2">Lugares Populares</h2>
+            <div class="double-menu-widget">
+                <ul>
+                    <li><a href="">Florida</a></li>
+                    <li><a href="">New York</a></li>
+                    <li><a href="">Washington</a></li>
+                    <li><a href="">Los Angeles</a></li>
+                </ul>
+                <ul>
+                    <li><a href="">St Louis</a></li>
+                    <li><a href="">Jacksonville</a></li>
+                    <li><a href="">San Jose</a></li>
+                    <li><a href="">San Diego</a></li>
+                </ul>
+            </div>
           </div>
         </div>
         <div class="col-md">
@@ -133,14 +127,14 @@
       <div class="footer-bottom">
         <div class="footer-nav">
             <ul class="p-0">
-                <li><a href="">Ingresá</a></li>
-                <li><a href="">Publicá una propiedad</a></li>
-                <li><a href="">Ayuda</a></li>
+              <li><a (click)="openDialogTerminos()" style="cursor: pointer;">Términos y Condiciones</a></li>
+              <li><a (click)="openDialogPrivacidad()" style="cursor: pointer;">Política de Privacidad</a></li>
+
+                
             </ul>
         </div>
         <div class="copyright">
-            <p>Copyright &copy; 2020 TodoQuintas.com
-                .Todos los derechos reservados.</p>
+            <p>Copyright &copy; 2020 TodoQuintas.com.Todos los derechos reservados.</p>
         </div>
     </div>
     </div>

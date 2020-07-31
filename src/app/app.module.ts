@@ -10,6 +10,16 @@ import { AppRoutingModule } from './app-routing.module';
 //Servicios 
 import { LugaresSearchUbicacionService } from './services/lugares-search-ubicacion.service';
 
+
+// Forms
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
+// Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+
+
 // Componentes
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
@@ -21,18 +31,16 @@ import { LocationComponent } from './components/home/search/location/location.co
 import { LocationmComponent } from './components/home/search-mobile/location/location-m.component';
 import { PropiedadComponent } from './components/home/search/propiedad/propiedad.component';
 import { HuespedesComponent } from './components/home/search/huespedes/huespedes.component';
-
-// Forms
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-
-// Angular Material
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
 import { NavbarMobileComponent } from './components/shared/navbar-mobile/navbar-mobile.component';
 import { SearchMobileComponent } from './components/home/search-mobile/search-mobile.component';
 import { PropiedadDestacadasComponent } from './components/home/propiedad-destacadas/propiedad-destacadas.component';
 import { TarjetaCarouselComponent } from './components/home/propiedad-destacadas/tarjeta-carousel/tarjeta-carousel.component';
+import { TerminosCondicionesComponent } from './components/shared/footer/terminos-condiciones/terminos-condiciones.component';
+import { PoliticaPrivacidadComponent } from './components/shared/footer/politica-privacidad/politica-privacidad.component';
+
+
+
+
 
 
 @NgModule({
@@ -50,7 +58,9 @@ import { TarjetaCarouselComponent } from './components/home/propiedad-destacadas
     SearchMobileComponent,
     LocationmComponent,
     PropiedadDestacadasComponent,
-    TarjetaCarouselComponent
+    TarjetaCarouselComponent,
+    TerminosCondicionesComponent,
+    PoliticaPrivacidadComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +71,10 @@ import { TarjetaCarouselComponent } from './components/home/propiedad-destacadas
     MaterialModule,
     LayoutModule
   ],
+  // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
+  entryComponents: [TerminosCondicionesComponent,PoliticaPrivacidadComponent],
   providers: [LugaresSearchUbicacionService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
+
 })
 export class AppModule {}
