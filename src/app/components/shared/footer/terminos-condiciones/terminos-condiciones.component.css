@@ -1,0 +1,8 @@
+.c_color{
+    background: #00A699;
+    color:white;
+}
+.c_color:focus{
+    outline: none;
+    border: 0;
+}

@@ -37,6 +37,7 @@ import { PropiedadDestacadasComponent } from './components/home/propiedad-destac
 import { TarjetaCarouselComponent } from './components/home/propiedad-destacadas/tarjeta-carousel/tarjeta-carousel.component';
 import { TerminosCondicionesComponent } from './components/shared/footer/terminos-condiciones/terminos-condiciones.component';
 import { PoliticaPrivacidadComponent } from './components/shared/footer/politica-privacidad/politica-privacidad.component';
+import { ListingHomesComponent } from './components/listing-homes/listing-homes.component';
 
 
 
@@ -60,7 +61,8 @@ import { PoliticaPrivacidadComponent } from './components/shared/footer/politica
     PropiedadDestacadasComponent,
     TarjetaCarouselComponent,
     TerminosCondicionesComponent,
-    PoliticaPrivacidadComponent
+    PoliticaPrivacidadComponent,
+    ListingHomesComponent
   ],
   imports: [
     BrowserModule,

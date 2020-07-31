@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-listing-homes',
+  templateUrl: './listing-homes.component.html',
+  styleUrls: ['./listing-homes.component.css']
 })
-export class HomeComponent implements OnInit {
-  
+export class ListingHomesComponent implements OnInit {
+
   // Estas variables del tipo booleanas me permitirán mostrar o no las diferentes secciones según el tamaño de la pantalla.
   navbar_desktop:boolean;
   navbar_mobile: boolean;
@@ -26,5 +26,7 @@ export class HomeComponent implements OnInit {
   });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
 }
