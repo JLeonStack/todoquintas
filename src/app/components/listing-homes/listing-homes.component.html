@@ -3,15 +3,9 @@
     
     <app-navbar-mobile *ngIf="navbar_mobile"></app-navbar-mobile>
     
-    <app-header></app-header>
+    <app-header-listado-c></app-header-listado-c>
     
     <app-search-mobile *ngIf="navbar_mobile"></app-search-mobile>
-    <!-- <app-search *ngIf="navbar_desktop"></app-search> -->
-    <!-- <app-propiedad-destacadas></app-propiedad-destacadas> -->
-    <div class="def-number-input number-input safari_only">
-        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-        <input class="quantity" min="0" name="quantity" value="1" type="number">
-        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-      </div>
 
+    <app-sidenav></app-sidenav>
     <app-footer></app-footer>

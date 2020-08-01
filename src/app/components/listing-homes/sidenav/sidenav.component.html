@@ -1,0 +1,21 @@
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="over">
+    <app-filtros-sidenav></app-filtros-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-2">
+          <button mat-raised-button (click)="opened = !opened">Filtros</button>
+        </div>
+        <div class="col-6">
+          <p>
+            <i class="fa fa-2x fa-location-arrow" aria-hidden="true"></i>Pilar -
+            Buenos Aires
+          </p>
+        </div>
+      </div>
+    </div>
+    <app-listado-casas-busqueda></app-listado-casas-busqueda>
+  </mat-sidenav-content>
+</mat-sidenav-container>

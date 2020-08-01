@@ -1,0 +1,6 @@
+<!-- El siguiente es el código para desplegar un input del tipo number spinner. -->
+<div class="input-group shadow">
+    <button class="btn btn-sm border-right boton-input" id="minus-btn" (click)="reducirInput()"></button>
+    <input type="number" class="form-control" [value]="valorInput" min="1" disabled>
+    <button class="btn btn-sm border-left boton-input" id="plus-btn" (click)="incrementarInput()">+</button>
+</div>

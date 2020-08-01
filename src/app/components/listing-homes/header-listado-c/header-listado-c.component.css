@@ -1,0 +1,60 @@
+.texto-principal {
+    font-weight: 200 !important;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+  }
+  /* 
+    ##Device = Tablets, Ipads (landscape)
+    ##Screen = B/w 768px to 1024px
+  */
+  
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    
+    .texto-principal {
+      font-size: 50px; 
+      transition: 1s;
+    }
+    
+  }
+  
+  /* 
+    ##Device = Low Resolution Tablets, Mobiles (Landscape)
+    ##Screen = B/w 481px to 767px
+  */
+  
+  @media (min-width: 481px) and (max-width: 767px) {
+    
+    .texto-principal {
+      font-size: 42px; 
+      transition: 1s;
+  
+    }
+    
+  }
+  /* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+  @media (min-width: 320px) and (max-width: 480px) {
+    
+    .texto-principal {
+      font-size: 35px;
+      transition: 1s;
+  
+    }
+    
+  }
+
+  
+  /* Configuración tamaño de header sección listing homes*/
+  .hero-wrap.hero-wrap-2 {
+    height: 200px !important;
+    position: relative;
+  }
+  .hero-wrap.hero-wrap-2 .overlay {
+    width: 100%;
+    opacity: 0.0;
+    height: 200px;
+  }
+  .hero-wrap.hero-wrap-2 .slider-text {
+    height: 300px !important;
+  }

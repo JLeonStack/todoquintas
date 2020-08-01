@@ -38,6 +38,13 @@ import { TarjetaCarouselComponent } from './components/home/propiedad-destacadas
 import { TerminosCondicionesComponent } from './components/shared/footer/terminos-condiciones/terminos-condiciones.component';
 import { PoliticaPrivacidadComponent } from './components/shared/footer/politica-privacidad/politica-privacidad.component';
 import { ListingHomesComponent } from './components/listing-homes/listing-homes.component';
+import { NumberSpinnerComponent } from './components/shared/filtros/number-spinner/number-spinner.component';
+import { SidenavComponent } from './components/listing-homes/sidenav/sidenav.component';
+import { ListadoCasasBusquedaComponent } from './components/listing-homes/listado-casas-busqueda/listado-casas-busqueda.component';
+import { TarjetaPropiedadBComponent } from './components/listing-homes/listado-casas-busqueda/tarjeta-propiedad-b/tarjeta-propiedad-b.component';
+import { HeaderListadoCComponent } from './components/listing-homes/header-listado-c/header-listado-c.component';
+import { FiltrosSidenavComponent } from './components/listing-homes/sidenav/filtros-sidenav/filtros-sidenav.component';
+import { SelectPropiedadFComponent } from './components/listing-homes/sidenav/filtros-sidenav/select-propiedad-f/select-propiedad-f.component';
 
 
 
@@ -62,7 +69,14 @@ import { ListingHomesComponent } from './components/listing-homes/listing-homes.
     TarjetaCarouselComponent,
     TerminosCondicionesComponent,
     PoliticaPrivacidadComponent,
-    ListingHomesComponent
+    ListingHomesComponent,
+    NumberSpinnerComponent,
+    SidenavComponent,
+    ListadoCasasBusquedaComponent,
+    TarjetaPropiedadBComponent,
+    HeaderListadoCComponent,
+    FiltrosSidenavComponent,
+    SelectPropiedadFComponent
   ],
   imports: [
     BrowserModule,

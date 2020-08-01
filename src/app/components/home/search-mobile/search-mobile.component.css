@@ -1,5 +1,12 @@
-.transparent{
-    background-color: transparent !important;
+.transparent {
+  background-color: transparent !important;
 }
-.pointer {cursor: pointer;}
+.pointer {
+  cursor: pointer;
+}
 
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+
+  background-color: white;
+}
