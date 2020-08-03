@@ -10,14 +10,6 @@
 $(document).ready(function () {
   var window_w = $(window).innerWidth();
 
-  $(window).on("load", function () {
-    /*------------------
-			Preloder
-		--------------------*/
-    $(".loader").fadeOut();
-    $("#preloder").delay(400).fadeOut("slow");
-  });
-
   (function ($) {
     /*------------------
 			Navigation
@@ -174,24 +166,42 @@ $(document).ready(function () {
       sync1.data("owl.carousel").to(number, 300, true);
     });
 
-    /*------------------
-			Accordions
-		--------------------*/
-    $(".panel-link").on("click", function (e) {
-      $(".panel-link").removeClass("active");
-      var $this = $(this);
-      if (!$this.hasClass("active")) {
-        $this.addClass("active");
-      }
-      e.preventDefault();
+    // Carousel estinado a mostrar las características de las propiedades en la versión móvil
+
+    $(".owl-carousel.seccion-propiedades").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 3,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 5,
+        },
+      },
     });
 
-    $(".video-link").magnificPopup({
-      disableOn: 700,
-      type: "iframe",
-      mainClass: "mfp-fade",
-      removalDelay: 160,
-      preloader: false,
+    // Carousel estinado a mostrar los servicios de las propiedades
+
+    $(".owl-carousel.seccion-servicios").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 3,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 5,
+        },
+      },
     });
   })(jQuery);
 });
