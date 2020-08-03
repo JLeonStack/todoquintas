@@ -4,11 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 // Importo las distintas vistas
 import { HomeComponent } from './components/home/home.component';
 import { ListingHomesComponent } from './components/listing-homes/listing-homes.component';
-
+import { PropiedadComponent } from './components/propiedad/propiedad.component';
 
 const ROUTES: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'busqueda', component: ListingHomesComponent},
+  { path: 'busqueda', component: ListingHomesComponent },
+  { path: 'propiedad', component: PropiedadComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
 

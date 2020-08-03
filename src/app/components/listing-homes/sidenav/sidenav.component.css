@@ -34,3 +34,8 @@ mat-sidenav-content {
     width: 100% !important;
   }
 }
+
+/* Parrafo indicando la ubicación buscada por el usuario */
+.ubicacion {
+  font-size: 18px;
+}
