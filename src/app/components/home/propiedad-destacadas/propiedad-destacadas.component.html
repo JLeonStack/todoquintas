@@ -1,31 +1,97 @@
 <div class="container" style="z-index: 0 !important;">
   <section class="ftco-section goto-here">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5">
-            <span class="subheading mb-4"
-              >Una experiencia calificada por nuestros
-              <u
-                style="text-decoration: none; border-bottom: 1px solid #00A699;"
-                >usuarios</u
-              >
-            </span>
-            <h2 class="mb-2">Propiedades destacadas del mes</h2>
-          </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div
+          class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5"
+        >
+          <span class="subheading mb-4"
+            >Una experiencia calificada por nuestros
+            <u style="text-decoration: none; border-bottom: 1px solid #00a699;"
+              >usuarios</u
+            >
+          </span>
+          <h2 class="mb-2">Propiedades destacadas del mes</h2>
         </div>
-        <!-- Inicio Carousel -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="carousel-properties owl-carousel">
-  
-              <app-tarjeta-carousel [propiedad]="propiedad" *ngFor="let propiedad of propiedades"></app-tarjeta-carousel>
-
-            </div>
-          </div>
-        </div>
-  
-        <!-- Fin carousel -->
       </div>
-    </section>
+      <!-- Inicio Carousel -->
+      <div class="row propiedad-destacadas-carousel">
+        <div class="col-md-12">
+          <div class="carousel-properties owl-carousel">
+            <!-- Primer item -->
+            <div class="item" *ngFor="let propiedad of propiedades">
+              <div class="property-wrap animate__animated animate__fadeIn">
+                <a
+                  href="../Diseño2/single-list.html"
+                  class="img"
+                  style="background-image: url({{ propiedad.imagen }});"
+                >
+                  <div
+                    class="rent-sale"
+                    *ngIf="propiedad.estado == 'disponible'"
+                  >
+                    <span class="rent">
+                      ¡{{ propiedad.estado | titlecase }}!
+                    </span>
+                  </div>
 
+                  <div
+                    class="rent-sale"
+                    *ngIf="propiedad.estado == 'no disponible'"
+                  >
+                    <span class="sale">
+                      {{ propiedad.estado | titlecase }}
+                    </span>
+                  </div>
+
+                  <p class="price">
+                    <span class="orig-price"
+                      >${{ propiedad.precio }}<small> / día</small></span
+                    >
+                  </p>
+                </a>
+                <div class="feature-text border-0">
+                  <div class="text-center feature-title">
+                    <h5>{{ propiedad.nombre | titlecase }}</h5>
+                    <p>
+                      <i class="fa fa-map-marker"></i>
+                      {{ propiedad.ubicacion | titlecase }}
+                    </p>
+                  </div>
+                  <div class="col-md-12 text-center text-warning">
+                    <i
+                      class="fa fa-star"
+                      *ngFor="let n of numSequence(propiedad.calificacion)"
+                    ></i>
+                  </div>
+                  <div class="room-info-warp">
+                    <div class="room-info">
+                      <div class="rf-left">
+                        <p><i class="fa fa-user"></i> 6 personas</p>
+
+                        <p><i class="fa fa-bed"></i> 4 camas</p>
+                      </div>
+                      <div class="rf-right">
+                        <p><i class="fa fa-car"></i> 2 Autos</p>
+                        <p><i class="fa fa-bath"></i> 2 Baños</p>
+                      </div>
+                    </div>
+                    <div class="room-info pb-3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Primer item -->
+
+            <!-- <app-tarjeta-carousel
+              [propiedad]="propiedad"
+              *ngFor="let propiedad of propiedades"
+            ></app-tarjeta-carousel> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Fin carousel -->
+    </div>
+  </section>
 </div>

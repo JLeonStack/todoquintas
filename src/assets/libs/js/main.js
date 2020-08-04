@@ -57,29 +57,6 @@ $(document).ready(function () {
           },
         },
       });
-      $(".carousel-properties").owlCarousel({
-        center: true,
-        loop: true,
-        items: 1,
-        margin: 30,
-        stagePadding: 0,
-        nav: false,
-        navText: [
-          '<span class="ion-ios-arrow-back">',
-          '<span class="ion-ios-arrow-forward">',
-        ],
-        responsive: {
-          0: {
-            items: 1,
-          },
-          600: {
-            items: 2,
-          },
-          1000: {
-            items: 3,
-          },
-        },
-      });
     };
     carousel();
 
@@ -149,75 +126,6 @@ $(document).ready(function () {
     };
     scrollWindow();
 
-    var counter = function () {
-      $("#section-counter, .hero-wrap, .ftco-counter").waypoint(
-        function (direction) {
-          if (
-            direction === "down" &&
-            !$(this.element).hasClass("ftco-animated")
-          ) {
-            var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(
-              ","
-            );
-            $(".number").each(function () {
-              var $this = $(this),
-                num = $this.data("number");
-              console.log(num);
-              $this.animateNumber(
-                {
-                  number: num,
-                  numberStep: comma_separator_number_step,
-                },
-                7000
-              );
-            });
-          }
-        },
-        { offset: "95%" }
-      );
-    };
-    counter();
-
-    var contentWayPoint = function () {
-      var i = 0;
-      $(".ftco-animate").waypoint(
-        function (direction) {
-          if (
-            direction === "down" &&
-            !$(this.element).hasClass("ftco-animated")
-          ) {
-            i++;
-
-            $(this.element).addClass("item-animate");
-            setTimeout(function () {
-              $("body .ftco-animate.item-animate").each(function (k) {
-                var el = $(this);
-                setTimeout(
-                  function () {
-                    var effect = el.data("animate-effect");
-                    if (effect === "fadeIn") {
-                      el.addClass("fadeIn ftco-animated");
-                    } else if (effect === "fadeInLeft") {
-                      el.addClass("fadeInLeft ftco-animated");
-                    } else if (effect === "fadeInRight") {
-                      el.addClass("fadeInRight ftco-animated");
-                    } else {
-                      el.addClass("fadeInUp ftco-animated");
-                    }
-                    el.removeClass("item-animate");
-                  },
-                  k * 50,
-                  "easeInOutExpo"
-                );
-              });
-            }, 100);
-          }
-        },
-        { offset: "95%" }
-      );
-    };
-    contentWayPoint();
-
     // magnific popup
     $(".image-popup").magnificPopup({
       type: "image",
@@ -239,16 +147,6 @@ $(document).ready(function () {
       },
     });
 
-    $(".popup-youtube, .popup-vimeo, .popup-gmaps").magnificPopup({
-      disableOn: 700,
-      type: "iframe",
-      mainClass: "mfp-fade",
-      removalDelay: 160,
-      preloader: false,
-
-      fixedContentPos: false,
-    });
-
     $(window).scroll(function () {
       var scroll = $(window).scrollTop();
       if (scroll < 100) {
@@ -262,22 +160,3 @@ $(document).ready(function () {
     // Diseño dos
   })(jQuery);
 });
-
-// document.onreadystatechange = function () {
-//   if(document.readyState === "complete"){
-//     // Función para el input
-//     $(document).ready(function(){
-//       $('#qty_input').prop('disabled', true);
-//       $('#plus-btn').click(function(){
-//         $('#qty_input').val(parseInt($('#qty_input').val()) + 1 );
-//             });
-//           $('#minus-btn').click(function(){
-//         $('#qty_input').val(parseInt($('#qty_input').val()) - 1 );
-//         if ($('#qty_input').val() == 0) {
-//         $('#qty_input').val(1);
-//       }
-
-//             });
-//     });
-//   }
-// }

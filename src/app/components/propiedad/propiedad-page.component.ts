@@ -23,10 +23,5 @@ export class PropiedadPageComponent implements OnInit {
       }
     });
   }
-  ngOnInit(): void {
-    $(‘'button').click(function(){
-      alert('Wass up!');
-       });
-       }
-  
+  ngOnInit(): void {}
 }
