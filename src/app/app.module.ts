@@ -51,6 +51,8 @@ import { PropiedadDetallesListComponent } from './components/propiedad/seccion-p
 import { CarouselPropiedadDetallesListComponent } from './components/propiedad/seccion-propiedad-l/carousel-propiedad-detalles-list/carousel-propiedad-detalles-list.component';
 
 import { SeccionPropiedadLComponent } from './components/propiedad/seccion-propiedad-l/seccion-propiedad-l.component';
+import { PropiedadesRelacionadasComponent } from './components/propiedad/seccion-propiedad-l/propiedades-relacionadas/propiedades-relacionadas.component';
+import { CarouselPropiedadServiciosComponent } from './components/propiedad/seccion-propiedad-l/carousel-propiedad-servicios/carousel-propiedad-servicios.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { SeccionPropiedadLComponent } from './components/propiedad/seccion-propi
     PropiedadDetallesListComponent,
     CarouselPropiedadDetallesListComponent,
     SeccionPropiedadLComponent,
+    PropiedadesRelacionadasComponent,
+    CarouselPropiedadServiciosComponent,
   ],
   imports: [
     BrowserModule,
