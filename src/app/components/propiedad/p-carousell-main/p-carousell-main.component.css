@@ -1,0 +1,147 @@
+/*----------------------------------------*/
+/* CSS
+/*----------------------------------------*/
+
+img {
+  max-width: 100%;
+}
+
+/*---------------------
+	CSS
+-----------------------*/
+
+.set-bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+}
+
+/*----------------
+  Carousel
+------------------*/
+
+.single-list-slider .sl-item {
+  height: 400px;
+}
+
+.single-list-slider .sl-item .sale-notic,
+.single-list-slider .sl-item .rent-notic {
+  margin: 30px;
+}
+
+.sl-thumb-slider {
+  margin-top: 10px;
+  position: relative;
+}
+
+.sl-thumb-slider .sl-thumb {
+  height: 120px;
+  cursor: pointer;
+  background: #000;
+  background-size: cover;
+  position: relative;
+}
+
+.sl-thumb-slider .current .sl-thumb:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #000;
+  opacity: 0.6;
+}
+
+.sl-thumb-slider .owl-prev,
+.sl-thumb-slider .owl-next {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  top: 50%;
+  margin-top: -10px;
+  font-size: 12px;
+  color: #cccccc;
+  text-align: center;
+}
+
+.sl-thumb-slider .owl-prev:hover,
+.sl-thumb-slider .owl-next:hover {
+  color: #30caa0;
+}
+
+.sl-thumb-slider .owl-prev {
+  left: 0;
+  border-radius: 0px 30px 30px 0px;
+}
+
+.sl-thumb-slider .owl-next {
+  right: 0;
+  border-radius: 30px 0px 0px 30px;
+}
+
+/*----------------
+  Carousel
+------------------*/
+
+/*------------------
+	Responsive
+---------------------*/
+
+/* Tablet :768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .gallery-item.grid-wide {
+    width: calc(50% - 20px);
+  }
+  .gallery-item {
+    width: calc(50% - 20px);
+  }
+}
+
+/* Large Mobile :480px. */
+
+@media only screen and (max-width: 767px) {
+  .gallery {
+    margin-right: 0;
+  }
+  .gallery-item.grid-long,
+  .gallery-item.grid-wide,
+  .gallery-item {
+    width: 100%;
+  }
+
+  .single-list-slider .sl-item {
+    height: 300px;
+  }
+  .sl-thumb-slider .sl-thumb {
+    height: 90px;
+  }
+}
+
+/* small Mobile :320px. */
+
+@media only screen and (max-width: 479px) {
+  .single-list-slider .sl-item {
+    height: 250px;
+  }
+  .sl-thumb-slider .sl-thumb {
+    height: 60px;
+  }
+}
+
+/* Sobreedito la clase carousel para evitar la aparición de los dots. */
+::ng-deep.owl-carousel .owl-dots {
+  text-align: center;
+  display: none;
+}
+
+::ng-deep.single-list-content .owl-carousel .owl-dots {
+  text-align: center;
+  display: block;
+}
+
+::ng-deep.single-list-content .owl-carousel.owl-loaded {
+  display: block !important;
+}

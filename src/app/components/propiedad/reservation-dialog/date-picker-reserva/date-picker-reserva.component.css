@@ -1,0 +1,17 @@
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #00a699;
+}
+
+/* Fecha de inicio de hoy, color background. */
+::ng-deep.mat-calendar-body-today.mat-calendar-body-selected {
+  background: #00a699;
+}
+
+::ng-deep.mat-calendar-body-selected {
+  background: #00a699;
+}
+
+/* Tamaño del input de fechas */
+::ng-deep.mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+  width: 100% !important;
+}

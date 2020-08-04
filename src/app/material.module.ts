@@ -11,6 +11,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -24,6 +27,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ], // Vamos a darle los módulos que queremos importar desde las librerías
   exports: [
     MatInputModule,
@@ -35,7 +40,9 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ], //Modulos que queremos exportar para que puedan ser utilizados en todo el programa
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })
 export class MaterialModule {}

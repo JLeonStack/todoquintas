@@ -7,9 +7,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
-//Servicios 
+//Servicios
 import { LugaresSearchUbicacionService } from './services/lugares-search-ubicacion.service';
-
 
 // Forms
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +17,6 @@ import { FormsModule } from '@angular/forms';
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -45,11 +43,10 @@ import { TarjetaPropiedadBComponent } from './components/listing-homes/listado-c
 import { HeaderListadoCComponent } from './components/listing-homes/header-listado-c/header-listado-c.component';
 import { FiltrosSidenavComponent } from './components/listing-homes/sidenav/filtros-sidenav/filtros-sidenav.component';
 import { SelectPropiedadFComponent } from './components/listing-homes/sidenav/filtros-sidenav/select-propiedad-f/select-propiedad-f.component';
-
-
-
-
-
+import { PropiedadPageComponent } from './components/propiedad/propiedad-page.component';
+import { PCarousellMainComponent } from './components/propiedad/p-carousell-main/p-carousell-main.component';
+import { ReservationDialogComponent } from './components/propiedad/reservation-dialog/reservation-dialog.component';
+import { DatePickerReservaComponent } from './components/propiedad/reservation-dialog/date-picker-reserva/date-picker-reserva.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +73,11 @@ import { SelectPropiedadFComponent } from './components/listing-homes/sidenav/fi
     TarjetaPropiedadBComponent,
     HeaderListadoCComponent,
     FiltrosSidenavComponent,
-    SelectPropiedadFComponent
+    SelectPropiedadFComponent,
+    PCarousellMainComponent,
+    PropiedadPageComponent,
+    ReservationDialogComponent,
+    DatePickerReservaComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,12 +86,11 @@ import { SelectPropiedadFComponent } from './components/listing-homes/sidenav/fi
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    LayoutModule
+    LayoutModule,
   ],
   // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
-  entryComponents: [TerminosCondicionesComponent,PoliticaPrivacidadComponent],
+  entryComponents: [TerminosCondicionesComponent, PoliticaPrivacidadComponent],
   providers: [LugaresSearchUbicacionService],
-  bootstrap: [AppComponent]
-
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

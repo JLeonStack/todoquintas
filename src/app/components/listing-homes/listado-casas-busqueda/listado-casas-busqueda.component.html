@@ -1,8 +1,12 @@
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4"  *ngFor="let propiedad of propiedades">
-            <app-tarjeta-propiedad-b [propiedad]="propiedad"></app-tarjeta-propiedad-b>
-        </div>
-
+  <div class="row">
+    <div
+      class="col-12 col-sm-12 col-md-6 col-lg-4"
+      *ngFor="let propiedad of propiedades"
+    >
+      <app-tarjeta-propiedad-b
+        [propiedad]="propiedad"
+      ></app-tarjeta-propiedad-b>
     </div>
+  </div>
 </div>
