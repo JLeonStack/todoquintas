@@ -44,9 +44,13 @@ import { HeaderListadoCComponent } from './components/listing-homes/header-lista
 import { FiltrosSidenavComponent } from './components/listing-homes/sidenav/filtros-sidenav/filtros-sidenav.component';
 import { SelectPropiedadFComponent } from './components/listing-homes/sidenav/filtros-sidenav/select-propiedad-f/select-propiedad-f.component';
 import { PropiedadPageComponent } from './components/propiedad/propiedad-page.component';
-import { PCarousellMainComponent } from './components/propiedad/p-carousell-main/p-carousell-main.component';
+import { PCarousellMainComponent } from './components/propiedad/seccion-propiedad-l/p-carousell-main/p-carousell-main.component';
 import { ReservationDialogComponent } from './components/propiedad/reservation-dialog/reservation-dialog.component';
 import { DatePickerReservaComponent } from './components/propiedad/reservation-dialog/date-picker-reserva/date-picker-reserva.component';
+import { PropiedadDetallesListComponent } from './components/propiedad/seccion-propiedad-l/propiedad-detalles-list/propiedad-detalles-list.component';
+import { CarouselPropiedadDetallesListComponent } from './components/propiedad/seccion-propiedad-l/carousel-propiedad-detalles-list/carousel-propiedad-detalles-list.component';
+
+import { SeccionPropiedadLComponent } from './components/propiedad/seccion-propiedad-l/seccion-propiedad-l.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,9 @@ import { DatePickerReservaComponent } from './components/propiedad/reservation-d
     PropiedadPageComponent,
     ReservationDialogComponent,
     DatePickerReservaComponent,
+    PropiedadDetallesListComponent,
+    CarouselPropiedadDetallesListComponent,
+    SeccionPropiedadLComponent,
   ],
   imports: [
     BrowserModule,
