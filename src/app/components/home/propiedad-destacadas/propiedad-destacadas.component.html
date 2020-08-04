@@ -24,7 +24,9 @@
                 <a
                   href="../Diseño2/single-list.html"
                   class="img"
-                  style="background-image: url({{ propiedad.imagen }});"
+                  [ngStyle]="{
+                    'background-image': 'url(' + propiedad.imagen + ')'
+                  }"
                 >
                   <div
                     class="rent-sale"

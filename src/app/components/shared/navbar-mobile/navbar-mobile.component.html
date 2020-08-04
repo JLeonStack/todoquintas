@@ -1,20 +1,43 @@
 <div class="container fixed-bottom bg-white pt-3 pb-3 border-top">
   <div class="row align-items-center justify-content-center text-center">
-    <div class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left">
+    <div
+      class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
+    >
+      <a [routerLink]="['/']" class="d-flex link-nav">
+        <span
+          class="material-icons md-24 mr-2"
+          style="color: #00a699; font-size: 25px !important;"
+        >
+          roofing
+        </span>
+        <span class="ingresar">Buscá</span>
+      </a>
+    </div>
+    <div
+      class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
+    >
       <a href="/login" class="d-flex link-nav">
-
-        <span class="material-icons md-24 mr-2"  style="color: #00A699; font-size: 25px !important;">
+        <span
+          class="material-icons md-24 mr-2"
+          style="color: #00a699; font-size: 25px !important;"
+        >
           publish
-        </span>  
+        </span>
         <span class="ingresar">Publicá</span>
       </a>
     </div>
-    <div class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right">
+    <div
+      class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right"
+    >
       <a href="/login" class="d-flex link-nav">
         <span class="ingresar mr-2">Ingresá</span>
-        <span class="material-icons md-24"  style="color: #00A699; font-size: 25px !important;">
-          account_circle 
-        </span>  
+        <span
+          class="material-icons md-24"
+          style="color: #00a699; font-size: 25px !important;"
+        >
+          account_circle
+        </span>
       </a>
+    </div>
   </div>
 </div>

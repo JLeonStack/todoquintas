@@ -2,9 +2,11 @@
 <div class="item">
   <div class="property-wrap animate__animated animate__fadeIn">
     <a
-      [routerLink]="['/propiedad']"
+      [routerLink]="['/propiedad', '1']"
       class="img"
-      style="background-image: url({{ propiedad.imagen }});"
+      [ngStyle]="{
+        'background-image': 'url(' + propiedad.imagen + ')'
+      }"
     >
       <div class="rent-sale" *ngIf="propiedad.estado == 'disponible'">
         <span class="rent"> ¡{{ propiedad.estado | titlecase }}! </span>

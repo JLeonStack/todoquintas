@@ -53,6 +53,7 @@ import { CarouselPropiedadDetallesListComponent } from './components/propiedad/s
 import { SeccionPropiedadLComponent } from './components/propiedad/seccion-propiedad-l/seccion-propiedad-l.component';
 import { PropiedadesRelacionadasComponent } from './components/propiedad/seccion-propiedad-l/propiedades-relacionadas/propiedades-relacionadas.component';
 import { CarouselPropiedadServiciosComponent } from './components/propiedad/seccion-propiedad-l/carousel-propiedad-servicios/carousel-propiedad-servicios.component';
+import { NavbarEPropComponent } from './components/shared/navbar-e-prop/navbar-e-prop.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { CarouselPropiedadServiciosComponent } from './components/propiedad/secc
     SeccionPropiedadLComponent,
     PropiedadesRelacionadasComponent,
     CarouselPropiedadServiciosComponent,
+    NavbarEPropComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,10 @@ import { CarouselPropiedadServiciosComponent } from './components/propiedad/secc
   ],
   // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
   entryComponents: [TerminosCondicionesComponent, PoliticaPrivacidadComponent],
+
+  // En providers van todos nuestros servicios
   providers: [LugaresSearchUbicacionService],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

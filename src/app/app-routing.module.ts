@@ -8,8 +8,12 @@ import { PropiedadPageComponent } from './components/propiedad/propiedad-page.co
 
 const ROUTES: Routes = [
   { path: '', component: HomeComponent },
+
   { path: 'busqueda', component: ListingHomesComponent },
-  { path: 'propiedad', component: PropiedadPageComponent },
+
+  // La siguiente ruta, de propiedad recibirá un parámetro id, que será la propiedad en la que el usuario querrá obtener más detalles
+  { path: 'propiedad/:id', component: PropiedadPageComponent },
+
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
 

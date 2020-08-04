@@ -35,3 +35,13 @@
   border-radius: 1px;
   cursor: pointer;
 }
+
+.seccion-formulario-reservacion {
+  height: 1500px;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .seccion-formulario-reservacion {
+    height: 200px;
+  }
+}
