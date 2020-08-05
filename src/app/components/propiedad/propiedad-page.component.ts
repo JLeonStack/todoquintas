@@ -9,7 +9,11 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './propiedad-page.component.html',
   styleUrls: ['./propiedad-page.component.css'],
 })
+// Los componentes son simples clases de Javascript con decoradores.
 export class PropiedadPageComponent implements OnInit {
+  // En esta propiedad se cargará la información de la propiedad que decida ver el usuario
+  propiedad: any[];
+
   // Estas variables del tipo booleanas me permitirán mostrar o no las diferentes secciones según el tamaño de la pantalla.
   navbar_desktop: boolean;
   navbar_mobile: boolean;
@@ -30,9 +34,14 @@ export class PropiedadPageComponent implements OnInit {
       }
     });
 
+    // Procederé a capturar los parámetros que se vayan a enviar, que será especialmente, el id de la propiedad que deseo visualizar.
+    /*  Una vez capturado el id de la propiedad, procederé a realizar una petición fetch a la API para que me traiga toda la información relacionada a esa propiedad.  */
     this.activatedRoute.params.subscribe((params) => {
+      // Aquí adentro irá el fetch a la API para que me atraiga toda la información correspondiente a la propiedad
       console.log(params);
     });
   }
+
+  // ngOnInit permite realizar acciones durante el tiempo de ejecución del programa.
   ngOnInit(): void {}
 }

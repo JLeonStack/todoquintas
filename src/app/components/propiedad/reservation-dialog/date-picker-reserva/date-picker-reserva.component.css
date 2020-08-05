@@ -1,3 +1,8 @@
+/* Configuro el tamaño que tendrá el elemeno datepicker en la pantalla */
+::ng-deep.mat-form-field {
+  width: 100% !important;
+}
+
 ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
   border-color: #00a699;
 }
@@ -11,7 +16,21 @@
   background: #00a699;
 }
 
-/* Tamaño del input de fechas */
-::ng-deep.mat-form-field-type-mat-date-range-input .mat-form-field-infix {
-  width: 100% !important;
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #00a699 !important;
+}
+
+/* Propiedades imput ubicación */
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #00a699 !important;
+}
+
+::ng-deep.example-custom-date-class {
+  background: orange;
+  border-radius: 100%;
+  /* font-size: 20px !important;
+  color: #00a699 !important; */
+  pointer-events: none;
 }
