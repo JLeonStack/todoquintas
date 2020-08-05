@@ -14,6 +14,7 @@ const ROUTES: Routes = [
   // La siguiente ruta, de propiedad recibirá un parámetro id, que será la propiedad en la que el usuario querrá obtener más detalles
   { path: 'propiedad/:id', component: PropiedadPageComponent },
 
+  // Cualquier otro par me redirecciona al home.
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
 

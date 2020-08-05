@@ -7,6 +7,9 @@ import { LayoutModule } from '@angular/cdk/layout';
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
+// Http
+import { HttpClientModule } from '@angular/common/http';
+
 //Servicios
 import { LugaresSearchUbicacionService } from './services/lugares-search-ubicacion.service';
 
@@ -96,6 +99,7 @@ import { NavbarEPropComponent } from './components/shared/navbar-e-prop/navbar-e
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,

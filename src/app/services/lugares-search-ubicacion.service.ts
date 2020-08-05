@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+// El providedIn es una forma automática de importar servicios.
 @Injectable({
   providedIn: 'root',
 })
