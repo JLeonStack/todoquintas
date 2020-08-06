@@ -14,7 +14,7 @@ export class DatePickerReservaComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   currentYear = new Date().getFullYear();
-
+  test: number;
   constructor() {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
@@ -67,11 +67,16 @@ export class DatePickerReservaComponent implements OnInit {
     for (let index = 0; index < this.datesReserved.length; index++) {
       if (this.range.value.start < new Date(this.datesReserved[index])) {
         // Estableceré cómo máxima fecha posible de reservación la que
-        this.maxDate = new Date(this.datesReserved[index]);
+        // this.maxDate = new Date(this.datesReserved[index]);
+        // Obtengo el tiempo en milisegundos
+        this.test = new Date(this.datesReserved[index]).getTime();
+        // Le resto un día al tiempo obtenido para que el maxDate sea hasta (sin incluir), la fecha reservada
+        this.maxDate = new Date(this.test - 86400000);
       }
     }
   }
 
+  // Esta función se encarga de resaltar las fechas que ya han sido reservadas
   dateClass() {
     return (date: Date): MatCalendarCellCssClasses => {
       const highlightDate = this.datesReserved

@@ -28,7 +28,9 @@
 }
 
 ::ng-deep.example-custom-date-class {
-  background: orange;
+  -webkit-box-shadow: inset 0px 0px 10px 0px rgba(221, 221, 221, 1);
+  -moz-box-shadow: inset 0px 0px 10px 0px rgba(221, 221, 221, 1);
+  box-shadow: inset 0px 0px 10px 0px rgba(221, 221, 221, 1);
   border-radius: 100%;
   /* font-size: 20px !important;
   color: #00a699 !important; */
