@@ -1,6 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
+
+// Con esta librería puedo capturar eventos del data picker
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-date-picker-reserva',
@@ -21,8 +24,9 @@ export class DatePickerReservaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.range.value.start);
+    // console.log(this.range.value.start);
     if (this.range.value.start != null) {
+      // Establezco las fechas iniciales que pueden ser seleccionadas en el datapicker.
       this.minDate = new Date(this.range.value.start);
       this.maxDate = new Date(this.currentYear + 1, 4, 0);
     }
@@ -40,19 +44,37 @@ export class DatePickerReservaComponent implements OnInit {
     //6 means saturday
   };
 
-  datesToHighlight = [
-    '2020-08-22',
-    '2020-08-24',
-    '2020-08-28',
-    '2020-08-24',
-    '2020-08-23',
-    '2020-08-22',
-    '2020-08-25',
+  // Estas son las fechas que ya están reservadas
+  datesReserved = [
+    '2020-08-23T03:00:00.000Z',
+    '2020-08-21T03:00:00.000Z',
+    '2020-08-18T03:00:00.000Z',
   ];
+
+  events: string[] = [];
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.events.push(`${type}: ${event.value}`);
+
+    // console.log(event.value);
+    // Establezco las fechas mínimas y máximas que se pueden seleccionar en base a la fecha inicial que se haya seleccionado.
+    this.minDate = new Date(event.value); // Cuando el usuario decida seleccionar una fecha como punto de partida, impediré que seleccione fechas hacia atrás.
+
+    // console.log(this.range.value.start);
+    // console.log(new Date(this.datesReserved[0]));
+
+    // Recorreré cada una de las fechas indicadas como "ocupadas", y procederé a que se impida seleccionar fechas por encima de éstas.
+    for (let index = 0; index < this.datesReserved.length; index++) {
+      if (this.range.value.start < new Date(this.datesReserved[index])) {
+        // Estableceré cómo máxima fecha posible de reservación la que
+        this.maxDate = new Date(this.datesReserved[index]);
+      }
+    }
+  }
 
   dateClass() {
     return (date: Date): MatCalendarCellCssClasses => {
-      const highlightDate = this.datesToHighlight
+      const highlightDate = this.datesReserved
         .map((strDate) => new Date(strDate))
         .some(
           (d) =>
