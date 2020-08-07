@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Importo las distintas vistas
-import { HomeComponent } from './components/home/home.component';
-import { ListingHomesComponent } from './components/listing-homes/listing-homes.component';
-import { PropiedadPageComponent } from './components/propiedad/propiedad-page.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ListingHomesComponent } from './pages/listing-homes/listing-homes.component';
+import { PropiedadPageComponent } from './pages/propiedad/propiedad-page.component';
 
 const ROUTES: Routes = [
   { path: '', component: HomeComponent },
