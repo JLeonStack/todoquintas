@@ -1,26 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 
 // Con esta librería puedo capturar eventos del data picker
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+// Importo el header que tendrá le datepicker
+import { HeaderDateRangePicker } from './header-date-picker-range/header-date-picker-range.component';
+
+//Servicios
+//Importo el servicio que controlará el limpiado del calendario
+import { LimpiarFechasService } from '../../../../services/limpiar-fechas.service';
+
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-date-picker-reserva',
   templateUrl: './date-picker-reserva.component.html',
   styleUrls: ['./date-picker-reserva.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatePickerReservaComponent implements OnInit {
+export class DatePickerReservaComponent implements OnInit, OnDestroy {
+  headerDateRangePicker = HeaderDateRangePicker;
+
   minDate: Date;
   maxDate: Date;
   currentYear = new Date().getFullYear();
   test: number;
-  constructor() {
+
+  fechaSubscripcion: Subscription;
+
+  // Esta es el FromGroup encargado de capturar los valores del input daterangepicker.
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
+  // Constructor
+  constructor(private _limpiarFechaService: LimpiarFechasService) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 4, 0);
-    console.log(this.range.value);
   }
 
   ngOnInit(): void {
@@ -30,12 +56,24 @@ export class DatePickerReservaComponent implements OnInit {
       this.minDate = new Date(this.range.value.start);
       this.maxDate = new Date(this.currentYear + 1, 4, 0);
     }
+
+    // Me subscribo al evento que me permitirá limpiar las fechas del calendario
+    this.fechaSubscripcion = this._limpiarFechaService.LimpiezaFecha$.subscribe(
+      () => {
+        // Cuando se detecte que se ha emitido un evento de borrar fechas se ejecutará el siguiente conjunto de instrucciones
+        this.range.setValue({ start: null, end: null }); // Vacío la selección de fechas en los inputs
+
+        // Establezco nuevamente las fechas mínimas y máximas que se puedan seleccionar
+        this.minDate = new Date();
+        this.maxDate = new Date(this.currentYear + 1, 4, 0);
+        console.log('Observable Mensaje');
+      }
+    );
   }
 
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
+  ngOnDestroy(): void {
+    this.fechaSubscripcion.unsubscribe();
+  }
 
   Filtrado: (date: Date | null) => boolean = (date: Date | null) => {
     const day = date.getDay();
@@ -91,10 +129,4 @@ export class DatePickerReservaComponent implements OnInit {
       return highlightDate ? 'example-custom-date-class' : '';
     };
   }
-  // dateClass = (d: Date): MatCalendarCellCssClasses => {
-  //   const date = d.getDate();
-
-  //   // Highlight the 1st and 20th day of each month.
-  //   return date === 1 || date === 20 ? 'example-custom-date-class' : '';
-  // };
 }

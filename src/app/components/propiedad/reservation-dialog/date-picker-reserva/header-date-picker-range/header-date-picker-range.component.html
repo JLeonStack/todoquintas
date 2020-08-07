@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row pt-5 pb-3 justify-content-between">
+    <div class="col-7 col-md-8 d-flex">
+      <span
+        mat-icon-button
+        class="material-icons row-icon"
+        (click)="previousClicked('month')"
+      >
+        keyboard_arrow_left
+      </span>
+
+      <span class="example-header-label">{{ periodLabel }}</span>
+
+      <span class="material-icons row-icon" (click)="nextClicked('month')">
+        keyboard_arrow_right
+      </span>
+    </div>
+    <div class="col-5 col-md-4">
+      <button
+        class="btn btn-primary d-flex align-items-center"
+        (click)="limpiarFechas()"
+      >
+        <span class="material-icons mr-1">
+          cached
+        </span>
+        Fechas
+      </button>
+    </div>
+  </div>
+</div>
