@@ -1,8 +1,8 @@
 <section class="ftco-section ftco-no-pb ftco-no-pt">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="search-wrap-1 p-4">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-10">
+        <div class="search-wrap-1 px-4 pt-4">
           <form
             (ngSubmit)="(onSubmit)"
             #userForm="ngForm"
@@ -11,30 +11,28 @@
             autocomplete="off"
           >
             <div class="row">
-              <div class="col-12 col-sm-12 col-md-4 col-lg-4 align-items-end">
-                <div class="form-group pt-3">
+              <div class="col-12 col-sm-12 col-md-5 col-lg-5 align-items-end ">
+                <div class="form-group ">
                   <app-location></app-location>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3 col-lg-3">
-                <div class="form-group pt-3">
+                <div class="form-group">
                   <app-propiedad></app-propiedad>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3 col-lg-3 align-items-end">
-                <div class="form-group pt-3">
+                <div class="form-group">
                   <app-huespedes></app-huespedes>
                 </div>
               </div>
 
-              <div class="col-12 col-sm-12 col-md-2 col-lg-2 align-self-end">
+              <div class="col-12 col-sm-12 col-md-1 col-lg-1 align-self-end mb-3">
                 <div class="form-group">
                   <div class="form-field p-0">
-                    <input
-                      type="submit"
-                      value="Buscar"
-                      class="form-control btn boton-buscar"
-                    />
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" style="background-color: teal;">
+                      <span class="fa fa-search"></span>
+                      </button>
                   </div>
                 </div>
               </div>

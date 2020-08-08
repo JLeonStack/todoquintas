@@ -3,8 +3,8 @@
   position: relative;
   top: 0px;
   z-index: 3;
-  padding-top: 18px;
-  padding-bottom: 18px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 @media (max-width: 400.98px) {
   .ftco-navbar-light {

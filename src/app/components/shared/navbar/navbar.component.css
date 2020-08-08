@@ -1,3 +1,9 @@
 .color-item {
   color: #00a699 !important;
 }
+
+.logo-class {
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
