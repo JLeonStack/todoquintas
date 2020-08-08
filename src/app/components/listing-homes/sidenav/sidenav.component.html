@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav [(opened)]="opened" mode="over">
-    <app-filtros-sidenav></app-filtros-sidenav>
+    <app-filtros-sidenav (cerrarSidenav)="cerrar($event)"></app-filtros-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="container">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-filtros-sidenav',
@@ -6,7 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filtros-sidenav.component.css'],
 })
 export class FiltrosSidenavComponent implements OnInit {
-  constructor() {}
+  @Output() cerrarSidenav: EventEmitter<boolean>;
+  constructor() {
+    this.cerrarSidenav = new EventEmitter();
+  }
+
 
   ngOnInit(): void {}
+
+  aplicarFiltro()
+  {
+    console.log("Evento emitido");
+    this.cerrarSidenav.emit(false);
+  }
 }

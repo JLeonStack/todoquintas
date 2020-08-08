@@ -12,4 +12,8 @@ export class SidenavComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  cerrar($event){
+    this.opened = $event;
+  }
 }
