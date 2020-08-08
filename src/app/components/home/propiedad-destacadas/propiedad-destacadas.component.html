@@ -22,7 +22,7 @@
             <div class="item" *ngFor="let propiedad of propiedades">
               <div class="property-wrap animate__animated animate__fadeIn">
                 <a
-                  href="../Diseño2/single-list.html"
+                  [routerLink]="['/propiedad', '1']"
                   class="img"
                   [ngStyle]="{
                     'background-image': 'url(' + propiedad.imagen + ')'
@@ -35,6 +35,11 @@
                     <span class="rent">
                       ¡{{ propiedad.estado | titlecase }}!
                     </span>
+                    <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                      <span class="material-icons">
+                        favorite
+                        </span>
+                    </button>
                   </div>
 
                   <div

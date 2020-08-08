@@ -10940,7 +10940,7 @@ h5,
 }
 .hero-wrap.hero-wrap-2 .overlay {
   width: 100%;
-  opacity: 0;
+  opacity: 0.3;
   height: 500px;
 }
 .hero-wrap.hero-wrap-2 .slider-text {
