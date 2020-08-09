@@ -5,10 +5,19 @@
   <mat-sidenav-content>
     <div class="container">
       <div class="row justify-content-between">
-        <div class="col-2">
-          <button mat-raised-button (click)="opened = !opened">Filtros</button>
+        <div class="col-4 d-flex align-items-center">
+          <button mat-mini-fab (click)="opened = !opened" mat-icon-button class="modif-but mr-2" style="background: teal;">
+            <span class="material-icons">
+              keyboard_arrow_left
+              </span>
+              
+          </button>
+          <p class="m-0 p-0">Filtros</p>
+          <!-- <button mat-raised-button (click)="opened = !opened" class="modif-but"><span class="material-icons">
+            keyboard_arrow_left
+            </span>Filtros</button> -->
         </div>
-        <div class="col-10 py-1 d-flex flex-row-reverse">
+        <div class="col-8 py-1 d-flex flex-row-reverse">
           <p class="m-0 p-0 ubicacion">
             <i
               class="fa fa fa-location-arrow mr-2"

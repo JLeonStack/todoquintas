@@ -15,11 +15,11 @@
 
 /* Estas características modifican el color de los slide toggle  */
 
-/deep/ .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background-color: #49c5b6;
 }
 
-/deep/
+::ng-deep
   .mat-slide-toggle.mat-checked:not(.mat-disabled)
   .mat-slide-toggle-thumb {
   background-color: #49c5b6;
@@ -38,3 +38,50 @@
   color: #49c5b6;
 }
 /* PARRAFO FILTRO */
+
+
+/* Tamaño de los h5 indicando filtro */
+.h5-size{
+  font-size: 16.5px !important;
+  margin-bottom: 1.3rem !important;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep.bac-c-m{
+  color: #02A69A;
+  margin-right: 0.5rem !important;
+}
+
+/* Con la presente clase centro los elementos del tipo switch de los filtros */
+::ng-deep.t-fuente-mov .d-f-item {
+  display: flex !important;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+  ::ng-deep.t-fuente-mov{
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+  
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+  ::ng-deep.t-fuente-mov{
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+  
+}

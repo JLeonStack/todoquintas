@@ -39,3 +39,12 @@ mat-sidenav-content {
 .ubicacion {
   font-size: 18px;
 }
+
+::ng-deep.modif-but:focus{
+  outline: none !important;
+  
+}
+
+::ng-deep.modif-but:none{
+  outline: none !important;
+}

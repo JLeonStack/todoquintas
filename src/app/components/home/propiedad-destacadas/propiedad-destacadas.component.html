@@ -21,6 +21,11 @@
             <!-- Primer item -->
             <div class="item" *ngFor="let propiedad of propiedades">
               <div class="property-wrap animate__animated animate__fadeIn">
+                <button mat-icon-button color="warn" style="position: absolute;">
+                  <span class="material-icons">
+                    favorite
+                    </span>
+                </button>
                 <a
                   [routerLink]="['/propiedad', '1']"
                   class="img"
@@ -35,11 +40,7 @@
                     <span class="rent">
                       ¡{{ propiedad.estado | titlecase }}!
                     </span>
-                    <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                      <span class="material-icons">
-                        favorite
-                        </span>
-                    </button>
+                    
                   </div>
 
                   <div
@@ -50,16 +51,21 @@
                       {{ propiedad.estado | titlecase }}
                     </span>
                   </div>
-
-                  <p class="price">
+                
+                  
+                  <p class="price d-flex justify-content-between">
                     <span class="orig-price"
                       >${{ propiedad.precio }}<small> / día</small></span
                     >
+                    <span class="img-p-sp"
+                      ><img class="img-prop shadow" src="assets/images/des/linkedin.jpg" title="Julian D."></span
+                    >
+                    
                   </p>
                 </a>
                 <div class="feature-text border-0">
                   <div class="text-center feature-title">
-                    <h5>{{ propiedad.nombre | titlecase }}</h5>
+                    <h5>{{ propiedad.nombre | titlecase }} </h5>
                     <p>
                       <i class="fa fa-map-marker"></i>
                       {{ propiedad.ubicacion | titlecase }}
@@ -74,26 +80,46 @@
                   <div class="room-info-warp">
                     <div class="room-info">
                       <div class="rf-left">
-                        <p><i class="fa fa-user"></i> 6 personas</p>
+                        <p class="d-flex align-items-center"><span class="material-icons bac-c-m mr-2">
+                          tab_unselected
+                          </span> 200m <sup>2</sup></p>
 
-                        <p><i class="fa fa-bed"></i> 4 camas</p>
+                        <p class="d-flex align-items-center"><span class="material-icons bac-c-m  mr-2">
+                          person_add
+                          </span> 10 personas</p>
                       </div>
                       <div class="rf-right">
-                        <p><i class="fa fa-car"></i> 2 Autos</p>
-                        <p><i class="fa fa-bath"></i> 2 Baños</p>
+                        <p class="d-flex align-items-center"><span class="material-icons bac-c-m  mr-2">
+                          waves
+                          </span>1 piscina</p>
+                          <p class="d-flex align-items-center"><span class="material-icons bac-c-m  mr-2">
+                            bathtub
+                            </span> 2 baños</p>
                       </div>
                     </div>
-                    <div class="room-info pb-3"></div>
+                    <div class="room-info pb-3">
+                      <div class="row justify-content-between">
+                        <div class="col-2">
+                          <button mat-icon-button color="warn" class="modif-but">
+                            <span class="material-icons">
+                              favorite
+                              </span>
+                          </button>
+                        </div>
+                        <div class="col-3">
+                          <button mat-icon-button class="modif-but" >
+                            <span class="material-icons">
+                              navigate_next
+                              </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <!-- Primer item -->
-
-            <!-- <app-tarjeta-carousel
-              [propiedad]="propiedad"
-              *ngFor="let propiedad of propiedades"
-            ></app-tarjeta-carousel> -->
           </div>
         </div>
       </div>

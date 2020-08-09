@@ -129,3 +129,29 @@
 ::ng-deep.propiedad-destacadas-carousel .owl-carousel .owl-dots {
   display: block;
 }
+
+::ng-deep.modif-but:focus{
+  outline: none !important;
+}
+
+
+
+/* ::ng-deep.modif-but:active{
+  outline: none !important;
+} */
+
+::ng-deep.img-prop {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep.img-p-sp{
+  background: none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+::ng-deep.bac-c-m{
+  color: #02A69A;
+}
