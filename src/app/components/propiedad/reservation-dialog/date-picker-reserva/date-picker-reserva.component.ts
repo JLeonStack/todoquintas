@@ -17,13 +17,20 @@ import { HeaderDateRangePicker } from './header-date-picker-range/header-date-pi
 //Importo el servicio que controlará el limpiado del calendario
 import { LimpiarFechasService } from '../../../../services/limpiar-fechas.service';
 
+// Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
+
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
   selector: 'app-date-picker-reserva',
   templateUrl: './date-picker-reserva.component.html',
   styleUrls: ['./date-picker-reserva.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ar' }
+  ]
+  
 })
 export class DatePickerReservaComponent implements OnInit, OnDestroy {
   headerDateRangePicker = HeaderDateRangePicker;

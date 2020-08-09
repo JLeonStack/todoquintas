@@ -1,0 +1,12 @@
+.nav-e-prop-mobile{
+    background: white;
+}
+
+::ng-deep.modif-but:focus{
+    outline: none !important;
+    
+  }
+  
+  ::ng-deep.modif-but:none{
+    outline: none !important;
+  }

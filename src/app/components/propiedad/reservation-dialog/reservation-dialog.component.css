@@ -24,7 +24,7 @@
   padding: 10px 20px;
 }
 
-.contact-form-card button {
+/* .contact-form-card button {
   background: #30caa0;
   color: #fff;
   font-size: 14px;
@@ -34,7 +34,7 @@
   height: 30px;
   border-radius: 1px;
   cursor: pointer;
-}
+} */
 
 .seccion-formulario-reservacion {
   height: 1500px;
@@ -44,4 +44,27 @@
   .seccion-formulario-reservacion {
     height: 200px;
   }
+}
+
+.titulo-reserv{
+  font-weight: 800;
+}
+
+/* Tamaño de los h5 indicando filtro */
+.h5-size{
+  font-size: 14.5px !important;
+  margin-bottom: 1.3rem !important;
+  display: flex;
+  align-items: center;
+}
+
+.h5-size-2{
+  margin-top: 20px !important;
+  margin-bottom: 5px !important;
+
+}
+
+::ng-deep.bac-c-m{
+  color: #02A69A;
+  margin-right: 0.5rem !important;
 }

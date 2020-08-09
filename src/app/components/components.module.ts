@@ -44,6 +44,8 @@ import { MaterialModule } from '../material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from '../app-routing.module';
+import { PropiedadServiciosListComponent } from './propiedad/seccion-propiedad-l/propiedad-servicios-list/propiedad-servicios-list.component';
+import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar-e-prop-mobile.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { AppRoutingModule } from '../app-routing.module';
     PropiedadesRelacionadasComponent,
     CarouselPropiedadServiciosComponent,
     NavbarEPropComponent,
+    PropiedadServiciosListComponent,
+    NavbarEPropMobileComponent,
   ],
   exports: [
     FooterComponent,
@@ -109,6 +113,7 @@ import { AppRoutingModule } from '../app-routing.module';
     PropiedadesRelacionadasComponent,
     CarouselPropiedadServiciosComponent,
     NavbarEPropComponent,
+    NavbarEPropMobileComponent
   ],
   imports: [
     CommonModule,

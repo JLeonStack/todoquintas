@@ -12,7 +12,7 @@
         <div class="single-list-content">
           <div class="row">
             <div class="col-xl-8 sl-title">
-              <h2 [routerLink]="['home']">Estancias del Pilar</h2>
+              <h2 >Estancias del Pilar</h2>
               <p><i class="fa fa-map-marker"></i>Pilar, Buenos Aires.</p>
             </div>
             <div class="col-xl-4">
@@ -23,13 +23,13 @@
 
           <!-- Detalles de la propiedad  -->
 
-          <app-propiedad-detalles-list></app-propiedad-detalles-list>
+          <app-propiedad-detalles-list *ngIf="navbar_desktop"></app-propiedad-detalles-list>
 
           <!-- Detalles de la propiedad  -->
 
           <!-- Carousel Características de las propiedades -->
 
-          <app-carousel-propiedad-detalles-list></app-carousel-propiedad-detalles-list>
+          <app-carousel-propiedad-detalles-list *ngIf="navbar_mobile"></app-carousel-propiedad-detalles-list>
 
           <!-- Carousel Características de las propiedades -->
 
@@ -45,31 +45,21 @@
             </p>
           </div>
           <h3 class="sl-sp-title">Servicios</h3>
-          <div class="row property-details-list">
-            <div class="col-md-4 col-sm-6">
-              <p><i class="fa fa-check"></i> Aire acondicionado</p>
-              <p><i class="fa fa-check"></i> Teléfono</p>
-              <p><i class="fa fa-check"></i> Lavandería</p>
-            </div>
-            <div class="col-md-4 col-sm-6">
-              <p><i class="fa fa-check"></i> Calefacción</p>
-              <p><i class="fa fa-check"></i> Televisión</p>
-              <p><i class="fa fa-check"></i> Metro Central</p>
-            </div>
-            <div class="col-md-4">
-              <p><i class="fa fa-check"></i> City views</p>
-              <p><i class="fa fa-check"></i> Internet</p>
-              <p><i class="fa fa-check"></i> Electric Range</p>
-            </div>
-          </div>
+
+          <!-- Servicios de la propiedad  -->
+
+          <app-propiedad-servicios-list *ngIf="navbar_desktop"></app-propiedad-servicios-list>
+
+          <!-- Servicios de la propiedad  -->
+
 
           <!-- Carousel servicios de las propiedades -->
 
-          <app-carousel-propiedad-servicios></app-carousel-propiedad-servicios>
+          <app-carousel-propiedad-servicios *ngIf="navbar_mobile"></app-carousel-propiedad-servicios>
 
           <!-- Carousel Características de las propiedades -->
 
-          <h3 class="sl-sp-title bd-no">Ubicación</h3>
+          <h3 class="sl-sp-title mt-5">Ubicación</h3>
           <p class="lead">Pilar, Buenos Aires.</p>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d18601.1953602737!2d-58.89111355905852!3d-34.49634690080459!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1594829856423!5m2!1ses-419!2sar"
