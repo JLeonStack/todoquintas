@@ -17,7 +17,7 @@
   background: #fff;
   text-align: center;
   padding: 13px;
-  background: #00A699;
+  background: #00a699;
   color: #fff;
 }
 
@@ -49,12 +49,18 @@
 }
 
 .feature-title p i {
-  color: #00A699;
+  color: #00a699;
 }
 
 .room-info-warp {
   padding: 25px;
   padding-bottom: 0;
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .room-info-warp {
+    padding: 10px;
+  }
 }
 
 .room-info {
@@ -68,7 +74,7 @@
 }
 
 .room-info p i {
-  color: #00A699;
+  color: #00a699;
   margin-right: 10px;
 }
 
@@ -92,7 +98,7 @@
   font-size: 18px;
   display: inline-block;
   margin-bottom: 0;
-  color: #00A699;
+  color: #00a699;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -115,7 +121,7 @@
   display: block;
 }
 
-::ng-deep.modif-but:focus{
+::ng-deep.modif-but:focus {
   outline: none !important;
 }
 
@@ -125,12 +131,12 @@
   border-radius: 50% !important;
 }
 
-::ng-deep.img-p-sp{
+::ng-deep.img-p-sp {
   background: none !important;
   margin: 0px !important;
   padding: 0px !important;
 }
 
-::ng-deep.bac-c-m{
-  color: #02A69A;
+::ng-deep.bac-c-m {
+  color: #02a69a;
 }

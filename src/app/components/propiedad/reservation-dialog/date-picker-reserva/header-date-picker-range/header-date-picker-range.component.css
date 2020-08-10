@@ -11,6 +11,21 @@
   text-align: center;
 }
 
+@media (min-width: 320px) and (max-width: 375px) {
+  ::ng-deep.example-header-label {
+    font-size: 12px !important;
+  }
+  ::ng-deep.btn-mobi-r {
+    width: 100% !important;
+    height: 90% !important;
+    font-size: 12px !important;
+  }
+
+  ::ng-deep.btn-mobi-r .material-icons {
+    font-size: 12px !important;
+  }
+}
+
 .row-icon {
   cursor: pointer;
 }

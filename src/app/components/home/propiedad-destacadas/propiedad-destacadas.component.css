@@ -57,6 +57,12 @@
   padding-bottom: 0;
 }
 
+@media (min-width: 320px) and (max-width: 375px) {
+  .room-info-warp {
+    padding: 15px;
+  }
+}
+
 .room-info {
   border-top: 1px solid #ebebeb;
   padding-top: 15px;
@@ -130,11 +136,9 @@
   display: block;
 }
 
-::ng-deep.modif-but:focus{
+::ng-deep.modif-but:focus {
   outline: none !important;
 }
-
-
 
 /* ::ng-deep.modif-but:active{
   outline: none !important;
@@ -146,12 +150,12 @@
   border-radius: 50% !important;
 }
 
-::ng-deep.img-p-sp{
+::ng-deep.img-p-sp {
   background: none !important;
   margin: 0px !important;
   padding: 0px !important;
 }
 
-::ng-deep.bac-c-m{
-  color: #02A69A;
+::ng-deep.bac-c-m {
+  color: #02a69a;
 }

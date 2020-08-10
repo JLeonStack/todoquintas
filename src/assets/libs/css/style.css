@@ -10712,7 +10712,7 @@ h5,
 }
 @media (max-width: 991.98px) {
   .ftco-navbar-light .navbar-brand {
-    color: transparent;
+    color: white;
   }
 }
 @media (max-width: 991.98px) {
@@ -10931,7 +10931,8 @@ h5,
   bottom: 0;
   content: "";
   opacity: 0.5;
-  background: #182628;
+  background: rgb(255,255,255);
+background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(121,185,225,1) 0%, rgba(0,212,255,0) 80%);
   height: 850px;
 }
 .hero-wrap.hero-wrap-2 {
@@ -10940,7 +10941,7 @@ h5,
 }
 .hero-wrap.hero-wrap-2 .overlay {
   width: 100%;
-  opacity: 0.3;
+  opacity: 0.0;
   height: 500px;
 }
 .hero-wrap.hero-wrap-2 .slider-text {

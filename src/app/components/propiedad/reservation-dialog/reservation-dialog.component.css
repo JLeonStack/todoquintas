@@ -40,31 +40,34 @@
   height: 1500px;
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 481px) and (max-width: 768px) {
   .seccion-formulario-reservacion {
-    height: 200px;
+    height: 500px;
   }
 }
-
-.titulo-reserv{
+@media (min-width: 320px) and (max-width: 480px) {
+  .seccion-formulario-reservacion {
+    height: 500px;
+  }
+}
+.titulo-reserv {
   font-weight: 800;
 }
 
 /* Tamaño de los h5 indicando filtro */
-.h5-size{
+.h5-size {
   font-size: 14.5px !important;
   margin-bottom: 1.3rem !important;
   display: flex;
   align-items: center;
 }
 
-.h5-size-2{
+.h5-size-2 {
   margin-top: 20px !important;
   margin-bottom: 5px !important;
-
 }
 
-::ng-deep.bac-c-m{
-  color: #02A69A;
+::ng-deep.bac-c-m {
+  color: #02a69a;
   margin-right: 0.5rem !important;
 }

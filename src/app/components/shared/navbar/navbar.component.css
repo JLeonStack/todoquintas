@@ -1,9 +1,17 @@
 .color-item {
-  color: #00a699 !important;
+  color: rgba(2, 166, 154, 1) !important;
 }
 
 .logo-class {
   font-weight: 400;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+}
+
+.color-item{
+  color: #ccd1d9!important;
+}
+.nav-item .ingr:hover{
+  color: #ccd1d9!important;
+
 }

@@ -27,17 +27,19 @@
   color: #00a699 !important;
 }
 
-::ng-deep.example-custom-date-class{
+::ng-deep.example-custom-date-class {
   border-radius: 100%;
   pointer-events: none;
 }
-::ng-deep.example-custom-date-class .mat-calendar-body-cell-content.mat-focus-indicator{
+
+::ng-deep.example-custom-date-class
+  .mat-calendar-body-cell-content.mat-focus-indicator {
   /* background: rgba(0,0,0,.38) !important; */
-  text-decoration: line-through!important;
-  color: rgba(0,0,0,.38);
+  text-decoration: line-through !important;
+  color: rgba(0, 0, 0, 0.38);
 }
 
-::ng-deep.ch-in{
+::ng-deep.ch-in {
   font-size: 11px !important;
   font-weight: 800;
   text-transform: uppercase;
