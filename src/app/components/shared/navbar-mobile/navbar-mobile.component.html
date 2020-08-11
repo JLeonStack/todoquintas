@@ -30,7 +30,11 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right"
     >
-      <a (touchend)="auth.login()" class="d-flex link-nav">
+      <button mat-button (click)="auth.login()" *ngIf="!auth.loggedIn">
+        Log In
+      </button>
+      <!-- <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button> -->
+      <!-- <a (touchend)="auth.login()" class="d-flex link-nav">
         <span class="ingresar mr-2">Ingresá</span>
         <span
           class="material-icons md-24"
@@ -38,7 +42,7 @@
         >
           account_circle
         </span>
-      </a>
+      </a> -->
     </div>
   </div>
 </div>
