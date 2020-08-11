@@ -8,10 +8,10 @@
   text-transform: uppercase;
 }
 
-.color-item{
-  color: #ccd1d9!important;
+.color-item {
+  color: #ccd1d9 !important;
 }
-.nav-item .ingr:hover{
-  color: #ccd1d9!important;
-
+.nav-item .ingr:hover {
+  color: #ccd1d9 !important;
+  cursor: pointer;
 }

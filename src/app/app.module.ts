@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 //Servicios
 import { LugaresSearchUbicacionService } from './services/lugares-search-ubicacion.service';
 
+import { AuthService } from './services/auth.service';
+
 // Componentes
 import { AppComponent } from './app.component';
 
@@ -21,7 +23,7 @@ import { PagesModule } from './pages/pages.module';
   entryComponents: [],
 
   // En providers van todos nuestros servicios
-  providers: [LugaresSearchUbicacionService],
+  providers: [LugaresSearchUbicacionService, AuthService],
 
   bootstrap: [AppComponent],
 })
