@@ -30,7 +30,12 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right"
     >
-      <button mat-button (click)="auth.login()" *ngIf="!auth.loggedIn">
+      <button
+        mat-button
+        (touchend)="auth.login()"
+        (click)="auth.login()"
+        *ngIf="!auth.loggedIn"
+      >
         Log In
       </button>
       <!-- <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button> -->
