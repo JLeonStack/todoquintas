@@ -10,4 +10,8 @@ export class NavbarMobileComponent implements OnInit {
   constructor(public auth: AuthService) {}
 
   ngOnInit(): void {}
+
+  mensaje() {
+    console.log('tocuh');
+  }
 }

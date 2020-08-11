@@ -30,11 +30,7 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right"
     >
-      <a
-        (click)="auth.login()"
-        class="d-flex link-nav"
-        style="cursor: pointer;"
-      >
+      <a (touchend)="auth.login()" class="d-flex link-nav">
         <span class="ingresar mr-2">Ingresá</span>
         <span
           class="material-icons md-24"
