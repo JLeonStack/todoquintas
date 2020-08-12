@@ -23,18 +23,25 @@
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a href="properties.html" class="nav-link color-item"
+          <a href="#" class="nav-link color-item" [routerLink]="['/usuario']"
             >Publicá una propiedad</a
           >
         </li>
         <li class="nav-item">
-          <a href="#" (click)="auth.login()" class="nav-link ingr">Ingresá</a>
-        </li>
-        <!-- <li>
-          <button (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
-        </li> -->
-        <li>
-          <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button>
+          <a
+            href="#"
+            (click)="auth.login()"
+            *ngIf="!auth.loggedIn"
+            class="nav-link ingr"
+            >Ingresá</a
+          >
+          <a
+            href="#"
+            (click)="auth.logout()"
+            *ngIf="auth.loggedIn"
+            class="nav-link ingr"
+            >Salí</a
+          >
         </li>
       </ul>
     </div>

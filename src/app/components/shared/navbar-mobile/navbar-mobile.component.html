@@ -3,7 +3,7 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
     >
-      <a [routerLink]="['/']" class="d-flex link-nav align-items-center">
+      <a class="d-flex link-nav align-items-center" [routerLink]="['/']">
         <img
           src="assets/images/icono2.png"
           width="25"
@@ -17,7 +17,7 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
     >
-      <a href="/login" class="d-flex link-nav">
+      <a class="d-flex link-nav" [routerLink]="['/usuario']">
         <span
           class="material-icons md-24 mr-2"
           style="color: #00a699; font-size: 25px !important;"
@@ -30,16 +30,22 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right"
     >
-      <button
+      <!-- <button
         mat-button
         (touchend)="auth.login()"
         (click)="auth.login()"
         *ngIf="!auth.loggedIn"
       >
         Log In
-      </button>
+      </button> -->
       <!-- <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button> -->
-      <!-- <a (touchend)="auth.login()" class="d-flex link-nav">
+      <a
+        *ngIf="!auth.loggedIn"
+        (touchend)="auth.login()"
+        (click)="auth.login()"
+        class="d-flex link-nav"
+        style="cursor: pointer;"
+      >
         <span class="ingresar mr-2">Ingresá</span>
         <span
           class="material-icons md-24"
@@ -47,7 +53,22 @@
         >
           account_circle
         </span>
-      </a> -->
+      </a>
+      <a
+        *ngIf="auth.loggedIn"
+        (touchend)="auth.logout()"
+        (click)="auth.logout()"
+        class="d-flex link-nav"
+        style="cursor: pointer;"
+      >
+        <span class="ingresar mr-2">Salir</span>
+        <span
+          class="material-icons md-24"
+          style="color: #00a699; font-size: 25px !important;"
+        >
+          account_circle
+        </span>
+      </a>
     </div>
   </div>
 </div>

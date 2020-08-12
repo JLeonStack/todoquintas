@@ -7,9 +7,10 @@ import { ComponentsModule } from '../components/components.module';
 import { HomeComponent } from './home/home.component';
 import { ListingHomesComponent } from './listing-homes/listing-homes.component';
 import { PropiedadPageComponent } from './propiedad/propiedad-page.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
-  declarations: [HomeComponent, ListingHomesComponent, PropiedadPageComponent],
+  declarations: [HomeComponent, ListingHomesComponent, PropiedadPageComponent, UsuariosComponent],
   imports: [CommonModule, ComponentsModule],
 })
 export class PagesModule {}
