@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 // El providedIn es una forma automática de importar servicios.
 @Injectable({
   providedIn: 'root',
 })
 export class LugaresSearchUbicacionService {
-  // Propiedad privada para que no pueda ser accesada fuera del servicio
-  private lugares: any[] = ['GBA', 'Costa Atlántica', 'CABA'];
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  //  Creamos un método público para que las propiedades puedan ser accedidas desde los componentes.
-  getLugares() {
-    return this.lugares;
+  obtenerLugar(word_search: string) {
+    return this.http.get(
+      `http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=json&countryCode=ARG&text=${word_search}&category=City`
+    );
   }
 }

@@ -74,12 +74,17 @@ export class MapaComponent implements OnInit, AfterViewInit {
     // Declaro una variable donde almacenaré el marker que se establezca en el mapa ya sea a través del buscador o hacer click en alguna sección del mapa.
     var marker;
 
+    console.log(searchControl);
+
     searchControl.on('results', function (data) {
       results.clearLayers();
+      console.log(data);
       for (var i = data.results.length - 1; i >= 0; i--) {
+        // Si hay algún elemento en el marker, lo eliminaré.
         if (marker != undefined) {
           map.removeLayer(marker);
         }
+        // Agrego el nuevo marker en la variable para después mostrarla en el mapa
         marker = L.marker(data.results[i].latlng);
         results.addLayer(marker);
       }
@@ -87,6 +92,8 @@ export class MapaComponent implements OnInit, AfterViewInit {
 
     map.on('click', function (e) {
       console.log(e);
+
+      // Si hay algún elemento en el marker, lo eliminaré.
       if (marker != undefined) {
         map.removeLayer(marker);
       }
