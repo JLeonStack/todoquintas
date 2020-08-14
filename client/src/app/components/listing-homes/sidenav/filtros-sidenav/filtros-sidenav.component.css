@@ -1,5 +1,6 @@
 /* CSS para los checkbox */
-::ng-deep
+:host
+  ::ng-deep
   .mat-checkbox-checked.mat-accent
   .mat-checkbox-ripple
   .mat-ripple-element {
@@ -7,7 +8,7 @@
   background-color: #49c5b6 !important;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+:host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
   background-color: #49c5b6;
 }
@@ -15,11 +16,15 @@
 
 /* Estas características modifican el color de los slide toggle  */
 
-::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+:host
+  ::ng-deep
+  .mat-slide-toggle.mat-checked:not(.mat-disabled)
+  .mat-slide-toggle-bar {
   background-color: #49c5b6;
 }
 
-::ng-deep
+:host
+  ::ng-deep
   .mat-slide-toggle.mat-checked:not(.mat-disabled)
   .mat-slide-toggle-thumb {
   background-color: #49c5b6;
@@ -39,38 +44,32 @@
 }
 /* PARRAFO FILTRO */
 
-
 /* Tamaño de los h5 indicando filtro */
-.h5-size{
+.h5-size {
   font-size: 16.5px !important;
   margin-bottom: 1.3rem !important;
   display: flex;
   align-items: center;
 }
 
-
-::ng-deep.bac-c-m{
-  color: #02A69A;
+:host ::ng-deep.bac-c-m {
+  color: #02a69a;
   margin-right: 0.5rem !important;
 }
 
 /* Con la presente clase centro los elementos del tipo switch de los filtros */
-::ng-deep.t-fuente-mov .d-f-item {
+:host ::ng-deep.t-fuente-mov .d-f-item {
   display: flex !important;
   align-items: center;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-
-
 @media (min-width: 481px) and (max-width: 767px) {
-  
-  ::ng-deep.t-fuente-mov{
+  :host ::ng-deep.t-fuente-mov {
     font-size: 12px !important;
     font-weight: 500 !important;
   }
-  
 }
 
 /* 
@@ -79,10 +78,8 @@
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
-  
-  ::ng-deep.t-fuente-mov{
+  :host ::ng-deep.t-fuente-mov {
     font-size: 12px !important;
     font-weight: 500 !important;
   }
-  
 }

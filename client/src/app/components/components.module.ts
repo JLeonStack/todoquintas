@@ -46,6 +46,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from '../app-routing.module';
 import { PropiedadServiciosListComponent } from './propiedad/seccion-propiedad-l/propiedad-servicios-list/propiedad-servicios-list.component';
 import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar-e-prop-mobile.component';
+import { MapaComponent } from './propiedad/seccion-propiedad-l/mapa/mapa.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar
     NavbarEPropComponent,
     PropiedadServiciosListComponent,
     NavbarEPropMobileComponent,
+    MapaComponent,
   ],
   exports: [
     FooterComponent,
@@ -113,7 +115,7 @@ import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar
     PropiedadesRelacionadasComponent,
     CarouselPropiedadServiciosComponent,
     NavbarEPropComponent,
-    NavbarEPropMobileComponent
+    NavbarEPropMobileComponent,
   ],
   imports: [
     CommonModule,

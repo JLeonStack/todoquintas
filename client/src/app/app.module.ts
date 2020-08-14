@@ -20,7 +20,15 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, PagesModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    PagesModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+  ],
   // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
   entryComponents: [],
 

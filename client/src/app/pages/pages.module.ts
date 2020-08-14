@@ -10,7 +10,14 @@ import { PropiedadPageComponent } from './propiedad/propiedad-page.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
-  declarations: [HomeComponent, ListingHomesComponent, PropiedadPageComponent, UsuariosComponent],
+  declarations: [
+    HomeComponent,
+    ListingHomesComponent,
+    PropiedadPageComponent,
+    UsuariosComponent,
+  ],
   imports: [CommonModule, ComponentsModule],
 })
 export class PagesModule {}
+
+// AIzaSyA1qk7oYpnrXurif080Zcfg7ffoZCidZB

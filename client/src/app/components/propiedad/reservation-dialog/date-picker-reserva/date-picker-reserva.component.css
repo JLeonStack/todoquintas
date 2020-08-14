@@ -44,3 +44,8 @@
   font-weight: 800;
   text-transform: uppercase;
 }
+
+:host ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: rgba(0, 0, 0, 0.42) !important;
+}
