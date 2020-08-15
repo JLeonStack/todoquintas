@@ -1,5 +1,11 @@
 .transparent {
-  background-color: transparent !important;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 134, 255, 0.37241379310344824) 0%,
+    rgba(9, 9, 121, 0.11248249299719892) 35%
+  ) !important;
 }
 .pointer {
   cursor: pointer;

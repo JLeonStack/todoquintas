@@ -10,7 +10,7 @@ export class LugaresSearchUbicacionService {
 
   obtenerLugar(word_search: string) {
     return this.http.get(
-      `http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=json&countryCode=ARG&text=${word_search}&category=City`
+      `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=json&countryCode=ARG&text=${word_search}&category=City`
     );
   }
 }
