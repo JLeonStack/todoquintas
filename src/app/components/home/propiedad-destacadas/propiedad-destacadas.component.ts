@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any;
 
 export interface Propiedad {
+  id: number;
   nombre: string;
   ubicacion: string;
   precio: number;
@@ -18,6 +19,7 @@ export interface Propiedad {
 export class PropiedadDestacadasComponent implements OnInit {
   propiedades: Propiedad[] = [
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 9750,
@@ -26,6 +28,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-1.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar 2',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 7700,
@@ -34,6 +37,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-2.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 6500,
@@ -42,6 +46,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-3.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 4500,
@@ -50,6 +55,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-4.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 4500,
@@ -58,6 +64,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-5.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 3500,
@@ -66,6 +73,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-7.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 8500,
@@ -74,6 +82,7 @@ export class PropiedadDestacadasComponent implements OnInit {
       imagen: 'assets/images/des/work-8.jpg',
     },
     {
+      id: 1,
       nombre: 'Estancias del Pilar',
       ubicacion: 'Pilar, Buenos Aires',
       precio: 14500,
@@ -90,6 +99,7 @@ export class PropiedadDestacadasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Activo el carousel
     $(document).ready(function () {
       $('.carousel-properties').owlCarousel({
         center: true,
@@ -97,10 +107,11 @@ export class PropiedadDestacadasComponent implements OnInit {
         items: 1,
         margin: 30,
         stagePadding: 0,
-        nav: false,
+        nav: true,
+        dots: true,
         navText: [
-          '<span class="ion-ios-arrow-back">',
-          '<span class="ion-ios-arrow-forward">',
+          '<span class="material-icons">keyboard_arrow_left</span>',
+          '<span class="material-icons" >keyboard_arrow_right</span>',
         ],
         responsive: {
           0: {

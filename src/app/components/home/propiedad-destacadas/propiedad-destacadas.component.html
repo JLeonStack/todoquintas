@@ -126,7 +126,11 @@
                           </button>
                         </div>
                         <div class="col-3">
-                          <button mat-icon-button class="modif-but">
+                          <button
+                            mat-icon-button
+                            class="modif-but"
+                            [routerLink]="['/propiedad', propiedad.id]"
+                          >
                             <span class="material-icons">
                               navigate_next
                             </span>

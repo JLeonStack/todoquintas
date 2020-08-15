@@ -46,7 +46,7 @@ export class PCarousellMainComponent implements OnInit {
       margin: 0,
       nav: false,
       items: 1,
-      dots: true,
+      dots: false,
       autoplay: true,
     });
 
@@ -55,7 +55,7 @@ export class PCarousellMainComponent implements OnInit {
       autoplay: true,
       margin: 30,
       nav: false,
-      dots: true,
+      dots: false,
       responsive: {
         0: {
           items: 2,

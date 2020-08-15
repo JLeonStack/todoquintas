@@ -29,6 +29,7 @@ export class LocationmComponent implements OnInit {
 
   // Lifecycle
   ngOnInit(): void {
+    // Me subscribo al evento valueChanges del input, para poder realizar las peticiones en base a los carácteres introducidos.
     this.myControl.valueChanges.subscribe((letra) => {
       if (letra != '') {
         this._lugaresSearchUbicacionService
