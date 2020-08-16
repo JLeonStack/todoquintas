@@ -47,6 +47,9 @@ import { AppRoutingModule } from '../app-routing.module';
 import { PropiedadServiciosListComponent } from './propiedad/seccion-propiedad-l/propiedad-servicios-list/propiedad-servicios-list.component';
 import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar-e-prop-mobile.component';
 import { MapaComponent } from './propiedad/seccion-propiedad-l/mapa/mapa.component';
+import { TabCaracteristicasComponent } from './usuarios/tab-caracteristicas/tab-caracteristicas.component';
+import { CardFavoritoUserComponent } from './usuarios/tab-caracteristicas/card-favorito-user/card-favorito-user.component';
+import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publicar/tab-publicar.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +86,9 @@ import { MapaComponent } from './propiedad/seccion-propiedad-l/mapa/mapa.compone
     PropiedadServiciosListComponent,
     NavbarEPropMobileComponent,
     MapaComponent,
+    TabCaracteristicasComponent,
+    CardFavoritoUserComponent,
+    TabPublicarComponent,
   ],
   exports: [
     FooterComponent,
@@ -116,6 +122,9 @@ import { MapaComponent } from './propiedad/seccion-propiedad-l/mapa/mapa.compone
     CarouselPropiedadServiciosComponent,
     NavbarEPropComponent,
     NavbarEPropMobileComponent,
+    TabCaracteristicasComponent,
+    CardFavoritoUserComponent,
+    TabPublicarComponent,
   ],
   imports: [
     CommonModule,

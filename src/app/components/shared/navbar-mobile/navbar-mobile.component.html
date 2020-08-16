@@ -1,9 +1,19 @@
-<div class="container fixed-bottom bg-white pt-3 pb-3 border-top">
-  <div class="row align-items-center justify-content-center text-center">
+<div
+  class="container fixed-bottom bg-white pt-3 pb-3 border-top"
+  style="z-index: 3;"
+>
+  <div
+    class="row align-items-center justify-content-center text-center"
+    *ngIf="!auth.loggedIn"
+  >
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
     >
-      <a class="d-flex link-nav align-items-center" [routerLink]="['/']">
+      <a
+        mat-button
+        class="d-flex link-nav align-items-center"
+        [routerLink]="['/']"
+      >
         <img
           src="assets/images/icono2.png"
           width="25"
@@ -17,7 +27,7 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
     >
-      <a class="d-flex link-nav" [routerLink]="['/usuario']">
+      <a mat-button class="d-flex link-nav" [routerLink]="['/usuario']">
         <span
           class="material-icons md-24 mr-2"
           style="color: #00a699; font-size: 25px !important;"
@@ -30,16 +40,8 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-left border-right"
     >
-      <!-- <button
-        mat-button
-        (touchend)="auth.login()"
-        (click)="auth.login()"
-        *ngIf="!auth.loggedIn"
-      >
-        Log In
-      </button> -->
-      <!-- <button (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</button> -->
       <a
+        mat-button
         *ngIf="!auth.loggedIn"
         (touchend)="auth.login()"
         (click)="auth.login()"
@@ -54,21 +56,149 @@
           account_circle
         </span>
       </a>
+
+      <div *ngIf="auth.loggedIn">
+        <a
+          mat-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          class="d-flex link-nav"
+        >
+          <span class="ingresar mr-2">Perfil</span>
+
+          <span
+            class="material-icons md-24"
+            style="color: #00a699; font-size: 25px !important;"
+          >
+            account_circle
+          </span>
+        </a>
+
+        <mat-menu #menu="matMenu" yPosition="above">
+          <button mat-menu-item class="button-d-fle-item">
+            <span class="material-icons iconos-nav-user">
+              favorite
+            </span>
+            <span>Favoritos</span>
+          </button>
+          <button mat-menu-item class="button-d-fle-item">
+            <span class="material-icons iconos-nav-user">
+              home
+            </span>
+            <span>Propiedades</span>
+          </button>
+          <hr class="my-1 mx-3 p-0" />
+          <button mat-menu-item class="button-d-fle-item">
+            <span class="material-icons iconos-nav-user">
+              admin_panel_settings
+            </span>
+            <span>Datos</span>
+          </button>
+          <hr class="my-1 mx-3 p-0" />
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            (click)="auth.logout()"
+          >
+            <span class="material-icons iconos-nav-user">
+              exit_to_app
+            </span>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="row align-items-center justify-content-center text-center"
+    *ngIf="auth.loggedIn"
+  >
+    <div class="col-3 p-0 m-0 justify-content-center border-right border-left">
       <a
-        *ngIf="auth.loggedIn"
-        (touchend)="auth.logout()"
-        (click)="auth.logout()"
-        class="d-flex link-nav"
-        style="cursor: pointer;"
+        mat-icon-button
+        class="link-nav align-items-center"
+        [routerLink]="['/']"
       >
-        <span class="ingresar mr-2">Salir</span>
+        <img src="assets/images/icono2.png" width="25" height="25" alt="" />
+        <!-- <span class="ingresar">Buscá</span> -->
+      </a>
+    </div>
+    <div class="col-3 p-0 m-0 justify-content-center border-right border-left">
+      <a mat-icon-button class="link-nav" [routerLink]="['/usuario']">
         <span
           class="material-icons md-24"
           style="color: #00a699; font-size: 25px !important;"
         >
-          account_circle
+          publish
+        </span>
+        <!-- <span class="ingresar">Publicá</span> -->
+      </a>
+    </div>
+    <div class="col-3 p-0 m-0 justify-content-center border-right border-left">
+      <a mat-icon-button class="link-nav" [routerLink]="['/usuario']">
+        <!-- <span class="ingresar">Favoritos</span> -->
+        <span
+          class="material-icons md-24"
+          style="color: #00a699; font-size: 25px !important;"
+        >
+          favorite
         </span>
       </a>
+    </div>
+    <div class="col-3 p-0 m-0 justify-content-center border-left border-right">
+      <div *ngIf="auth.loggedIn">
+        <a
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          class="link-nav"
+        >
+          <!-- <span class="ingresar">Perfil</span> -->
+
+          <span
+            class="material-icons md-24"
+            style="color: #00a699; font-size: 25px !important;"
+          >
+            account_circle
+          </span>
+        </a>
+
+        <!-- Menú -->
+        <mat-menu #menu="matMenu" yPosition="above">
+          <button mat-menu-item class="button-d-fle-item">
+            <span class="material-icons iconos-nav-user">
+              favorite
+            </span>
+            <span>Favoritos</span>
+          </button>
+          <button mat-menu-item class="button-d-fle-item">
+            <span class="material-icons iconos-nav-user">
+              home
+            </span>
+            <span>Propiedades</span>
+          </button>
+          <hr class="my-1 mx-3 p-0" />
+          <button mat-menu-item class="button-d-fle-item">
+            <span class="material-icons iconos-nav-user">
+              admin_panel_settings
+            </span>
+            <span>Datos</span>
+          </button>
+          <hr class="my-1 mx-3 p-0" />
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            (click)="auth.logout()"
+          >
+            <span class="material-icons iconos-nav-user">
+              exit_to_app
+            </span>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
+        <!-- Menú -->
+      </div>
     </div>
   </div>
 </div>

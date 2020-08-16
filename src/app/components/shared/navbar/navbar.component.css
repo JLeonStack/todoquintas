@@ -15,3 +15,21 @@
   color: #ccd1d9 !important;
   cursor: pointer;
 }
+
+:host ::ng-deep.mat-icon-button {
+  outline: none !important;
+}
+::ng-deep.mat-menu-item {
+  outline: none !important;
+}
+
+.iconos-nav-user {
+  color: #00a699;
+  font-size: 25px !important;
+  margin-right: 5px;
+}
+
+.button-d-fle-item {
+  display: flex;
+  align-items: center;
+}

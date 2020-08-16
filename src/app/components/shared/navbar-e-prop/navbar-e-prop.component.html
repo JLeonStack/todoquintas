@@ -22,7 +22,7 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
+        <li class="nav-item active d-flex align-items-center">
           <a href="#" class="nav-link color-item" [routerLink]="['/usuario']"
             >Publicá una propiedad</a
           >
@@ -35,13 +35,55 @@
             class="nav-link ingr"
             >Ingresá</a
           >
-          <a
-            href="#"
-            (click)="auth.logout()"
-            *ngIf="auth.loggedIn"
-            class="nav-link ingr"
-            >Salí</a
+        </li>
+        <li *ngIf="auth.loggedIn">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
           >
+            <span
+              class="material-icons md-24"
+              style="color: #00a699; font-size: 25px !important;"
+            >
+              account_circle
+            </span>
+          </button>
+
+          <!-- Menú -->
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item class="button-d-fle-item">
+              <span class="material-icons iconos-nav-user">
+                favorite
+              </span>
+              <span>Favoritos</span>
+            </button>
+            <button mat-menu-item class="button-d-fle-item">
+              <span class="material-icons iconos-nav-user">
+                home
+              </span>
+              <span>Propiedades</span>
+            </button>
+            <hr class="my-1 mx-3 p-0" />
+            <button mat-menu-item class="button-d-fle-item">
+              <span class="material-icons iconos-nav-user">
+                admin_panel_settings
+              </span>
+              <span>Datos</span>
+            </button>
+            <hr class="my-1 mx-3 p-0" />
+            <button
+              mat-menu-item
+              class="button-d-fle-item"
+              (click)="auth.logout()"
+            >
+              <span class="material-icons iconos-nav-user">
+                exit_to_app
+              </span>
+              <span>Cerrar Sesión</span>
+            </button>
+          </mat-menu>
+          <!-- Menú -->
         </li>
       </ul>
     </div>

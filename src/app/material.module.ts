@@ -14,6 +14,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
@@ -29,6 +31,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
+    MatTabsModule,
   ], // Vamos a darle los módulos que queremos importar desde las librerías
   exports: [
     MatInputModule,
@@ -42,6 +46,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatMenuModule,
+    MatTabsModule,
   ], //Modulos que queremos exportar para que puedan ser utilizados en todo el programa
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })

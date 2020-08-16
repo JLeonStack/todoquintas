@@ -151,9 +151,11 @@ $(document).ready(function () {
       var scroll = $(window).scrollTop();
       if (scroll < 100) {
         $(".fixed-top").css("background", "transparent");
+        $(".accout-icon-mat").css("color", "white");
       } else {
         $(".fixed-top").css("background", "#00a699");
         $(".fixed-top").css("transition", "0.51s");
+        $(".accout-icon-mat").css("color", "#00a699");
       }
     });
 

@@ -1,3 +1,7 @@
-<pre *ngIf="auth.userProfile$ | async as profile">
+<app-navbar-e-prop *ngIf="navbar_desktop"></app-navbar-e-prop>
+<!-- <pre *ngIf="auth.userProfile$ | async as profile">
     <code>{{ profile | json }}</code>
-    </pre>
+    </pre> -->
+<app-tab-caracteristicas></app-tab-caracteristicas>
+
+<app-navbar-mobile *ngIf="navbar_mobile"></app-navbar-mobile>

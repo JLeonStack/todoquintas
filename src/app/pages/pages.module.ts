@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { ListingHomesComponent } from './listing-homes/listing-homes.component';
 import { PropiedadPageComponent } from './propiedad/propiedad-page.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
     PropiedadPageComponent,
     UsuariosComponent,
   ],
-  imports: [CommonModule, ComponentsModule],
+  imports: [CommonModule, ComponentsModule, MatTabsModule],
 })
 export class PagesModule {}
 
