@@ -50,6 +50,7 @@ import { MapaComponent } from './propiedad/seccion-propiedad-l/mapa/mapa.compone
 import { TabCaracteristicasComponent } from './usuarios/tab-caracteristicas/tab-caracteristicas.component';
 import { CardFavoritoUserComponent } from './usuarios/tab-caracteristicas/card-favorito-user/card-favorito-user.component';
 import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publicar/tab-publicar.component';
+import { FormularioPublicarPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/formulario-publicar-propiedad.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publica
     TabCaracteristicasComponent,
     CardFavoritoUserComponent,
     TabPublicarComponent,
+    FormularioPublicarPropiedadComponent,
   ],
   exports: [
     FooterComponent,
@@ -125,6 +127,7 @@ import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publica
     TabCaracteristicasComponent,
     CardFavoritoUserComponent,
     TabPublicarComponent,
+    FormularioPublicarPropiedadComponent,
   ],
   imports: [
     CommonModule,

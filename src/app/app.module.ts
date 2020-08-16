@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
+//Formularios
+import { ReactiveFormsModule } from "@angular/forms";
+
 // Http
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,6 +28,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     PagesModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),

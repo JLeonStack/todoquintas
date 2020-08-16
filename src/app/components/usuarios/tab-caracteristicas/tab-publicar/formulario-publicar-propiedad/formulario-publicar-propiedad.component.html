@@ -1,0 +1,69 @@
+<!-- Formulario -->
+<form [formGroup]="prop_data" (ngSubmit)="guardar()">
+  <div>
+    <!-- Input Select propiedad -->
+    <div class="form-group row">
+      <div class="col-12 col-lg-4">
+        <h5
+          style="font-size: 16.5px !important;"
+          class="d-flex align-items-center"
+        >
+          <span class="material-icons bac-c-m"> house </span>Propiedad
+        </h5>
+        <div class="underline-p">
+          <mat-form-field>
+            <mat-label class="text-white">Propiedad</mat-label>
+            <mat-select formControlName="propiedad">
+              <mat-option value="option1">Quinta</mat-option>
+              <mat-option value="option2">Cabaña</mat-option>
+              <mat-option value="option3">Casa country</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!-- Input Select propiedad -->
+
+    <!-- Input Capacidad de personas -->
+    <div class="form-group row">
+      <div class="col-12 col-lg-4">
+        <h5
+          style="font-size: 16.5px !important;"
+          class="d-flex align-items-center"
+        >
+          <span class="material-icons bac-c-m"> house </span>Propiedad
+        </h5>
+        <div class="input-group shadow">
+          <button
+            class="btn btn-sm border-right boton-input"
+            id="minus-btn"
+            type="button"
+            (click)="reducirInput()"
+          ></button>
+          <input
+            type="number"
+            class="form-control"
+            min="1"
+            disabled
+            formControlName="capacidad_alojamiento"
+          />
+          <button
+            type="button"
+            class="btn btn-sm border-left boton-input"
+            id="plus-btn"
+            (click)="incrementarInput()"
+          >
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Input Capacidad de personas -->
+
+    <div class="form-group row">
+      <div class="col-12 col-lg-4">
+        <button mat-button type="submit">Enviar</button>
+      </div>
+    </div>
+  </div>
+</form>
