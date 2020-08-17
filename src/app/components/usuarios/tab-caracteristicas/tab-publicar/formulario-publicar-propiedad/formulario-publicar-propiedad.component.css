@@ -147,7 +147,7 @@
 }
 
 /* Input range numérico */
-input {
+::ng-deep.range-number {
   font-size: 18px;
   font-weight: 400 !important;
   height: 4rem;
@@ -167,7 +167,7 @@ input {
   border-radius: 2rem;
 }
 
-input:focus {
+::ng-deep.range-number:focus {
   outline: none;
   box-shadow: 0 5px 55px -10px rgba(0, 0, 0, 0.2), 0 0 4px #3fb0ff; /* Allows border radius on focus */
 }
@@ -193,7 +193,7 @@ input:focus {
   opacity: 0.5;
 }
 
-#plus-btn {
+.plus-btn {
   background: url("/assets/mas_verde.svg") no-repeat 0 0;
   background-size: 20px 40px;
   background-position: center;
@@ -201,7 +201,7 @@ input:focus {
   margin-right: 5px;
 }
 
-#minus-btn {
+.minus-btn {
   background: url("/assets/menos_verde.svg") no-repeat 0 0;
   background-size: 20px 40px;
   background-position: center;
@@ -214,3 +214,44 @@ button:active {
   box-shadow: inset 0 2px 12px -4px #c5d1d9 !important;
 }
 /* Input range numérico */
+:host ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: rgba(0, 0, 0, 0.42) !important;
+}
+
+/* Propiedades imput ubicación */
+:host ::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #00a699 !important;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  width: 100% !important;
+}
+
+::ng-deep mat-stepper-horizontal,
+mat-stepper-horizontal {
+  border: dashed 1px blue;
+  padding: 1em;
+  width: 100% !important;
+}
+
+::ng-deep.mat-horizontal-content-container {
+  padding: 0px !important;
+}
+
+::ng-deep.mat-step-header .mat-step-icon-selected {
+  background-color: #00a699 !important;
+}
+
+::ng-deep.mat-step-header .mat-step-icon-state-done {
+  background-color: #00a699 !important;
+}
+
+::ng-deep.mat-horizontal-stepper-header .mat-step-icon {
+  font-size: 12px !important;
+}
+
+::ng-deep.mat-step-header .mat-step-icon-state-edit {
+  background-color: #00a699 !important;
+}

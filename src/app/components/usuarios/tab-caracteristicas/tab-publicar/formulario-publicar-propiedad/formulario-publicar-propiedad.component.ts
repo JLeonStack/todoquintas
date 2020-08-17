@@ -12,39 +12,72 @@ import {
   styleUrls: ['./formulario-publicar-propiedad.component.css'],
 })
 export class FormularioPublicarPropiedadComponent implements OnInit {
-  prop_data = new FormGroup({
-    propiedad: new FormControl('option1'),
-    metros_cuadrado: new FormControl(),
-    metros_cuadrado_cubiertos: new FormControl(),
-    capacidad_alojamiento: new FormControl(0),
-    dormitorios: new FormControl(),
-    camas: new FormControl(),
-    banos: new FormControl(),
-    autos: new FormControl(),
-    piscina: new FormControl(),
-    parilla: new FormControl(),
-  });
-
-  constructor() {
-    // this.crearFormulario();
-    console.log(this.prop_data.controls.capacidad_alojamiento.value);
+  prop_data: FormGroup;
+  isEditable = true;
+  constructor(private _formBuilder: FormBuilder) {
+    this.crearFormulario();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required],
+    });
+  }
 
   guardar() {
     console.log(this.prop_data);
   }
 
-  incrementarInput() {
-    let valor = this.prop_data.get('capacidad_alojamiento').value;
-    this.prop_data.patchValue({ capacidad_alojamiento: valor + 1 });
-    // this.valueInput++;
+  incrementarInput(caracteristica) {
+    // Obtengo el valor almacenado en el formGroup.
+    let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
+
+    // Creo un objeto que pasaré al FormGroup
+    let objeto = {};
+    // Agrego una nueva propiedad al objeto que será la caracteristica que envié desde la vista.
+    objeto[Object.keys(caracteristica)[0]] = valor + 1;
+
+    // Actualizo el valor almacenado en el formGroup
+    this.prop_data.patchValue(objeto);
   }
 
-  reducirInput() {
-    // if (this.valueInput > 0) {
-    //   this.valueInput--;
-    // }
+  reducirInput(caracteristica) {
+    // Obtengo el valor almacenado en el formGroup.
+    let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
+
+    if (valor > 0) {
+      // Creo un objeto que pasaré al FormGroup
+      let objeto = {};
+      // Agrego una nueva propiedad al objeto que será la caracteristica que envié desde la vista.
+      objeto[Object.keys(caracteristica)[0]] = valor - 1;
+
+      // Actualizo el valor almacenado en el formGroup
+      this.prop_data.patchValue(objeto);
+    }
+  }
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
+  crearFormulario() {
+    this.prop_data = this._formBuilder.group({
+      propiedad: ['option1', Validators.required],
+      nombre_propiedad: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      metros_cuadrado: [0],
+      metros_cuadrado_cubiertos: [0],
+      capacidad_alojamiento: [0],
+      dormitorios: [0],
+      banos: [0],
+      autos: [0],
+      piscina: [true],
+      parilla: [false],
+      wifi: [false],
+      seguridad: [false],
+      tv: [false],
+    });
   }
 }

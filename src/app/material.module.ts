@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [],
@@ -33,6 +34,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatMenuModule,
     MatTabsModule,
+    MatStepperModule,
   ], // Vamos a darle los módulos que queremos importar desde las librerías
   exports: [
     MatInputModule,
@@ -48,6 +50,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatMenuModule,
     MatTabsModule,
+    MatStepperModule,
   ], //Modulos que queremos exportar para que puedan ser utilizados en todo el programa
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })
