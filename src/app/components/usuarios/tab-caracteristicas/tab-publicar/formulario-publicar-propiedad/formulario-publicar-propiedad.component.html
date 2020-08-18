@@ -3,12 +3,17 @@
   <div>
     <mat-horizontal-stepper labelPosition="bottom" #stepper>
       <mat-step>
-        <p class="p-filtro p-0 mt-2 mb-5 text-center">
-          Información sobre la propiedad
-        </p>
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <p class="p-filtro p-0 mt-2 text-center">
+              Información sobre la propiedad
+            </p>
+            <hr class="mb-5 separacion-filtro-color" />
+          </div>
+        </div>
         <!-- Input Select propiedad -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
               class="d-flex align-items-center"
@@ -30,8 +35,8 @@
         <!-- Input Select propiedad -->
 
         <!-- Input nombre de la propieadad -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
               class="d-flex align-items-center"
@@ -52,8 +57,8 @@
         </div>
         <!-- Input nombre de la propieadad -->
         <!-- Input descripción de la propiedad -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
               class="d-flex align-items-center"
@@ -79,8 +84,8 @@
         <!-- Input descripción de la propiedad -->
 
         <!-- Input Metros cuadrados -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
               class="d-flex align-items-center"
@@ -102,8 +107,8 @@
         <!-- Input Metros cuadrados -->
 
         <!-- Input Metros cuadrados cubiertos -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
               class="d-flex align-items-center"
@@ -126,11 +131,11 @@
         <!-- Input Metros cuadrados cubiertos -->
 
         <!-- Input Capacidad de personas -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center mt-3">
+          <div class="col-12 col-lg-6">
             <h5 class="h5-size">
               <span class="material-icons bac-c-m mr-2"> person_add </span
-              >Capacidad de Alojamiento
+              >Capacidad de Alojamiento (Camas disponibles)
             </h5>
             <div class="input-group shadow">
               <button
@@ -165,9 +170,9 @@
         </div>
         <!-- Input Capacidad de personas -->
 
-        <!-- Input Camas de personas -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <!-- Input dormitorios de personas -->
+        <div class="form-group row justify-content-center mt-5">
+          <div class="col-12 col-lg-6">
             <h5 class="h5-size">
               <span class="material-icons bac-c-m mr-2"> king_bed </span
               >Dormitorios
@@ -203,11 +208,11 @@
             </div>
           </div>
         </div>
-        <!-- Input Camas de personas -->
+        <!-- Input dormitorios de personas -->
 
         <!-- Input baños de personas -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
+        <div class="form-group row justify-content-center mt-5">
+          <div class="col-12 col-lg-6">
             <h5 class="h5-size">
               <span class="material-icons bac-c-m mr-2"> bathtub </span>Baños
             </h5>
@@ -244,152 +249,299 @@
         </div>
         <!-- Input Baños de personas -->
 
-        <!--  Input autos -->
-        <div class="form-group row">
-          <div class="col-12 col-lg-4">
-            <h5 class="h5-size">
-              <span class="material-icons bac-c-m mr-2"> directions_car </span
-              >Autos
-            </h5>
-            <div class="input-group shadow">
-              <button
-                class="btn btn-sm border-right boton-input minus-btn"
-                type="button"
-                (click)="
-                  reducirInput({
-                    autos: 0
-                  })
-                "
-              ></button>
-              <input
-                type="number"
-                class="form-control range-number"
-                min="1"
-                disabled
-                formControlName="autos"
-              />
-              <button
-                type="button"
-                class="btn btn-sm border-left boton-input plus-btn"
-                (click)="
-                  incrementarInput({
-                    autos: 0
-                  })
-                "
+        <div class="form-group row justify-content-center mt-5">
+          <div
+            class="col-12 col-lg-6 d-flex justify-content-end align-items-center"
+          >
+            <button mat-icon-button matStepperNext>
+              <span
+                class="material-icons md-24 d-block"
+                style="color: #00a699; font-size: 25px !important;"
               >
-                +
-              </button>
+                keyboard_arrow_right
+              </span>
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-4">
+            <p class="p-filtro p-0 mt-2 text-center">
+              Características & Servicios
+            </p>
+            <hr class="mb-5 separacion-filtro-color" />
+          </div>
+        </div>
+
+        <!-- Slide toggle input -->
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-4">
+            <div class="form-group row t-fuente-mov">
+              <div class="col-6 d-flex">
+                <span class="material-icons bac-c-m">
+                  family_restroom
+                </span>
+                <mat-checkbox class="example-margin"
+                  >Solo Famiilia</mat-checkbox
+                >
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >Mascotas</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-1">
+                  pets
+                </span>
+              </div>
+
+              <div class="col-6 d-f-item">
+                <span class="material-icons bac-c-m">
+                  waves
+                </span>
+                <mat-checkbox class="example-margin" formControlName="piscina"
+                  >Piscina</mat-checkbox
+                >
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >Apto eventos</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-1">
+                  cake
+                </span>
+              </div>
+            </div>
+            <!-- Slide toggle input -->
+
+            <div class="form-group row mt-5 t-fuente-mov">
+              <div class="col-6 d-f-item">
+                <span class="material-icons bac-c-m">
+                  tv
+                </span>
+                <mat-checkbox class="example-margin" labelPosition="after"
+                  >TV/Cable</mat-checkbox
+                >
+              </div>
+
+              <div class="col-6 d-f-item justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >Internet</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-2">
+                  wifi
+                </span>
+              </div>
+              <div class="col-6 d-flex">
+                <span class="material-icons bac-c-m">
+                  local_laundry_service
+                </span>
+                <mat-checkbox class="example-margin">Lavarropas</mat-checkbox>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >Seguridad</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-2">
+                  local_police
+                </span>
+              </div>
+              <div class="col-6 d-flex">
+                <span class="material-icons bac-c-m">
+                  ac_unit
+                </span>
+                <mat-checkbox class="example-margin">AC</mat-checkbox>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >Calefacción</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-2">
+                  local_fire_department
+                </span>
+              </div>
+              <div class="col-6 d-flex">
+                <span class="material-icons bac-c-m">
+                  hot_tub
+                </span>
+                <mat-checkbox class="example-margin">Jacuzzi</mat-checkbox>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >S. Limpieza</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-2">
+                  cleaning_services
+                </span>
+              </div>
+              <div class="col-6 d-flex">
+                <span class="material-icons bac-c-m">
+                  texture
+                </span>
+                <mat-checkbox class="example-margin">Ropa de cama</mat-checkbox>
+              </div>
+
+              <div class="col-6 d-f-item justify-content-end">
+                <mat-checkbox class="example-margin" labelPosition="before"
+                  >Parilla</mat-checkbox
+                >
+                <span class="material-icons bac-c-m ml-2">
+                  outdoor_grill
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group row justify-content-center mt-5">
+              <div class="col-6 col-lg-6 d-flex align-items-center">
+                <button mat-icon-button matStepperPrevious>
+                  <span
+                    class="material-icons md-24 d-block"
+                    style="color: #00a699; font-size: 25px !important;"
+                  >
+                    keyboard_arrow_left
+                  </span>
+                </button>
+              </div>
+              <div
+                class="col-6 col-lg-6 d-flex justify-content-end align-items-center"
+              >
+                <button mat-icon-button matStepperNext>
+                  <span
+                    class="material-icons md-24 d-block"
+                    style="color: #00a699; font-size: 25px !important;"
+                  >
+                    keyboard_arrow_right
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <!-- Input autos -->
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
       </mat-step>
-      <mat-step>
-        <p class="p-filtro p-0 mt-2 mb-5 text-center">
-          Características & Servicios
-        </p>
-        <!-- Slide toggle input -->
-        <div class="form-group row t-fuente-mov">
-          <div class="col-6 d-f-item">
-            <span class="material-icons bac-c-m">
-              wifi
-            </span>
-            <mat-checkbox class="example-margin">Wifi</mat-checkbox>
-          </div>
-          <div class="col-6 d-f-item">
-            <span class="material-icons bac-c-m">
-              tv
-            </span>
-            <mat-checkbox class="example-margin">TV/Cable</mat-checkbox>
-          </div>
-          <div class="col-6 d-f-item">
-            <span class="material-icons bac-c-m">
-              waves
-            </span>
-            <mat-checkbox class="example-margin" formControlName="piscina"
-              >Piscina</mat-checkbox
-            >
-          </div>
-          <div class="col-6 d-f-item">
-            <span class="material-icons bac-c-m">
-              outdoor_grill
-            </span>
-            <mat-checkbox class="example-margin">Parilla</mat-checkbox>
-          </div>
-        </div>
-        <!-- Slide toggle input -->
 
-        <!-- Slide toggle input -->
-
-        <div class="form-group row mt-5 t-fuente-mov">
-          <div class="col-6 d-flex">
-            <span class="material-icons bac-c-m">
-              pets
-            </span>
-            <mat-checkbox class="example-margin">Mascotas</mat-checkbox>
-          </div>
-          <div class="col-6 d-flex">
-            <span class="material-icons bac-c-m">
-              family_restroom
-            </span>
-            <mat-checkbox class="example-margin">Solo Famiilia</mat-checkbox>
-          </div>
-          <div class="col-6 d-flex">
-            <span class="material-icons bac-c-m">
-              local_laundry_service
-            </span>
-            <mat-checkbox class="example-margin">S Limpieza</mat-checkbox>
-          </div>
-          <div class="col-6 d-flex">
-            <span class="material-icons bac-c-m">
-              local_police
-            </span>
-            <mat-checkbox class="example-margin">Seguridad</mat-checkbox>
-          </div>
-          <div class="col-6 d-flex">
-            <span class="material-icons bac-c-m">
-              ac_unit
-            </span>
-            <mat-checkbox class="example-margin">Climatización</mat-checkbox>
-          </div>
-        </div>
-        <!-- Slide toggle input -->
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </mat-step>
       <mat-step>
-        <p class="p-filtro p-0 mt-2 mb-5 text-center">
-          Localización
-        </p>
-        <!-- Input mapa -->
-        <div class="form-group row">
-          <div class="col-12 col-md-12 col-lg-12">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <p class="p-filtro p-0 mt-2 text-center">
+              Localización
+            </p>
+            <hr class="mb-5 separacion-filtro-color" />
+          </div>
+        </div>
+
+        <!-- Input Select Provincia -->
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
               class="d-flex align-items-center"
             >
-              <span class="material-icons bac-c-m"> explore </span>Ubicación
+              <span class="material-icons bac-c-m"> map </span>Provincia
             </h5>
-            <p class="text-center">
-              Marque en el mapa la ubicación aproximada de su propiedad
-            </p>
-            <app-mapa></app-mapa>
+            <div class="underline-p">
+              <mat-form-field>
+                <mat-label class="text-white">Propiedad</mat-label>
+                <mat-select formControlName="provincia">
+                  <mat-option
+                    [value]="provincia"
+                    *ngFor="let provincia of provincias"
+                    >{{ provincia }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
         </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+        <!-- Input Select Provincia -->
+
+        <!-- Input Select Municipio -->
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <h5
+              style="font-size: 16.5px !important;"
+              class="d-flex align-items-center"
+            >
+              <span class="material-icons bac-c-m"> map </span>Ciudad
+            </h5>
+            <div class="underline-p">
+              <mat-form-field>
+                <mat-label class="text-white">Propiedad</mat-label>
+                <mat-select
+                  formControlName="propiedad"
+                  [disabled]="input_municipios"
+                >
+                  <mat-option
+                    [value]="ciudad"
+                    *ngFor="let ciudad of ciudades"
+                    >{{ ciudad }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- Input Select Municipio -->
+
+        <!-- Input mapa -->
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6 m-0 p-0">
+            <div class="row justify-content-center m-0 p-0">
+              <div class="col-12 col-md-12 col-lg-12">
+                <h5
+                  style="font-size: 16.5px !important;"
+                  class="d-flex align-items-center"
+                >
+                  <span class="material-icons bac-c-m"> explore </span>Ubicación
+                </h5>
+                <p class="text-center">
+                  Marque en el mapa la ubicación aproximada de su propiedad
+                </p>
+                <app-mapa [coordenadas]="coordenadasP"></app-mapa>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row justify-content-center mt-5">
+          <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 col-lg-6 d-flex align-items-center">
+                <button mat-icon-button matStepperPrevious>
+                  <span
+                    class="material-icons md-24 d-block"
+                    style="color: #00a699; font-size: 25px !important;"
+                  >
+                    keyboard_arrow_left
+                  </span>
+                </button>
+              </div>
+              <div
+                class="col-6 col-lg-6 d-flex justify-content-end align-items-center"
+              >
+                <button mat-icon-button matStepperNext>
+                  <span
+                    class="material-icons md-24 d-block"
+                    style="color: #00a699; font-size: 25px !important;"
+                  >
+                    keyboard_arrow_right
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </mat-step>
+
       <mat-step>
-        <p class="p-filtro p-0 mt-2 mb-5 text-center">
-          Multimedia
-        </p>
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <p class="p-filtro p-0 mt-2 text-center">
+              Tiempo de reservación & Multimedia
+            </p>
+            <hr class="mb-5 separacion-filtro-color" />
+          </div>
+        </div>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>

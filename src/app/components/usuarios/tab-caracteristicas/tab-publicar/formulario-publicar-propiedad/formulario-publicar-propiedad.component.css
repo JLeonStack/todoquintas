@@ -22,10 +22,10 @@
   border-right: 5px solid transparent;
   border-top: 5px solid;
   margin: 0 4px;
-  color: black;
+  color: rgba(0, 0, 0, 0.42);
 }
 :host ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
-  color: #00a699 !important;
+  color: #02a69a !important;
 }
 
 .mat-form-field {
@@ -36,28 +36,28 @@
 }
 
 :host ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
-  color: #00a699 !important;
+  color: #02a69a !important;
 }
 
 :host ::ng-deep.underline-p .mat-form-field .mat-form-field-underline {
   /*change color of underline*/
-  background-color: black !important;
+  background-color: rgba(0, 0, 0, 0.42) !important;
 }
 
 :host ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
-  background-color: #00a699 !important;
+  background-color: #02a69a !important;
 }
 
 :host ::ng-deep.mat-option::selection {
-  color: #00a699;
+  color: #02a69a;
 }
 :host ::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-  color: #00a699 !important;
+  color: #02a69a !important;
 }
 
 :host ::ng-deep.mat-option.mat-active {
-  color: #00a699 !important;
+  color: #02a69a !important;
 }
 
 /* CSS para los checkbox */
@@ -127,6 +127,10 @@
   padding-bottom: 5px;
 }
 
+:host ::ng-deep label.mat-checkbox-layout {
+  margin: 0px !important;
+}
+
 @media (min-width: 481px) and (max-width: 767px) {
   :host ::ng-deep.t-fuente-mov {
     font-size: 12px !important;
@@ -182,7 +186,7 @@
   /* display: block; */
   padding: 0;
   border: 0;
-  border-color: #00a699 !important;
+  border-color: #02a69a !important;
 
   overflow: hidden;
   white-space: nowrap;
@@ -197,7 +201,7 @@
   background: url("/assets/mas_verde.svg") no-repeat 0 0;
   background-size: 20px 40px;
   background-position: center;
-  /* background-color: #00A699; */
+  /* background-color: #02A69A; */
   margin-right: 5px;
 }
 
@@ -205,7 +209,7 @@
   background: url("/assets/menos_verde.svg") no-repeat 0 0;
   background-size: 20px 40px;
   background-position: center;
-  /* background-color: #00A699; */
+  /* background-color: #02A69A; */
   margin-left: 5px;
 }
 
@@ -222,9 +226,10 @@ button:active {
 /* Propiedades imput ubicación */
 :host ::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/
-  color: #00a699 !important;
+  color: #02a69a !important;
 }
 
+/* Stepper */
 ::ng-deep .mat-horizontal-stepper-header-container {
   width: 100% !important;
 }
@@ -241,11 +246,11 @@ mat-stepper-horizontal {
 }
 
 ::ng-deep.mat-step-header .mat-step-icon-selected {
-  background-color: #00a699 !important;
+  background-color: #02a69a !important;
 }
 
 ::ng-deep.mat-step-header .mat-step-icon-state-done {
-  background-color: #00a699 !important;
+  background-color: #02a69a !important;
 }
 
 ::ng-deep.mat-horizontal-stepper-header .mat-step-icon {
@@ -253,5 +258,15 @@ mat-stepper-horizontal {
 }
 
 ::ng-deep.mat-step-header .mat-step-icon-state-edit {
-  background-color: #00a699 !important;
+  background-color: #02a69a !important;
+}
+/* Stepper */
+
+:host ::ng-deep.mat-icon-button {
+  border: 1px solid #02a69a;
+  outline: none !important;
+}
+
+::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #02a69a !important;
 }

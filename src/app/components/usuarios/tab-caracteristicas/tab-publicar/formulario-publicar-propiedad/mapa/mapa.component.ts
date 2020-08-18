@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 
 // Declaro una variable para poder utilizar la librerías que traigo por CDN
 declare var L: any;
@@ -9,11 +9,15 @@ declare var L: any;
   styleUrls: ['./mapa.component.css'],
 })
 export class MapaComponent implements OnInit, AfterViewInit {
+  @Input() coordenadas = [];
+
   constructor() {}
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     // this.initMap();
+    console.log(this.coordenadas);
+
     this.iniciarMapa();
   }
 

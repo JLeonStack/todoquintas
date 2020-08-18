@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 //Formularios
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Http
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LugaresSearchUbicacionService } from './services/lugares-search-ubicacion.service';
 
 import { AuthService } from './services/auth.service';
+
+import { GeorefArgService } from './services/georef-arg.service';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -37,7 +39,7 @@ import { environment } from '../environments/environment';
   entryComponents: [],
 
   // En providers van todos nuestros servicios
-  providers: [LugaresSearchUbicacionService, AuthService],
+  providers: [LugaresSearchUbicacionService, AuthService, GeorefArgService],
 
   bootstrap: [AppComponent],
 })

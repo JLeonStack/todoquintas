@@ -33,6 +33,14 @@ import { PropiedadesRelacionadasComponent } from './propiedad/seccion-propiedad-
 import { CarouselPropiedadServiciosComponent } from './propiedad/seccion-propiedad-l/carousel-propiedad-servicios/carousel-propiedad-servicios.component';
 import { NavbarEPropComponent } from './shared/navbar-e-prop/navbar-e-prop.component';
 
+import { PropiedadServiciosListComponent } from './propiedad/seccion-propiedad-l/propiedad-servicios-list/propiedad-servicios-list.component';
+import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar-e-prop-mobile.component';
+import { MapaComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/mapa/mapa.component';
+import { TabCaracteristicasComponent } from './usuarios/tab-caracteristicas/tab-caracteristicas.component';
+import { CardFavoritoUserComponent } from './usuarios/tab-caracteristicas/card-favorito-user/card-favorito-user.component';
+import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publicar/tab-publicar.component';
+import { FormularioPublicarPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/formulario-publicar-propiedad.component';
+
 // Forms
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -44,13 +52,6 @@ import { MaterialModule } from '../material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from '../app-routing.module';
-import { PropiedadServiciosListComponent } from './propiedad/seccion-propiedad-l/propiedad-servicios-list/propiedad-servicios-list.component';
-import { NavbarEPropMobileComponent } from './shared/navbar-e-prop-mobile/navbar-e-prop-mobile.component';
-import { MapaComponent } from './propiedad/seccion-propiedad-l/mapa/mapa.component';
-import { TabCaracteristicasComponent } from './usuarios/tab-caracteristicas/tab-caracteristicas.component';
-import { CardFavoritoUserComponent } from './usuarios/tab-caracteristicas/card-favorito-user/card-favorito-user.component';
-import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publicar/tab-publicar.component';
-import { FormularioPublicarPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/formulario-publicar-propiedad.component';
 
 @NgModule({
   declarations: [
