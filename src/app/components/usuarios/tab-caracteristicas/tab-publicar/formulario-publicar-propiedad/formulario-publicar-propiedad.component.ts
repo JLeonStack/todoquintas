@@ -1,13 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit, Directive, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // Servicio encargado de devolver las provincias y ciudades a los inputs a la hora de indicar la ubicación de la propiedad.
 import { GeorefArgService } from '../../../../../services/georef-arg.service';
+
+// Me subscribo al observable a la espera de cambios
+import { Subscription } from 'rxjs';
+
+import { NgControl } from '@angular/forms';
+
+@Directive({
+  selector: '[disableControl]',
+})
+export class DisableControlDirective {
+  @Input() set disableControl(condition: boolean) {
+    const action = condition ? 'disable' : 'enable';
+    this.ngControl.control[action]();
+  }
+
+  constructor(private ngControl: NgControl) {}
+}
 
 @Component({
   selector: 'app-formulario-publicar-propiedad',
@@ -15,17 +27,22 @@ import { GeorefArgService } from '../../../../../services/georef-arg.service';
   styleUrls: ['./formulario-publicar-propiedad.component.css'],
 })
 export class FormularioPublicarPropiedadComponent implements OnInit {
+  // La siguiente propiead será del tipo FormGroup y almacenará todos los controles del formulario.
   prop_data: FormGroup;
+
   isEditable = true;
 
   // Latitud & Long
   coordenadasP = [];
-  // Los siguientes dos listas almacenarán las provincias y ciudades por cada una de ellas.
+
+  // En el presente vector almacenaré los nombres de las provincias
   provincias: any = [];
+  // En el siguiente vector almacenaré toda la información que recibo de las provincias, con el objetivo de buscar en él las coordenadas una vez que el usuario seleccione la provincia.
   info_provincias: any = [];
 
-  // Cuando se haya seleccionado una provincia se permitirá elegir una ciudad asociada a la misma.
-  input_municipios = true;
+  // Subscribes para el servicio.
+  provinciaSubscripcion: Subscription;
+  recogerCoordenadasSubscripcion: Subscription;
 
   // En el constructor inializaré el servicio y el formBuilder.
   constructor(
@@ -36,26 +53,35 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     this.crearFormulario();
 
     // ! Ejecutaré el método encargado de realizar la petición para obtener las provincias.
-    _georefArgService.obtener_provincia().subscribe((data: any) => {
-      this.info_provincias = data.provincias;
-      console.log(data.provincias);
-      // Recorreré el arreglo de las provincias con el objetivo de extraer del mismo solamente los nombres de cada una de las provincias y no toda la información asociada.
-      for (let index = 0; index < data.provincias.length; index++) {
-        //Agregaré cada provincia en el array this.provincias
-        this.provincias.push(data.provincias[index].nombre);
-      }
-      // Ordenaré la lista de provincias en orden alfabético para ser desplegadas correctamente.
-      this.provincias.sort();
+    this.provinciaSubscripcion = _georefArgService
+      .obtener_provincia()
+      .subscribe((data: any) => {
+        this.info_provincias = data.provincias;
 
-      // console.log(this.provincias);
-    });
+        // Recorreré el arreglo de las provincias con el objetivo de extraer del mismo solamente los nombres de cada una de las provincias y no toda la información asociada.
+        for (let index = 0; index < data.provincias.length; index++) {
+          //Agregaré cada provincia en el array this.provincias
+          this.provincias.push(data.provincias[index].nombre);
+        }
+        // Ordenaré la lista de provincias en orden alfabético para ser desplegadas correctamente.
+        this.provincias.sort();
+      });
+  }
+
+  ngOnDestroy(): void {
+    // Para evitar posibles llamadas duplicadas me voy a desubscribir de cada uno de los subscribe con los cuales recibod información del servicio.
+    this.provinciaSubscripcion.unsubscribe();
+    this.recogerCoordenadasSubscripcion.unsubscribe();
   }
 
   ngOnInit(): void {
-    // Cada vez que el usuario seleccione una provincia en particular, me subscribé a los cambios del input para ejecutar el siguiente conjunto de isntrucciones
+    // Cada vez que el usuario seleccione una provincia en particular, me subscribé a los cambios del input para ejecutar el siguiente conjunto de instrucciones
     this.prop_data.controls.provincia.valueChanges.subscribe((provincia) => {
+      // Lo que haré será recorrer cada una de las provincias en busca de aquella que coincida con la seleccionada en el input select-
+
       for (let index = 0; index < this.info_provincias.length; index++) {
         if (provincia == this.info_provincias[index].nombre) {
+          // Una vez encontrada la provincia que coincida con la selecccionada en el input select, procederé a almacenar las coordenadas que tiene la provincia y posteriormente emitiré un evento para que sea recibido por el componente mapa y redirrecionar la ubicación.
           this.coordenadasP = [
             this.info_provincias[index].centroide.lat,
             this.info_provincias[index].centroide.lon,
@@ -63,55 +89,30 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
         }
       }
 
+      // Emitiré un evento al servicio, pasando como parámetros las coordenadas que posee la provincia. Estas coordenadas serán recibidas en el componente <mapa> para cambiar la "vista ubicación" hacia la provincia seleccionada
       this._georefArgService.AsignarCoordenadas$.emit(this.coordenadasP);
     });
 
     // Con el siguiente subscribe recogeré las coordenadas marcadas en el mapa y las añadire al formulario.
-    this._georefArgService.RecogerCoordenadas$.subscribe((data: any) => {
-      let objeto = {
-        coordenadas: [data],
-      };
+    this.recogerCoordenadasSubscripcion = this._georefArgService.RecogerCoordenadas$.subscribe(
+      (data: any) => {
+        // Crearé una variable objeto temporal para ser capaz de pasarla al FormBuilder para actualizar las coordenadas
+        let objeto = {
+          coordenadas: [data],
+        };
 
-      // La única forma de actualizar un valor en un formgroup es a través del método patchValue
-      this.prop_data.patchValue(objeto);
-    });
+        // La única forma de actualizar un valor en un formgroup es a través del método patchValue
+        this.prop_data.patchValue(objeto);
+      }
+    );
   }
 
-  guardar() {
+  // La siguinte función se encarga de realizar el submit del formulario
+  guardarFormulario() {
     console.log(this.prop_data);
   }
 
-  incrementarInput(caracteristica) {
-    // Obtengo el valor almacenado en el formGroup.
-    let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
-
-    // Creo un objeto que pasaré al FormGroup
-    let objeto = {};
-    // Agrego una nueva propiedad al objeto que será la caracteristica que envié desde la vista.
-    objeto[Object.keys(caracteristica)[0]] = valor + 1;
-
-    // Actualizo el valor almacenado en el formGroup
-    this.prop_data.patchValue(objeto);
-  }
-
-  reducirInput(caracteristica) {
-    // Obtengo el valor almacenado en el formGroup.
-    let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
-
-    if (valor > 0) {
-      // Creo un objeto que pasaré al FormGroup
-      let objeto = {};
-      // Agrego una nueva propiedad al objeto que será la caracteristica que envié desde la vista.
-      objeto[Object.keys(caracteristica)[0]] = valor - 1;
-
-      // Actualizo el valor almacenado en el formGroup
-      this.prop_data.patchValue(objeto);
-    }
-  }
-
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-
+  // La siguiente función se encargará de crear el formulario con cada uno de los controles.
   crearFormulario() {
     this.prop_data = this._formBuilder.group({
       propiedad: ['option1', Validators.required],
@@ -119,9 +120,9 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       descripcion: ['', Validators.required],
       metros_cuadrado: [0],
       metros_cuadrado_cubiertos: [0],
-      capacidad_alojamiento: [0],
-      dormitorios: [0],
-      banos: [0],
+      capacidad_alojamiento: [{ value: 0, disabled: false }],
+      dormitorios: [{ value: 0, disabled: false }],
+      banos: [{ value: 0, disabled: false }],
       solo_familia: [true],
       piscina: [true],
       mascotas: [false],
@@ -140,5 +141,33 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       provincia: [''],
       coordenadas: [''],
     });
+  }
+
+  incrementarInput(caracteristica: object) {
+    // Obtengo el valor almacenado en el formGroup.
+    let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
+
+    // Creo un objeto que pasaré al FormGroup
+    let objeto = {};
+    // Agrego una nueva propiedad al objeto que será la caracteristica que envié desde la vista.
+    objeto[Object.keys(caracteristica)[0]] = valor + 1;
+
+    // Actualizo el valor almacenado en el formGroup
+    this.prop_data.patchValue(objeto);
+  }
+
+  reducirInput(caracteristica: object) {
+    // Obtengo el valor almacenado en el formGroup.
+    let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
+
+    if (valor > 0) {
+      // Creo un objeto que pasaré al FormGroup
+      let objeto = {};
+      // Agrego una nueva propiedad al objeto que será la caracteristica que envié desde la vista.
+      objeto[Object.keys(caracteristica)[0]] = valor - 1;
+
+      // Actualizo el valor almacenado en el formGroup
+      this.prop_data.patchValue(objeto);
+    }
   }
 }

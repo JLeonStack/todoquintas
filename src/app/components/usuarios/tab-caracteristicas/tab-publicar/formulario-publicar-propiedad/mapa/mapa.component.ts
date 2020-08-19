@@ -1,4 +1,10 @@
-import { Component, OnInit, AfterViewInit, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  EventEmitter,
+} from '@angular/core';
 
 // Servicio Georef
 import { GeorefArgService } from '../../../../../../services/georef-arg.service';
@@ -14,7 +20,7 @@ declare var L: any;
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.css'],
 })
-export class MapaComponent implements OnInit, AfterViewInit {
+export class MapaComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private _GeorefArgService: GeorefArgService) {}
 
   coordenadas = [-34.599149, -58.383826];
@@ -23,7 +29,7 @@ export class MapaComponent implements OnInit, AfterViewInit {
 
   coordeanadasSubscripcion: Subscription;
 
-  myEvent = new EventEmitter<string>();
+  // myEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.coordeanadasSubscripcion = this._GeorefArgService.AsignarCoordenadas$.subscribe(
@@ -35,12 +41,16 @@ export class MapaComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
   ngOnDestroy(): void {
     this.coordeanadasSubscripcion.unsubscribe();
   }
 
   ngAfterViewInit(): void {
+    // En la propiedad map, crearé un nuevo mapa en el identificador "mapid"
     this.map = L.map('mapid').setView(this.coordenadas, 10);
+
+    // Ejecuto la función iniciarMapa para definir las características el mapa.
     this.iniciarMapa(this.map);
   }
 
@@ -100,24 +110,42 @@ export class MapaComponent implements OnInit, AfterViewInit {
     // Declaro una variable donde almacenaré el marker que se establezca en el mapa ya sea a través del buscador o hacer click en alguna sección del mapa.
     var marker;
 
-    console.log(searchControl);
+    // console.log(searchControl);
 
     searchControl.on('results', function (data) {
       results.clearLayers();
+
       console.log(data);
+
+      // Emitiré un evento para ser capaz de pasar las coordenadas fuera de la función.
+      myEvent.emit(data.latlng);
+
       for (var i = data.results.length - 1; i >= 0; i--) {
         // Si hay algún elemento en el marker, lo eliminaré.
         if (marker != undefined) {
           map.removeLayer(marker);
         }
-        // Agrego el nuevo marker en la variable para después mostrarla en el mapa
+        // Agrego las nuevas coordeandas al marker  para después mostrarla en el mapa
         marker = L.marker(data.results[i].latlng);
         results.addLayer(marker);
       }
     });
 
+    // ! El siguiente eventEmitter se encargará de escuchar los cambios de coordenas cuando el usuario haga click en el mapa y realice un marker.
+    var myEvent = new EventEmitter<string>();
+
+    // Me subscribo al evento
+    myEvent.subscribe((data) => {
+      // Una vez que el usuario ha hecho click en algún lugar del mapa, lo que haré será emitir un evento pasando los datos de las cordenadas que indican el punto que el usuario ha marcado
+      this._GeorefArgService.RecogerCoordenadas$.emit(data); // En el componente formulario-publicar capturaré este evento para posteriormente añadirlo al formGroup.
+    });
+
+    // El siguiente evento se encaargará de escuchar los clicks que el usuario realiza sobre el mapa.
     map.on('click', function (e) {
       console.log(e);
+
+      // Emitiré un evento para ser capaz de pasar las coordenadas fuera de la función.
+      myEvent.emit(e.latlng);
 
       // Si hay algún elemento en el marker, lo eliminaré.
       if (marker != undefined) {

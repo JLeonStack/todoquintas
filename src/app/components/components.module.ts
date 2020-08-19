@@ -52,6 +52,8 @@ import { MaterialModule } from '../material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from '../app-routing.module';
+import { DatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/date-picker-intervalo-disp-propiedad/date-picker-intervalo-disp-propiedad.component';
+import { HeaderDatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,8 @@ import { AppRoutingModule } from '../app-routing.module';
     CardFavoritoUserComponent,
     TabPublicarComponent,
     FormularioPublicarPropiedadComponent,
+    DatePickerIntervaloDispPropiedadComponent,
+    HeaderDatePickerIntervaloDispPropiedadComponent,
   ],
   exports: [
     FooterComponent,
@@ -129,6 +133,8 @@ import { AppRoutingModule } from '../app-routing.module';
     CardFavoritoUserComponent,
     TabPublicarComponent,
     FormularioPublicarPropiedadComponent,
+    DatePickerIntervaloDispPropiedadComponent,
+    HeaderDatePickerIntervaloDispPropiedadComponent,
   ],
   imports: [
     CommonModule,

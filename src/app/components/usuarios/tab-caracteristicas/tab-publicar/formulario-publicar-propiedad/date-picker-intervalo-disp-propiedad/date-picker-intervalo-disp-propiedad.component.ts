@@ -11,11 +11,11 @@ import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 // Importo el header que tendrá le datepicker
-import { HeaderDateRangePicker } from './header-date-picker-range/header-date-picker-range.component';
+import { HeaderDatePickerIntervaloDispPropiedadComponent } from './header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
 
 //Servicios
 //Importo el servicio que controlará el limpiado del calendario
-import { LimpiarFechasService } from '../../../../services/limpiar-fechas.service';
+import { LimpiarFechasService } from '../../../../../../services/limpiar-fechas.service';
 
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
@@ -23,38 +23,49 @@ import { Subscription } from 'rxjs';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
-  selector: 'app-date-picker-reserva',
-  templateUrl: './date-picker-reserva.component.html',
-  styleUrls: ['./date-picker-reserva.component.css'],
+  selector: 'app-date-picker-intervalo-disp-propiedad',
+  templateUrl: './date-picker-intervalo-disp-propiedad.component.html',
+  styleUrls: ['./date-picker-intervalo-disp-propiedad.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })
-export class DatePickerReservaComponent implements OnInit, OnDestroy {
-  headerDateRangePicker = HeaderDateRangePicker;
+export class DatePickerIntervaloDispPropiedadComponent
+  implements OnInit, OnDestroy {
+  // Declaro una propiedad que contendrá el encabezado de nuestro calendario.
+  headerDateRangePicker = HeaderDatePickerIntervaloDispPropiedadComponent;
 
+  // Declaro dos propiedades que serán del tipo Date.
   minDate: Date;
   maxDate: Date;
+
+  // Creo una propiedad que contendrá el año actual.
   currentYear = new Date().getFullYear();
   test: number;
 
+  // La siguiente será una propiedad encargada de almacenar la subscripción al servicio para posteriormente poder dar de baja el mismo.
   fechaSubscripcion: Subscription;
 
   // Esta es el FromGroup encargado de capturar los valores del input daterangepicker.
+  // Se definirirán dos controles del tipo FormControl que funcionarán para conservar los valores de inicio y fin en el date picker.
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
 
   // Constructor
+  // Declararé el servicio para poder utilizarlo
   constructor(private _limpiarFechaService: LimpiarFechasService) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
+
+    // Establezco dos echas en las propiedades que declaré anteriormente. En este caso, la fecha mínima capaz de ser seleccionada es el día actual en adelante 6 meses aproximádamente.
     this.minDate = new Date();
     this.maxDate = new Date(currentYear + 1, 4, 0);
   }
 
   ngOnInit(): void {
     // console.log(this.range.value.start);
+
     if (this.range.value.start != null) {
       // Establezco las fechas iniciales que pueden ser seleccionadas en el datapicker.
       this.minDate = new Date(this.range.value.start);
@@ -79,19 +90,8 @@ export class DatePickerReservaComponent implements OnInit, OnDestroy {
     this.fechaSubscripcion.unsubscribe();
   }
 
-  Filtrado: (date: Date | null) => boolean = (date: Date | null) => {
-    const day = date.getDay();
-    return day !== 0 && day !== 6;
-    //0 means sunday
-    //6 means saturday
-  };
-
-  // Estas son las fechas que ya están reservadas. Este array vendrá de un servicio.
-  datesReserved = [
-    '2020-08-23T03:00:00.000Z',
-    '2020-08-21T03:00:00.000Z',
-    '2020-08-18T03:00:00.000Z',
-  ];
+  // Estas son las fechas que ya están reservadas
+  datesReserved = [];
 
   events: string[] = [];
 

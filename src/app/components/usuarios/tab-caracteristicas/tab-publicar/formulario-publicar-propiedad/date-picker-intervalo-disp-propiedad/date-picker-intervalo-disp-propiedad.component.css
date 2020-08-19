@@ -1,0 +1,51 @@
+/* Configuro el tamaño que tendrá el elemeno datepicker en la pantalla */
+::ng-deep.mat-form-field {
+  width: 100% !important;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #00a699;
+}
+
+/* Fecha de inicio de hoy, color background. */
+::ng-deep.mat-calendar-body-today.mat-calendar-body-selected {
+  background: #00a699;
+}
+
+::ng-deep.mat-calendar-body-selected {
+  background: #00a699;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #00a699 !important;
+}
+
+/* Propiedades imput ubicación */
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: #00a699 !important;
+}
+
+::ng-deep.example-custom-date-class {
+  border-radius: 100%;
+  pointer-events: none;
+}
+
+::ng-deep.example-custom-date-class
+  .mat-calendar-body-cell-content.mat-focus-indicator {
+  /* background: rgba(0,0,0,.38) !important; */
+  text-decoration: line-through !important;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+::ng-deep.ch-in {
+  font-size: 11px !important;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+:host ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: rgba(0, 0, 0, 0.42) !important;
+}

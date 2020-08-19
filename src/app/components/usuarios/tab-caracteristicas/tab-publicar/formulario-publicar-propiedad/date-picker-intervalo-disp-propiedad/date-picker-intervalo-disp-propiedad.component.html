@@ -1,0 +1,25 @@
+<!-- Datepicker Angular Material -->
+<mat-form-field>
+  <mat-label class="ch-in">Desde - Hasta</mat-label>
+  <mat-date-range-input
+    [rangePicker]="picker"
+    [formGroup]="range"
+    [min]="minDate"
+    [max]="maxDate"
+  >
+    <input
+      matStartDate
+      formControlName="start"
+      (dateInput)="addEvent('input', $event)"
+      (dateChange)="addEvent('change', $event)"
+    />
+    <input matEndDate formControlName="end" readonly />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker
+    touchUi
+    #picker
+    [dateClass]="dateClass()"
+    [calendarHeaderComponent]="headerDateRangePicker"
+  ></mat-date-range-picker>
+</mat-form-field>
