@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -6,6 +6,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GeorefArgService {
   constructor(private http: HttpClient) {}
+
+  AsignarCoordenadas$ = new EventEmitter<string[]>();
+  RecogerCoordenadas$ = new EventEmitter<string[]>();
 
   obtener_provincia() {
     return this.http.get(`https://apis.datos.gob.ar/georef/api/provincias`);

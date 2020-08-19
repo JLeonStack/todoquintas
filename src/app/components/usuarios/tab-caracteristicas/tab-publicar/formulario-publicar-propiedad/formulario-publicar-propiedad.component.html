@@ -456,7 +456,7 @@
         <!-- Input Select Provincia -->
 
         <!-- Input Select Municipio -->
-        <div class="form-group row justify-content-center">
+        <!-- <div class="form-group row justify-content-center">
           <div class="col-12 col-lg-6">
             <h5
               style="font-size: 16.5px !important;"
@@ -468,7 +468,7 @@
               <mat-form-field>
                 <mat-label class="text-white">Propiedad</mat-label>
                 <mat-select
-                  formControlName="propiedad"
+                  formControlName="ciudad"
                   [disabled]="input_municipios"
                 >
                   <mat-option
@@ -480,7 +480,7 @@
               </mat-form-field>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Input Select Municipio -->
 
         <!-- Input mapa -->
@@ -497,7 +497,7 @@
                 <p class="text-center">
                   Marque en el mapa la ubicación aproximada de su propiedad
                 </p>
-                <app-mapa [coordenadas]="coordenadasP"></app-mapa>
+                <app-mapa></app-mapa>
               </div>
             </div>
           </div>

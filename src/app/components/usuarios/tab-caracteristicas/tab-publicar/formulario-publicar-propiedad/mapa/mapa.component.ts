@@ -1,4 +1,10 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter } from '@angular/core';
+
+// Servicio Georef
+import { GeorefArgService } from '../../../../../../services/georef-arg.service';
+
+// Me subscribo al observable a la espera de cambios
+import { Subscription } from 'rxjs';
 
 // Declaro una variable para poder utilizar la librerías que traigo por CDN
 declare var L: any;
@@ -9,16 +15,33 @@ declare var L: any;
   styleUrls: ['./mapa.component.css'],
 })
 export class MapaComponent implements OnInit, AfterViewInit {
-  @Input() coordenadas = [];
+  constructor(private _GeorefArgService: GeorefArgService) {}
 
-  constructor() {}
+  coordenadas = [-34.599149, -58.383826];
 
-  ngOnInit(): void {}
+  map;
+
+  coordeanadasSubscripcion: Subscription;
+
+  myEvent = new EventEmitter<string>();
+
+  ngOnInit(): void {
+    this.coordeanadasSubscripcion = this._GeorefArgService.AsignarCoordenadas$.subscribe(
+      (data: any) => {
+        this.coordenadas = data;
+        this.map.remove();
+        this.map = L.map('mapid').setView(this.coordenadas, 10);
+        this.iniciarMapa(this.map);
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.coordeanadasSubscripcion.unsubscribe();
+  }
+
   ngAfterViewInit(): void {
-    // this.initMap();
-    console.log(this.coordenadas);
-
-    this.iniciarMapa();
+    this.map = L.map('mapid').setView(this.coordenadas, 10);
+    this.iniciarMapa(this.map);
   }
 
   private initMap(): void {
@@ -47,10 +70,9 @@ export class MapaComponent implements OnInit, AfterViewInit {
   }
 
   // Función encargada de gestionar los puntos que se indican en el mapa
-  private iniciarMapa(): void {
+  private iniciarMapa(map): void {
     // Initialize the map and assign it to a variable for later use
-
-    var map = L.map('mapid').setView([-34.599149, -58.383826], 10);
+    // map = L.map('mapid').setView(this.coordenadas, 10);
 
     L.control.scale().addTo(map);
 

@@ -18,13 +18,11 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   prop_data: FormGroup;
   isEditable = true;
 
-  coordenadasP = {
-    lat: 12,
-    long: 5,
-  };
+  // Latitud & Long
+  coordenadasP = [];
   // Los siguientes dos listas almacenarán las provincias y ciudades por cada una de ellas.
   provincias: any = [];
-  ciudades: any = [];
+  info_provincias: any = [];
 
   // Cuando se haya seleccionado una provincia se permitirá elegir una ciudad asociada a la misma.
   input_municipios = true;
@@ -39,6 +37,8 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
     // ! Ejecutaré el método encargado de realizar la petición para obtener las provincias.
     _georefArgService.obtener_provincia().subscribe((data: any) => {
+      this.info_provincias = data.provincias;
+      console.log(data.provincias);
       // Recorreré el arreglo de las provincias con el objetivo de extraer del mismo solamente los nombres de cada una de las provincias y no toda la información asociada.
       for (let index = 0; index < data.provincias.length; index++) {
         //Agregaré cada provincia en el array this.provincias
@@ -54,28 +54,26 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   ngOnInit(): void {
     // Cada vez que el usuario seleccione una provincia en particular, me subscribé a los cambios del input para ejecutar el siguiente conjunto de isntrucciones
     this.prop_data.controls.provincia.valueChanges.subscribe((provincia) => {
-      this.coordenadasP = {
-        lat: 15,
-        long: 2,
-      };
-      // En primer luar, habilitaré el input de ciudades
-      this.input_municipios = false;
-      // Establezco en 0 el array de ciudades para limpiar el select input
-      this.ciudades = [];
+      for (let index = 0; index < this.info_provincias.length; index++) {
+        if (provincia == this.info_provincias[index].nombre) {
+          this.coordenadasP = [
+            this.info_provincias[index].centroide.lat,
+            this.info_provincias[index].centroide.lon,
+          ];
+        }
+      }
 
-      // Realizaré una petición al servicio georef para obtener las ciudades.
-      this._georefArgService
-        .obtener_ciudad(provincia)
-        .subscribe((ciudad: any) => {
-          // Recorreré cada una de las ciudades para obtener los nombres que serán desplegados en el select input
-          for (let index = 0; index < ciudad.municipios.length; index++) {
-            // Agrego cada nombre de las ciudades al array.
-            this.ciudades.push(ciudad.municipios[index].nombre);
-            // Ordeno alfabéticamente las ciudades
-            this.ciudades.sort();
-          }
-          console.log(this.ciudades);
-        });
+      this._georefArgService.AsignarCoordenadas$.emit(this.coordenadasP);
+    });
+
+    // Con el siguiente subscribe recogeré las coordenadas marcadas en el mapa y las añadire al formulario.
+    this._georefArgService.RecogerCoordenadas$.subscribe((data: any) => {
+      let objeto = {
+        coordenadas: [data],
+      };
+
+      // La única forma de actualizar un valor en un formgroup es a través del método patchValue
+      this.prop_data.patchValue(objeto);
     });
   }
 
@@ -140,6 +138,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       parilla: [false],
 
       provincia: [''],
+      coordenadas: [''],
     });
   }
 }
