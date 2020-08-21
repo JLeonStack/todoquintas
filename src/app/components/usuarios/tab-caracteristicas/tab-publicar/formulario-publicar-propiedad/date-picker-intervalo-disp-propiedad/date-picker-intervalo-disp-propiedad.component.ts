@@ -3,6 +3,9 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
+  ViewChild,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
@@ -22,6 +25,10 @@ import { Subscription } from 'rxjs';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
+import { Moment } from 'moment';
+import * as moment from 'moment';
+import { MatCalendar } from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-date-picker-intervalo-disp-propiedad',
   templateUrl: './date-picker-intervalo-disp-propiedad.component.html',
@@ -31,6 +38,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 })
 export class DatePickerIntervaloDispPropiedadComponent
   implements OnInit, OnDestroy {
+  @Output() prueba: EventEmitter<Object>;
+
+  // @ViewChild('calendar') calendar: MatCalendar<Moment>;
+  // selectedDate = new Date('2020/08/21');
   // Declaro una propiedad que contendrá el encabezado de nuestro calendario.
   headerDateRangePicker = HeaderDatePickerIntervaloDispPropiedadComponent;
 
@@ -55,6 +66,8 @@ export class DatePickerIntervaloDispPropiedadComponent
   // Constructor
   // Declararé el servicio para poder utilizarlo
   constructor(private _limpiarFechaService: LimpiarFechasService) {
+    this.prueba = new EventEmitter();
+
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
     const currentYear = new Date().getFullYear();
 
@@ -71,6 +84,11 @@ export class DatePickerIntervaloDispPropiedadComponent
       this.minDate = new Date(this.range.value.start);
       this.maxDate = new Date(this.currentYear + 1, 4, 0);
     }
+
+    this.range.valueChanges.subscribe((data) => {
+      this.prueba.emit(data);
+      // console.log(data);
+    });
 
     // Me subscribo al evento que me permitirá limpiar las fechas del calendario
     this.fechaSubscripcion = this._limpiarFechaService.LimpiezaFecha$.subscribe(

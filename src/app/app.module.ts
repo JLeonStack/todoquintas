@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 // Rutas
 import { AppRoutingModule } from './app-routing.module';
 
@@ -18,8 +19,9 @@ import { GeorefArgService } from './services/georef-arg.service';
 
 // Componentes
 import { AppComponent } from './app.component';
-
 import { PagesModule } from './pages/pages.module';
+
+// PWA
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 

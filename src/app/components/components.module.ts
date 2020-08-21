@@ -40,10 +40,15 @@ import { TabCaracteristicasComponent } from './usuarios/tab-caracteristicas/tab-
 import { CardFavoritoUserComponent } from './usuarios/tab-caracteristicas/card-favorito-user/card-favorito-user.component';
 import { TabPublicarComponent } from './usuarios/tab-caracteristicas/tab-publicar/tab-publicar.component';
 import { FormularioPublicarPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/formulario-publicar-propiedad.component';
+import { DatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/date-picker-intervalo-disp-propiedad/date-picker-intervalo-disp-propiedad.component';
+import { HeaderDatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
 
 // Forms
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+
+// Drag & Drop Image
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 // Angular Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,8 +57,6 @@ import { MaterialModule } from '../material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from '../app-routing.module';
-import { DatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/date-picker-intervalo-disp-propiedad/date-picker-intervalo-disp-propiedad.component';
-import { HeaderDatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-caracteristicas/tab-publicar/formulario-publicar-propiedad/date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +147,7 @@ import { HeaderDatePickerIntervaloDispPropiedadComponent } from './usuarios/tab-
     ReactiveFormsModule,
     MaterialModule,
     LayoutModule,
+    NgxDropzoneModule,
   ],
   // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
   entryComponents: [TerminosCondicionesComponent, PoliticaPrivacidadComponent],

@@ -270,3 +270,28 @@ mat-stepper-horizontal {
 ::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: #02a69a !important;
 }
+
+::ng-deep.custom-dropzone {
+  border-color: #02a69a !important;
+}
+
+::ng-deep.custom-dropzone ngx-dropzone-image-preview {
+  border-color: #02a69a !important;
+}
+::ng-deep.custom-dropzone ngx-dropzone-image-preview img {
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1) !important;
+  height: 160px !important;
+  width: 160px !important;
+  border-radius: 5px !important;
+  opacity: 1 !important;
+  outline: none !important;
+}
+::ng-deep.custom-dropzone ngx-dropzone-image-preview:focus img {
+  border: 1px sold white !important;
+}
+
+::ng-deep.mat-datepicker {
+  width: 280px !important;
+  height: 285px !important;
+  display: block !important;
+}

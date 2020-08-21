@@ -27,8 +27,8 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.userProfile$.subscribe((data) => {
-      console.log(data);
-    });
+    // this.auth.userProfile$.subscribe((data) => {
+    //   console.log(data);
+    // });
   }
 }

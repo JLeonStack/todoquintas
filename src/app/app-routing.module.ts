@@ -19,7 +19,8 @@ const ROUTES: Routes = [
   { path: 'propiedad/:id', component: PropiedadPageComponent },
 
   // Rutas donde se mostrará la información del usuario, y la capacidad de publicar o seguir la reserva de una propiedad
-  { path: 'usuario', component: UsuariosComponent, canActivate: [AuthGuard] },
+  // { path: 'usuario', component: UsuariosComponent, canActivate: [AuthGuard] },
+  { path: 'usuario', component: UsuariosComponent },
 
   // Cualquier otro par me redirecciona al home.
   { path: '**', pathMatch: 'full', redirectTo: '' },

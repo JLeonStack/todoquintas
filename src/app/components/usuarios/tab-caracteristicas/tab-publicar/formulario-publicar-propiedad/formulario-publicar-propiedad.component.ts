@@ -1,25 +1,11 @@
-import { Component, OnInit, Directive, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 // Servicio encargado de devolver las provincias y ciudades a los inputs a la hora de indicar la ubicación de la propiedad.
 import { GeorefArgService } from '../../../../../services/georef-arg.service';
 
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
-
-import { NgControl } from '@angular/forms';
-
-@Directive({
-  selector: '[disableControl]',
-})
-export class DisableControlDirective {
-  @Input() set disableControl(condition: boolean) {
-    const action = condition ? 'disable' : 'enable';
-    this.ngControl.control[action]();
-  }
-
-  constructor(private ngControl: NgControl) {}
-}
 
 @Component({
   selector: 'app-formulario-publicar-propiedad',
@@ -140,6 +126,10 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
       provincia: [''],
       coordenadas: [''],
+      fechas_disponibles: this._formBuilder.group({
+        precios: this._formBuilder.array([]),
+        fechas: this._formBuilder.array([]),
+      }),
     });
   }
 
@@ -169,5 +159,63 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       // Actualizo el valor almacenado en el formGroup
       this.prop_data.patchValue(objeto);
     }
+  }
+
+  // La siguiente función se encargará de agregar los nuevos controles al array de precios y de fechas.
+  agregarPeriodo() {
+    (this.prop_data.get('fechas_disponibles').get('precios') as FormArray).push(
+      this._formBuilder.control(0, Validators.required)
+    );
+    (this.prop_data.get('fechas_disponibles').get('fechas') as FormArray).push(
+      this._formBuilder.control(null, Validators.required)
+    );
+  }
+
+  // La siguiente función se encargará de eliminar los controles cuando se haga click en la cruz de las filas de la tabla.
+  borrarPeriodo(i: number) {
+    (this.prop_data
+      .get('fechas_disponibles')
+      .get('precios') as FormArray).removeAt(i);
+    (this.prop_data
+      .get('fechas_disponibles')
+      .get('fechas') as FormArray).removeAt(i);
+  }
+
+  getPrecios() {
+    return (this.prop_data
+      .get('fechas_disponibles')
+      .get('precios') as FormArray).controls;
+  }
+
+  // La siguiente función se encargará de recibir del Output del calendario, el rango de fechas seleccionado en el mismo.
+  // Para esto recibiré un parámetro event, y una posición i que me indirá la posición del array en el que debo almacenar
+  recogerFechas(event: Object, i: number) {
+    // Defino una variable controles que contendrá un array de controles de las
+    let controles = (this.prop_data
+      .get('fechas_disponibles')
+      .get('fechas') as FormArray).controls;
+
+    // this.prop_data.get('fechas_disponibles').patchValue({ fechas: [event] });
+
+    controles[i].setValue(event);
+  }
+  // Eventos encargados de gestionar los archivos que se suben al drag&Drop.
+  files: File[] = [];
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+
+    const formData = new FormData();
+
+    for (var i = 0; i < this.files.length; i++) {
+      formData.append('file[]', this.files[i]);
+    }
+    console.log(formData);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 }

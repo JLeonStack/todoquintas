@@ -562,9 +562,130 @@
             </p>
           </div>
         </div>
-        <div class="form-group row justify-content-center">
+
+        <!-- En el siguiente div los elementos se crearán dinámicamente a medida que el usuario decide hacer click en un botón. -->
+        <div
+          class="row justify-content-center"
+          formGroupName="fechas_disponibles"
+        >
+          <div class="col-12 col-lg-6">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">P.</th>
+
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Opción</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="precios">
+                <tr *ngFor="let control of getPrecios(); let i = index">
+                  <td>
+                    {{ i + 1 }}
+                  </td>
+                  <td>
+                    <app-date-picker-intervalo-disp-propiedad
+                      (prueba)="recogerFechas($event, i)"
+                    ></app-date-picker-intervalo-disp-propiedad>
+                    <div>
+                      <mat-form-field>
+                        <mat-label>Precio por día</mat-label>
+                        <span matPrefix>$ &nbsp;</span>
+                        <input type="number" matInput [formControlName]="i" />
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="col-12 col-lg-12 d-flex align-items-center">
+                      <button mat-icon-button (click)="borrarPeriodo(i)">
+                        <span
+                          class="material-icons md-24 d-block"
+                          style="color: #00a699; font-size: 25px !important;"
+                        >
+                          clear
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- <div class="form-group row justify-content-center">
           <div class="col-12 col-lg-6">
             <app-date-picker-intervalo-disp-propiedad></app-date-picker-intervalo-disp-propiedad>
+          </div>
+        </div> -->
+        <!-- <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <div>
+              <mat-form-field>
+                <mat-label>Precio por día</mat-label>
+                <span matPrefix>$ &nbsp;</span>
+                <input
+                  type="number"
+                  matInput
+                  formControlName="metros_cuadrado"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div> -->
+        <!-- En el siguiente div los elementos se crearán dinámicamente a medida que el usuario decide hacer click en un botón. -->
+        <div class="form-group row justify-content-center mt-5">
+          <div class="col-12 col-lg-6">
+            <hr />
+            <div class="row justify-content-end">
+              <div
+                class="col-6 col-lg-6 d-flex align-items-center justify-content-end"
+              >
+                <button
+                  mat-raised-button
+                  class="d-flex align-items-center"
+                  (click)="agregarPeriodo()"
+                >
+                  <span
+                    class="material-icons md-24"
+                    style="color: #00a699; font-size: 25px !important;"
+                  >
+                    add
+                  </span>
+                  Agregar período
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Metros cuadrados -->
+        <div class="form-group row justify-content-center mt-5">
+          <div class="col-12 col-lg-6">
+            <p>
+              Seleccione las imágenes de su propiedad y colóquelas en el
+              siguiente recuadro
+            </p>
+            <div
+              class="custom-dropzone"
+              ngx-dropzone
+              [accept]="'image/*'"
+              (change)="onSelect($event)"
+            >
+              <ngx-dropzone-label>
+                <div>
+                  <h5>Coloque sus imágenes aquí</h5>
+                </div>
+              </ngx-dropzone-label>
+
+              <ngx-dropzone-image-preview
+                ngProjectAs="ngx-dropzone-preview"
+                *ngFor="let f of files"
+                [file]="f"
+                [removable]="true"
+                (removed)="onRemove(f)"
+              >
+              </ngx-dropzone-image-preview>
+            </div>
           </div>
         </div>
         <div class="form-group row justify-content-center mt-5">
