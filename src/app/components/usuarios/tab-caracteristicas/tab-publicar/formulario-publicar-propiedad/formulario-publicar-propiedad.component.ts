@@ -1,22 +1,11 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  EventEmitter,
-} from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-
-//Servicios
 
 // Servicio encargado de devolver las provincias y ciudades a los inputs a la hora de indicar la ubicación de la propiedad.
 import { GeorefArgService } from '../../../../../services/georef-arg.service';
 
-//Importo el servicio que controlará el limpiado del calendario
-import { LimpiarFechasService } from '../../../../../services/limpiar-fechas.service';
-
 // Me subscribo al observable a la espera de cambios
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-formulario-publicar-propiedad',
@@ -43,8 +32,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // En el constructor inializaré el servicio y el formBuilder.
   constructor(
     private _formBuilder: FormBuilder,
-    private _georefArgService: GeorefArgService,
-    private _limpiarFechasService: LimpiarFechasService
+    private _georefArgService: GeorefArgService
   ) {
     // ? Ejecuto la función encargada de crear cada uno de los controles del formulario.
     this.crearFormulario();
@@ -198,54 +186,45 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       .get('fechas') as FormArray).removeAt(i);
   }
 
+  // La siguiente función sirve como indicar de cuántos controles del tipo array existen en el formulario para posteriormente recorrerlos con un ciclo for e imprimirlos en pantalla.
   getPrecios() {
     return (this.prop_data
       .get('fechas_disponibles')
       .get('precios') as FormArray).controls;
   }
 
+  // Este objeto es utilizado par almacenar las fechas provenientes del datepicker y, al mismo tiempo, retornar al componente datepicker de las fechas seleccionadas para restablecerlas.
   guardarFecha: Object = {
     start: null,
     end: null,
-    reset: 0,
   };
 
   // La siguiente función se encargará de recibir el Output del calendario, el rango de fechas seleccionado en el mismo.
   // Para esto recibiré un parámetro event, y una posición i que me indirá la posición del array en el que debo almacenar
   recogerFechas(event: any, i: number) {
+    console.log(i);
     // Defino una variable controles que contendrá un array de controles de las
     let controles = (this.prop_data
       .get('fechas_disponibles')
       .get('fechas') as FormArray).controls;
 
-    this.guardarFecha['reset'] = 0;
-
+    // A continuación evaluo si la información que proviene del date picker corresponde a una modificación hecha en la selección de la fecha inicial o de la fecha final, y almaceno todo esto enn un objeto guardarFecha que actualizará la información del FormGrouup
     if (event.valor == 'start') {
       this.guardarFecha['start'] = event.data;
-      console.log(this.guardarFecha);
-    }
-    if (event.valor == 'end') {
+    } else if (event.valor == 'end') {
       this.guardarFecha['end'] = event.data;
-      console.log(this.guardarFecha);
     }
 
+    console.log(controles);
     // A continuación almaceno en el FormGroup los valores provenientes del formulario.
     controles[i].setValue(this.guardarFecha);
-
-    this.guardarFecha = this.guardarFecha;
-  }
-
-  limpiarFechas() {
-    console.log('Limpiando fechas');
-    this.guardarFecha['end'] = this.guardarFecha['start'];
-    this.guardarFecha['reset'] = 1;
   }
 
   // Eventos encargados de gestionar los archivos que se suben al drag&Drop.
+
   files: File[] = [];
 
   onSelect(event) {
-    console.log(event);
     this.files.push(...event.addedFiles);
 
     const formData = new FormData();
@@ -257,14 +236,6 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   }
 
   onRemove(event) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
-  }
-
-  private uploadSuccess: Subject<void> = new Subject<void>();
-
-  onImageUploadSuccess() {
-    console.log('object');
-    this.uploadSuccess.next();
   }
 }

@@ -9,13 +9,8 @@ import {
   EventEmitter,
   Input,
 } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  Validators,
-  FormArray,
-} from '@angular/forms';
+
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 
@@ -25,12 +20,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 // Importo el header que tendrá le datepicker
 import { HeaderDatePickerIntervaloDispPropiedadComponent } from './header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
 
-//Servicios
-//Importo el servicio que controlará el limpiado del calendario
-import { LimpiarFechasService } from '../../../../../../services/limpiar-fechas.service';
-
 // Me subscribo al observable a la espera de cambios
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -48,8 +39,6 @@ export class DatePickerIntervaloDispPropiedadComponent
 
   @Input() public nuevoMinDate: any;
 
-  // @ViewChild('calendar') calendar: MatCalendar<Moment>;
-  // selectedDate = new Date('2020/08/21');
   // Declaro una propiedad que contendrá el encabezado de nuestro calendario.
   headerDateRangePicker = HeaderDatePickerIntervaloDispPropiedadComponent;
 
@@ -57,14 +46,8 @@ export class DatePickerIntervaloDispPropiedadComponent
   minDate: Date;
   maxDate: Date;
 
-  // Creo una propiedad que contendrá el año actual.
-  currentYear = new Date().getFullYear();
-
-  // Variable encargada de estwablecer una nueva fecha
+  // Variable encargada de establecer una nueva fecha
   test: number;
-
-  // La siguiente será una propiedad encargada de almacenar la subscripción al servicio para posteriormente poder dar de baja el mismo.
-  fechaSubscripcion: Subscription;
 
   // Esta es el FromGroup encargado de capturar los valores del input daterangepicker.
   // Se definirirán dos controles del tipo FormControl que funcionarán para conservar los valores de inicio y fin en el date picker.
@@ -72,12 +55,19 @@ export class DatePickerIntervaloDispPropiedadComponent
 
   // Constructor
   // Declararé el servicio para poder utilizarlo
-  constructor(
-    private _limpiarFechaService: LimpiarFechasService,
-    private _formBuilder: FormBuilder
-  ) {
+  constructor(private _formBuilder: FormBuilder) {
     this.recogerFechaEvent = new EventEmitter();
 
+    // Ejecuto el método que se encarga se configurar las fechas mínimas y máximas que admite el calendario
+    this.establecerFechasIniciales();
+  }
+
+  ngOnInit(): void {
+    console.log(this.nuevoMinDate);
+  }
+
+  // La siguiente función establece las fechas iniciales mínimas y máximas capaces de ser seleccionadas en el datepicker en un comienzo.
+  establecerFechasIniciales() {
     // Creo el formulario encargado de controlar los valores start y end
     this.range = this._formBuilder.group({
       start: [null, { updateOn: 'change' }],
@@ -92,35 +82,15 @@ export class DatePickerIntervaloDispPropiedadComponent
     this.maxDate = new Date(currentYear + 1, 4, 0);
   }
 
-  ngOnInit(): void {
-    if (this.range.value.start != null) {
-      // Establezco las fechas iniciales que pueden ser seleccionadas en el datapicker.
-      this.minDate = new Date(this.range.value.start);
-      this.maxDate = new Date(this.currentYear + 1, 4, 0);
-    }
-
-    // Me subscribo al evento que me permitirá limpiar las fechas del calendario
-    this.fechaSubscripcion = this._limpiarFechaService.LimpiezaFecha$.subscribe(
-      () => {
-        // Cuando se detecte que se ha emitido un evento de borrar fechas se ejecutará el siguiente conjunto de instrucciones
-        this.range.setValue({ start: null, end: null }); // Vacío la selección de fechas en los inputs
-
-        // Establezco nuevamente las fechas mínimas y máximas que se puedan seleccionar
-        this.minDate = new Date();
-        this.maxDate = new Date(this.currentYear + 1, 4, 0);
-        // console.log('Observable Mensaje');
-      }
-    );
-  }
-
   restablecer = {
     start: null,
     end: null,
   };
 
+  // El siguiente método se ejecutará cuando el usuario le haga click al botón de reiniciar fechas.
   restablecerFechas() {
     console.log('click');
-    console.log(this.restablecer);
+
     if (this.restablecer['start'] != null) {
       console.log(this.restablecer);
 
@@ -154,19 +124,28 @@ export class DatePickerIntervaloDispPropiedadComponent
     // Emitiré un evento hacia el componente padre, en este caso formulario-publicar.
     this.recogerFechaEvent.emit(objeto);
   }
+
+  // La siguiente función se encargará de ejecutarse cuando el usuario decida seleccionar una fecha final en el calendario
   endDateMethod($event) {
+    // En la variable $event recibiré el input con cada una de las características correspondientes al mismo.
+
+    // Crearé una variable objeto a la cual le asignaré el valor que posea el input startdate.
     let objeto = {
       data: $event.value,
       valor: 'end',
     };
+
+    /* El objeto tendrá el siguiente valor
+    {data: Wed Aug 26 2020 00:00:00 GMT-0300 (hora estándar de Argentina), valor: "end"} 
+    */
+
     this.restablecer['end'] = $event.value;
 
+    // Emitiré un evento hacia el componente padre, en este caso, formulario-publicar.
     this.recogerFechaEvent.emit(objeto);
   }
 
-  ngOnDestroy(): void {
-    this.fechaSubscripcion.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
