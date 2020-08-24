@@ -193,14 +193,6 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   borrarPeriodo(i: number) {
     this.desactivarBotonAgregarPeriodo = false;
     this.desactivarbnb = this.desactivarbnb - 1;
-    let controles = (this.prop_data
-      .get('fechas_disponibles')
-      .get('fechas') as FormArray).controls;
-
-    if (controles[controles.length - 1].value != null) {
-      this.guardarFecha = controles[controles.length - 2].value;
-      console.log(this.guardarFecha);
-    }
 
     // Removeré del array precios, aquel en la posición indicada en el índice que recibo como parámetro
     (this.prop_data
@@ -211,6 +203,16 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     (this.prop_data
       .get('fechas_disponibles')
       .get('fechas') as FormArray).removeAt(i);
+
+    let controles = (this.prop_data
+      .get('fechas_disponibles')
+      .get('fechas') as FormArray).controls;
+
+    console.log(controles);
+    if (controles[controles.length - 1].value != null) {
+      this.guardarFecha = controles[controles.length - 1].value;
+      console.log(this.guardarFecha);
+    }
   }
 
   // La siguiente función sirve como indicar de cuántos controles del tipo array existen en el formulario para posteriormente recorrerlos con un ciclo for e imprimirlos en pantalla.
@@ -226,9 +228,12 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     end: null,
   };
 
+  vectorFechas = [];
   // La siguiente función se encargará de recibir el Output del calendario, el rango de fechas seleccionado en el mismo.
   // Para esto recibiré un parámetro event, y una posición i que me indirá la posición del array en el que debo almacenar
   recogerFechas(event: any, i: number) {
+    this.vectorFechas[i] = event;
+    console.log('Vectorrr', this.vectorFechas);
     console.log(i);
     // Defino una variable controles que contendrá un array de controles de las
     let controles = (this.prop_data
@@ -236,14 +241,12 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       .get('fechas') as FormArray).controls;
 
     // A continuación evaluo si la información que proviene del date picker corresponde a una modificación hecha en la selección de la fecha inicial o de la fecha final, y almaceno todo esto enn un objeto guardarFecha que actualizará la información del FormGrouup
-    this.guardarFecha['start'] = event.start;
-    this.guardarFecha['end'] = event.end;
-    console.log(event);
-    console.log(controles);
+
     controles[i].setValue(event);
     if (controles[i].value.start != null && controles[i].value.end != null) {
       this.desactivarBotonAgregarPeriodo = false;
     }
+    this.guardarFecha = controles[controles.length - 1].value;
   }
 
   // Eventos encargados de gestionar los archivos que se suben al drag&Drop.
@@ -253,15 +256,11 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   onSelect(event) {
     this.files.push(...event.addedFiles);
 
-    const formData = new FormData();
-
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append('file[]', this.files[i]);
-    }
-    console.log(formData);
+    console.log(this.files);
   }
 
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
+    console.log(this.files);
   }
 }

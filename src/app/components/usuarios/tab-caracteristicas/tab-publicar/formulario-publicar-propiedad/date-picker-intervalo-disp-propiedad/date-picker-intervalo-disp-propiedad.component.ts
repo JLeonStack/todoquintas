@@ -66,6 +66,7 @@ export class DatePickerIntervaloDispPropiedadComponent
   ngOnInit(): void {
     if (this.nuevoMinDate['end'] != null) {
       console.log('Ng On Init Datepicker', this.nuevoMinDate);
+      console.log(this.nuevoMinDate);
       this.minDate = this.nuevoMinDate['end'];
       var nuevoMinDate = new Date(this.minDate).getTime();
       this.minDate = new Date(nuevoMinDate + 86400000);
@@ -106,7 +107,10 @@ export class DatePickerIntervaloDispPropiedadComponent
 
       this.range.setValue({ start: null, end: null });
 
-      this.minDate = new Date(nuevoMinDate);
+      // Bloquear fechas anteriores para evitar superposición
+      // this.minDate = new Date(nuevoMinDate);
+
+      this.minDate = new Date();
     }
   }
 
