@@ -18,6 +18,7 @@ import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 // Importo el header que tendrá le datepicker
+
 import { HeaderDatePickerIntervaloDispPropiedadComponent } from './header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
 
 // Me subscribo al observable a la espera de cambios
@@ -33,7 +34,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })
 export class DatePickerIntervaloDispPropiedadComponent
-  implements OnInit, OnDestroy, OnChanges {
+  implements OnInit, OnDestroy {
   // El siguiente output es definido para ser capaz de pasar al componente padre el rango de fechas seleccionado por el usuario, con el objetivo de que sean almacenado en el FormGroup.
   @Output() recogerFechaEvent: EventEmitter<Object>;
 
@@ -63,15 +64,26 @@ export class DatePickerIntervaloDispPropiedadComponent
   }
 
   ngOnInit(): void {
-    console.log(this.nuevoMinDate);
+    if (this.nuevoMinDate['end'] != null) {
+      console.log('Ng On Init Datepicker', this.nuevoMinDate);
+      this.minDate = this.nuevoMinDate['end'];
+      var nuevoMinDate = new Date(this.minDate).getTime();
+      this.minDate = new Date(nuevoMinDate + 86400000);
+    }
+
+    // Me subscribo a los cambios que se vayan a producir en el datepicker con el objetivo de transmitir al componente padre la inforormación y almacenarla en el FormGroup
+    this.range.valueChanges.subscribe((data) => {
+      this.recogerFechaEvent.emit(data);
+      this.restablecer = data;
+    });
   }
 
   // La siguiente función establece las fechas iniciales mínimas y máximas capaces de ser seleccionadas en el datepicker en un comienzo.
   establecerFechasIniciales() {
     // Creo el formulario encargado de controlar los valores start y end
     this.range = this._formBuilder.group({
-      start: [null, { updateOn: 'change' }],
-      end: [null, { updateOn: 'change' }],
+      start: [null],
+      end: [null],
     });
 
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -82,104 +94,31 @@ export class DatePickerIntervaloDispPropiedadComponent
     this.maxDate = new Date(currentYear + 1, 4, 0);
   }
 
-  restablecer = {
-    start: null,
-    end: null,
-  };
+  restablecer;
 
   // El siguiente método se ejecutará cuando el usuario le haga click al botón de reiniciar fechas.
   restablecerFechas() {
     console.log('click');
 
-    if (this.restablecer['start'] != null) {
-      console.log(this.restablecer);
-
+    if (this.restablecer.start != null) {
       this.minDate = this.restablecer.start;
-      console.log(this.minDate);
       var nuevoMinDate = new Date(this.minDate).getTime();
 
       this.range.setValue({ start: null, end: null });
 
       this.minDate = new Date(nuevoMinDate);
-
-      console.log('Restablecer');
     }
-  }
-
-  // La siguiente función se encargará de ejecutarse cuando el usuario decida seleccionar una fecha de partida en el calendario
-  startDateMethod($event) {
-    // En la variable $event recibiré el input con cada una de las características correspondientes al mismo.
-
-    // Crearé una variable objeto a la cual le asignaré el valor que posea el input startdate.
-    let objeto = {
-      data: $event.value,
-      valor: 'start',
-    };
-    /* Dicho objeto tendrá el siguiente formato:
-    {data: Mon Aug 24 2020 00:00:00 GMT-0300 (hora estándar de Argentina), valor: "start"} */
-
-    // A continuación asignaré en la variable restablecer el valor proveniente del input
-    this.restablecer['start'] = $event.value;
-
-    // Emitiré un evento hacia el componente padre, en este caso formulario-publicar.
-    this.recogerFechaEvent.emit(objeto);
-  }
-
-  // La siguiente función se encargará de ejecutarse cuando el usuario decida seleccionar una fecha final en el calendario
-  endDateMethod($event) {
-    // En la variable $event recibiré el input con cada una de las características correspondientes al mismo.
-
-    // Crearé una variable objeto a la cual le asignaré el valor que posea el input startdate.
-    let objeto = {
-      data: $event.value,
-      valor: 'end',
-    };
-
-    /* El objeto tendrá el siguiente valor
-    {data: Wed Aug 26 2020 00:00:00 GMT-0300 (hora estándar de Argentina), valor: "end"} 
-    */
-
-    this.restablecer['end'] = $event.value;
-
-    // Emitiré un evento hacia el componente padre, en este caso, formulario-publicar.
-    this.recogerFechaEvent.emit(objeto);
   }
 
   ngOnDestroy(): void {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      if (changes.hasOwnProperty(propName)) {
-        switch (propName) {
-          case 'nuevoMinDate': {
-            if (this.nuevoMinDate['end'] != null && this.nuevoMinDate['end']) {
-              if (this.nuevoMinDate['reset'] == 0) {
-                this.minDate = this.nuevoMinDate['end'];
-                var nuevoMinDate = new Date(this.minDate).getTime();
-                this.minDate = new Date(nuevoMinDate + 86400000);
-              }
-              // console.log(this.minDate);
-            }
-          }
-        }
-      }
-    }
-  }
-
   // Estas son las fechas que ya están reservadas
   datesReserved = [];
 
-  events: string[] = [];
-
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.events.push(`${type}: ${event.value}`);
-
     // console.log(event.value);
     // Establezco las fechas mínimas y máximas que se pueden seleccionar en base a la fecha inicial que se haya seleccionado.
     this.minDate = new Date(event.value); // Cuando el usuario decida seleccionar una fecha como punto de partida, impediré que seleccione fechas hacia atrás.
-
-    // console.log(this.range.value.start);
-    // console.log(new Date(this.datesReserved[0]));
 
     // Recorreré cada una de las fechas indicadas como "ocupadas", y procederé a que se impida seleccionar fechas por encima de éstas.
     for (let index = 0; index < this.datesReserved.length; index++) {
@@ -192,21 +131,5 @@ export class DatePickerIntervaloDispPropiedadComponent
         this.maxDate = new Date(this.test - 86400000);
       }
     }
-  }
-
-  // Esta función se encarga de resaltar las fechas que ya han sido reservadas
-  dateClass() {
-    return (date: Date): MatCalendarCellCssClasses => {
-      const highlightDate = this.datesReserved
-        .map((strDate) => new Date(strDate))
-        .some(
-          (d) =>
-            d.getDate() === date.getDate() &&
-            d.getMonth() === date.getMonth() &&
-            d.getFullYear() === date.getFullYear()
-        );
-
-      return highlightDate ? 'example-custom-date-class' : '';
-    };
   }
 }

@@ -29,6 +29,9 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // Subscribes para el servicio.
   provinciaSubscripcion: Subscription;
   recogerCoordenadasSubscripcion: Subscription;
+
+  desactivarBotonAgregarPeriodo = true;
+
   // En el constructor inializaré el servicio y el formBuilder.
   constructor(
     private _formBuilder: FormBuilder,
@@ -126,7 +129,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       provincia: [''],
       coordenadas: [''],
       fechas_disponibles: this._formBuilder.group({
-        precios: this._formBuilder.array([[]]),
+        precios: this._formBuilder.array([[0]]),
         fechas: this._formBuilder.array([[]]),
       }),
     });
@@ -163,7 +166,8 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // La siguiente función se encargará de agregar los nuevos controles al array de precios y de fechas.
   agregarPeriodo() {
     // Agrego el nuevo control al array precios.
-
+    this.desactivarBotonAgregarPeriodo = true;
+    this.desactivarbnb = this.desactivarbnb + 1;
     (this.prop_data.get('fechas_disponibles').get('precios') as FormArray).push(
       this._formBuilder.control(0, Validators.required)
     );
@@ -173,8 +177,31 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     );
   }
 
+  currentYear = new Date().getFullYear();
+
+  desactivarbnb = 1;
+
+  desactivarBotonBorrado(i) {
+    if (i == 0) {
+      return true;
+    }
+    if (i < this.desactivarbnb - 1) {
+      return true;
+    }
+  }
   // La siguiente función se encargará de eliminar los controles cuando se haga click en la cruz de las filas de la tabla.
   borrarPeriodo(i: number) {
+    this.desactivarBotonAgregarPeriodo = false;
+    this.desactivarbnb = this.desactivarbnb - 1;
+    let controles = (this.prop_data
+      .get('fechas_disponibles')
+      .get('fechas') as FormArray).controls;
+
+    if (controles[controles.length - 1].value != null) {
+      this.guardarFecha = controles[controles.length - 2].value;
+      console.log(this.guardarFecha);
+    }
+
     // Removeré del array precios, aquel en la posición indicada en el índice que recibo como parámetro
     (this.prop_data
       .get('fechas_disponibles')
@@ -209,15 +236,14 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       .get('fechas') as FormArray).controls;
 
     // A continuación evaluo si la información que proviene del date picker corresponde a una modificación hecha en la selección de la fecha inicial o de la fecha final, y almaceno todo esto enn un objeto guardarFecha que actualizará la información del FormGrouup
-    if (event.valor == 'start') {
-      this.guardarFecha['start'] = event.data;
-    } else if (event.valor == 'end') {
-      this.guardarFecha['end'] = event.data;
-    }
-
+    this.guardarFecha['start'] = event.start;
+    this.guardarFecha['end'] = event.end;
+    console.log(event);
     console.log(controles);
-    // A continuación almaceno en el FormGroup los valores provenientes del formulario.
-    controles[i].setValue(this.guardarFecha);
+    controles[i].setValue(event);
+    if (controles[i].value.start != null && controles[i].value.end != null) {
+      this.desactivarBotonAgregarPeriodo = false;
+    }
   }
 
   // Eventos encargados de gestionar los archivos que se suben al drag&Drop.
