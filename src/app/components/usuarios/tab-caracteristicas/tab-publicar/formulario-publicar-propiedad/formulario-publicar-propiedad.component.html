@@ -28,9 +28,9 @@
               <mat-form-field>
                 <mat-label class="text-white">Propiedad</mat-label>
                 <mat-select formControlName="propiedad">
-                  <mat-option value="option1">Quinta</mat-option>
-                  <mat-option value="option2">Cabaña</mat-option>
-                  <mat-option value="option3">Casa country</mat-option>
+                  <mat-option value="quinta">Quinta</mat-option>
+                  <mat-option value="cabana">Cabaña</mat-option>
+                  <mat-option value="ccountry">Casa country</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -55,6 +55,9 @@
                   formControlName="nombre_propiedad"
                   placeholder="Ejemplo: 'La soñada'"
                 />
+                <mat-error *ngIf="nombreNoValidoPropiedad">
+                  El nombre de la propiedad es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -81,6 +84,9 @@
                   cols="40"
                   formControlName="descripcion"
                 ></textarea>
+                <mat-error *ngIf="descripcionNoValida">
+                  La descripción de la propiedad es <strong>requerida</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -95,6 +101,7 @@
               class="d-flex align-items-center"
             >
               <span class="material-icons bac-c-m"> tab </span>Metros Cuadrados
+              (Totales)
             </h5>
             <div>
               <mat-form-field>
@@ -104,6 +111,9 @@
                   matInput
                   formControlName="metros_cuadrado"
                 />
+                <mat-error *ngIf="metrosCuadradosTotalesNoValido">
+                  Los metros cuadrados totales son <strong>requeridos</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -118,7 +128,7 @@
               class="d-flex align-items-center"
             >
               <span class="material-icons bac-c-m"> tab_unselected </span>Metros
-              Cuadrados Cubiertos
+              Cuadrados (Cubiertos)
             </h5>
             <div class="">
               <mat-form-field>
@@ -128,6 +138,9 @@
                   matInput
                   formControlName="metros_cuadrado_cubiertos"
                 />
+                <mat-error *ngIf="metrosCuadradosCubiertosNoValido">
+                  Los metros cuadrados cubiertos son <strong>requeridos</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -139,7 +152,7 @@
           <div class="col-12 col-lg-6">
             <h5 class="h5-size">
               <span class="material-icons bac-c-m mr-2"> person_add </span
-              >Capacidad de Alojamiento (Camas disponibles)
+              >Capacidad de Alojamiento
             </h5>
             <div class="input-group shadow">
               <button
@@ -257,7 +270,7 @@
           <div
             class="col-12 col-lg-6 d-flex justify-content-end align-items-center"
           >
-            <button mat-icon-button matStepperNext>
+            <button mat-icon-button matStepperNext type="button">
               <span
                 class="material-icons md-24 d-block"
                 style="color: #00a699; font-size: 25px !important;"
@@ -436,7 +449,7 @@
 
             <div class="form-group row justify-content-center mt-5">
               <div class="col-6 col-lg-6 d-flex align-items-center">
-                <button mat-icon-button matStepperPrevious>
+                <button mat-icon-button matStepperPrevious type="button">
                   <span
                     class="material-icons md-24 d-block"
                     style="color: #00a699; font-size: 25px !important;"
@@ -448,7 +461,7 @@
               <div
                 class="col-6 col-lg-6 d-flex justify-content-end align-items-center"
               >
-                <button mat-icon-button matStepperNext>
+                <button mat-icon-button matStepperNext type="button">
                   <span
                     class="material-icons md-24 d-block"
                     style="color: #00a699; font-size: 25px !important;"
@@ -519,7 +532,7 @@
           <div class="col-12 col-lg-6">
             <div class="row">
               <div class="col-6 col-lg-6 d-flex align-items-center">
-                <button mat-icon-button matStepperPrevious>
+                <button mat-icon-button matStepperPrevious type="button">
                   <span
                     class="material-icons md-24 d-block"
                     style="color: #00a699; font-size: 25px !important;"
@@ -531,7 +544,7 @@
               <div
                 class="col-6 col-lg-6 d-flex justify-content-end align-items-center"
               >
-                <button mat-icon-button matStepperNext>
+                <button mat-icon-button matStepperNext type="button">
                   <span
                     class="material-icons md-24 d-block"
                     style="color: #00a699; font-size: 25px !important;"
@@ -695,7 +708,7 @@
           <div class="col-12 col-lg-6">
             <div class="row">
               <div class="col-6 col-lg-6 d-flex align-items-center">
-                <button mat-icon-button matStepperPrevious>
+                <button mat-icon-button matStepperPrevious type="button">
                   <span
                     class="material-icons md-24 d-block"
                     style="color: #00a699; font-size: 25px !important;"

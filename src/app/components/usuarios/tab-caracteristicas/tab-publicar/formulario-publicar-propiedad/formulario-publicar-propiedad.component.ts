@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 // Servicio encargado de devolver las provincias y ciudades a los inputs a la hora de indicar la ubicación de la propiedad.
 import { GeorefArgService } from '../../../../../services/georef-arg.service';
+import { PropiedadesService } from '../../../../../services/propiedades.service';
 
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
@@ -35,7 +36,8 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // En el constructor inializaré el servicio y el formBuilder.
   constructor(
     private _formBuilder: FormBuilder,
-    private _georefArgService: GeorefArgService
+    private _georefArgService: GeorefArgService,
+    private _propiedadesService: PropiedadesService
   ) {
     // ? Ejecuto la función encargada de crear cada uno de los controles del formulario.
     this.crearFormulario();
@@ -98,21 +100,33 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // La siguinte función se encarga de realizar el submit del formulario
   guardarFormulario() {
     console.log(this.prop_data);
+    console.log(this.prop_data.value);
+
+    // if (this.prop_data.invalid) {
+    //   return Object.values(this.prop_data.controls).forEach((control) => {
+    //     control.markAsTouched;
+    //   });
+    // }
+    this._propiedadesService
+      .publicarPropiedad(this.prop_data.value)
+      .subscribe((resp) => {
+        console.log(resp);
+      });
   }
 
   // La siguiente función se encargará de crear el formulario con cada uno de los controles.
   crearFormulario() {
     this.prop_data = this._formBuilder.group({
-      propiedad: ['option1', Validators.required],
+      propiedad: ['quinta', Validators.required],
       nombre_propiedad: ['', Validators.required],
       descripcion: ['', Validators.required],
-      metros_cuadrado: [0],
-      metros_cuadrado_cubiertos: [0],
-      capacidad_alojamiento: [{ value: 0, disabled: false }],
-      dormitorios: [{ value: 0, disabled: false }],
-      banos: [{ value: 0, disabled: false }],
-      solo_familia: [true],
-      piscina: [true],
+      metros_cuadrado: [null, Validators.required],
+      metros_cuadrado_cubiertos: [null, Validators.required],
+      capacidad_alojamiento: [0],
+      dormitorios: [0],
+      banos: [0],
+      solo_familia: [false],
+      piscina: [false],
       mascotas: [false],
       apto_eventos: [false],
       tv: [false],
@@ -133,6 +147,31 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
         fechas: this._formBuilder.array([[]]),
       }),
     });
+  }
+
+  // Getters
+
+  get nombreNoValidoPropiedad() {
+    return this.prop_data.get('nombre_propiedad').hasError('required');
+  }
+
+  get descripcionNoValida() {
+    return this.prop_data.get('descripcion').hasError('required');
+  }
+
+  get metrosCuadradosTotalesNoValido() {
+    return this.prop_data.get('metros_cuadrado').hasError('required');
+  }
+
+  get metrosCuadradosCubiertosNoValido() {
+    return this.prop_data.get('metros_cuadrado_cubiertos').hasError('required');
+  }
+
+  // La siguiente función sirve como indicar de cuántos controles del tipo array existen en el formulario para posteriormente recorrerlos con un ciclo for e imprimirlos en pantalla.
+  getPrecios() {
+    return (this.prop_data
+      .get('fechas_disponibles')
+      .get('precios') as FormArray).controls;
   }
 
   incrementarInput(caracteristica: object) {
@@ -213,13 +252,6 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       this.guardarFecha = controles[controles.length - 1].value;
       console.log(this.guardarFecha);
     }
-  }
-
-  // La siguiente función sirve como indicar de cuántos controles del tipo array existen en el formulario para posteriormente recorrerlos con un ciclo for e imprimirlos en pantalla.
-  getPrecios() {
-    return (this.prop_data
-      .get('fechas_disponibles')
-      .get('precios') as FormArray).controls;
   }
 
   // Este objeto es utilizado par almacenar las fechas provenientes del datepicker y, al mismo tiempo, retornar al componente datepicker de las fechas seleccionadas para restablecerlas.
