@@ -5,7 +5,7 @@
   <div class="container justify-content-center align-items-center">
     <a class="navbar-brand logo-class" [routerLink]="['/']">
       <img src="assets/images/icono2.png" width="60" height="60" alt="" />
-      Todo<span style="color: #02a69a;">Quintas</span>
+      Todo<span style="color: #02a69a">Quintas</span>
     </a>
     <!-- <a class="navbar-brand" href="index.html">TodoQuintas</a> -->
     <button
@@ -44,7 +44,7 @@
           >
             <span
               class="material-icons md-24"
-              style="color: #00a699; font-size: 25px !important;"
+              style="color: #00a699; font-size: 25px !important"
             >
               account_circle
             </span>
@@ -53,15 +53,11 @@
           <!-- Menú -->
           <mat-menu #menu="matMenu">
             <button mat-menu-item class="button-d-fle-item">
-              <span class="material-icons iconos-nav-user">
-                favorite
-              </span>
+              <span class="material-icons iconos-nav-user"> favorite </span>
               <span>Favoritos</span>
             </button>
             <button mat-menu-item class="button-d-fle-item">
-              <span class="material-icons iconos-nav-user">
-                home
-              </span>
+              <span class="material-icons iconos-nav-user"> home </span>
               <span>Propiedades</span>
             </button>
             <hr class="my-1 mx-3 p-0" />
@@ -75,11 +71,9 @@
             <button
               mat-menu-item
               class="button-d-fle-item"
-              (click)="auth.logout()"
+              (click)="limpiarStorage()"
             >
-              <span class="material-icons iconos-nav-user">
-                exit_to_app
-              </span>
+              <span class="material-icons iconos-nav-user"> exit_to_app </span>
               <span>Cerrar Sesión</span>
             </button>
           </mat-menu>

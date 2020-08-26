@@ -7,6 +7,7 @@ import { PropiedadesService } from '../../../../../services/propiedades.service'
 
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-formulario-publicar-propiedad',
@@ -102,16 +103,13 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     console.log(this.prop_data);
     console.log(this.prop_data.value);
 
-    // if (this.prop_data.invalid) {
-    //   return Object.values(this.prop_data.controls).forEach((control) => {
-    //     control.markAsTouched;
-    //   });
-    // }
-    this._propiedadesService
-      .publicarPropiedad(this.prop_data.value)
-      .subscribe((resp) => {
-        console.log(resp);
-      });
+    let publicar_propiedad_objeto = {
+      usuario: 'asd',
+      propiedad: this.prop_data.value,
+    };
+
+    // this._propiedadesService.publicarPropiedad(publicar_propiedad_objeto);
+    this._propiedadesService.getPropiedad();
   }
 
   // La siguiente función se encargará de crear el formulario con cada uno de los controles.

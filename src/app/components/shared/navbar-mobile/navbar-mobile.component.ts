@@ -11,7 +11,8 @@ export class NavbarMobileComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  mensaje() {
-    console.log('tocuh');
+  limpiarStorage() {
+    this.auth.logout();
+    localStorage.removeItem('user_ex');
   }
 }

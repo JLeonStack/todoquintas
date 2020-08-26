@@ -10,4 +10,9 @@ export class NavbarEPropComponent implements OnInit {
   constructor(public auth: AuthService) {}
 
   ngOnInit(): void {}
+
+  limpiarStorage() {
+    this.auth.logout();
+    localStorage.removeItem('user_ex');
+  }
 }
