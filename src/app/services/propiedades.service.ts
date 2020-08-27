@@ -81,6 +81,7 @@ export class PropiedadesService {
     }
   }
 
+  //! Este funciona
   cargarImagenes_2(imagenes) {
     return new Promise((resolve, reject) => {
       // crear una referencia a la ruta de acceso root
@@ -91,6 +92,9 @@ export class PropiedadesService {
       // El siguiente ciclo for recorrerá cada una de las imágenes colocadas en el drag&Drop y las subirá al servidor.
       for (const item of imagenes) {
         console.log(item);
+
+        // let obtener_nombre_img = item.name.split('.');
+        // let nuevo_nombre = `${obtener_nombre_img[0]}_600x600.${obtener_nombre_img[1]}`;
 
         // En la siguiente constante que será del tipo UploadTask, almacenaré la referencia de ruta inicial y a su vez
 
@@ -134,9 +138,22 @@ export class PropiedadesService {
   publicarPropiedad(propiedad, files) {
     this.conexiónFirebase();
     // Cuando se hayan terminado de cargar las imágenes publicaré la propiedad añadiéndole el array de direcciones de imágenes
-    this.cargarImagenes_2(files).then((response) => {
-      console.log(response);
-      propiedad['img_f'] = response;
+    this.cargarImagenes_2(files).then((response: any) => {
+      let response_size_fit = [];
+
+      for (const item of response) {
+        console.log(item);
+        let obtener_id_auth = item.split('?');
+        let obtener_nombre = obtener_id_auth[0].split('%');
+
+        let obtener_extension = obtener_nombre[1].split('.');
+
+        let nombre_completo_con_extension = `${obtener_nombre[0]}%${obtener_extension[0]}_600x600.${obtener_extension[1]}?${obtener_id_auth[1]}`;
+
+        response_size_fit.push(nombre_completo_con_extension);
+      }
+
+      propiedad['img_f'] = response_size_fit;
       this.propiedadesCollection.add(propiedad);
     });
     // Agrego un nuevo documento a la colección con los campos correspondientes a la variable propiedad.
