@@ -1,0 +1,147 @@
+/*------------------
+  Feature section
+---------------------*/
+
+.feature-section .container {
+  margin-bottom: -50px;
+}
+
+.feature-item {
+  margin-bottom: 50px;
+}
+
+.feature-item .room-price {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  background: #fff;
+  text-align: center;
+  padding: 13px;
+  background: #00a699;
+  color: #fff;
+}
+
+.feature-pic {
+  height: 250px;
+}
+
+.feature-pic .sale-notic,
+.feature-pic .rent-notic {
+  margin: 20px;
+}
+
+.feature-text {
+  border-left: 1px solid #ebebeb;
+  border-right: 1px solid #ebebeb;
+}
+
+.feature-title {
+  padding-top: 20px;
+}
+
+.feature-title h5 {
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.feature-title p {
+  margin-bottom: 0;
+}
+
+.feature-title p i {
+  color: #00a699;
+}
+
+.room-info-warp {
+  padding: 25px;
+  padding-bottom: 0;
+}
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .room-info-warp {
+    padding: 10px;
+  }
+}
+
+.room-info {
+  border-top: 1px solid #ebebeb;
+  padding-top: 15px;
+  overflow: hidden;
+}
+
+.room-info p {
+  margin-bottom: 15px;
+}
+
+.room-info p i {
+  color: #00a699;
+  margin-right: 10px;
+}
+
+.room-info:last-child .rf-right {
+  padding-right: 14px;
+}
+
+.room-info .rf-left {
+  float: left;
+}
+
+.room-info .rf-right {
+  float: right;
+}
+
+/*-----------------------------
+      Feature category section
+    -----------------------------*/
+
+.heading-section .subheading {
+  font-size: 18px;
+  display: inline-block;
+  margin-bottom: 0;
+  color: #00a699;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.property-wrap .text {
+  position: relative;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #fff;
+  padding: 0px !important;
+}
+
+::ng-deep.propiedad-destacadas-carousel .owl-carousel .owl-dots {
+  display: block;
+}
+
+::ng-deep.modif-but:focus {
+  outline: none !important;
+}
+
+:host ::ng-deep.mat-raised-button {
+  color: #666666;
+  outline: none !important;
+}
+
+::ng-deep.img-prop {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep.img-p-sp {
+  background: none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+::ng-deep.bac-c-m {
+  color: #02a69a;
+}

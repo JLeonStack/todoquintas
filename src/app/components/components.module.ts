@@ -57,6 +57,10 @@ import { MaterialModule } from '../material.module';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from '../app-routing.module';
+import { TabFavoritosComponent } from './usuarios/tab-caracteristicas/tab-favoritos/tab-favoritos.component';
+import { TabPropiedadesComponent } from './usuarios/tab-caracteristicas/tab-propiedades/tab-propiedades.component';
+import { TabReservasComponent } from './usuarios/tab-caracteristicas/tab-reservas/tab-reservas.component';
+import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-datos-usuario/tab-datos-usuario.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +103,10 @@ import { AppRoutingModule } from '../app-routing.module';
     FormularioPublicarPropiedadComponent,
     DatePickerIntervaloDispPropiedadComponent,
     HeaderDatePickerIntervaloDispPropiedadComponent,
+    TabFavoritosComponent,
+    TabPropiedadesComponent,
+    TabReservasComponent,
+    TabDatosUsuarioComponent,
   ],
   exports: [
     FooterComponent,
@@ -138,6 +146,10 @@ import { AppRoutingModule } from '../app-routing.module';
     FormularioPublicarPropiedadComponent,
     DatePickerIntervaloDispPropiedadComponent,
     HeaderDatePickerIntervaloDispPropiedadComponent,
+    TabFavoritosComponent,
+    TabPropiedadesComponent,
+    TabReservasComponent,
+    TabDatosUsuarioComponent,
   ],
   imports: [
     CommonModule,

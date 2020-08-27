@@ -12,7 +12,9 @@ export class NavbarEPropComponent implements OnInit {
   ngOnInit(): void {}
 
   limpiarStorage() {
-    this.auth.logout();
     localStorage.removeItem('user_ex');
+    localStorage.removeItem('_u_ky');
+
+    this.auth.logout();
   }
 }

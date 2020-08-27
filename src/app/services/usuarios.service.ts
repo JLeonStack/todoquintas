@@ -18,25 +18,21 @@ export class UsuariosService {
   usuariosDoc;
   usuarios: Observable<any>;
 
-  constructor(public firestore: AngularFirestore) {
+  constructor(public firestore: AngularFirestore) {}
+
+  checkExistedUsuario(usuario: usuarioModel) {
     // Obtengo cada uno de los documentos(usuarios) de la base de datos para posteriormente analizar si es o no necesario agregarlos a la base de datos o no.
     this.usuarios = this.firestore.collection('usuarios').valueChanges();
 
     // Obtengo la colección para posteriormente agregar al nuevo usuario a la base de datos de firebase
     this.usuariosCollection = this.firestore.collection('usuarios');
-  }
 
-  getUsuarios() {
-    // console.log(this.usuarios);
-    // Estoy retornando un observable
-    return this.usuarios;
-  }
-
-  checkExistedUsuario(usuario: usuarioModel) {
     // En el caso de que la variable user_ex no exista en el localstorage, entonces sí verificaré si el usuario está o no registrado. En caso de que exista, quiere decir que este usaro
     if (!localStorage.getItem('user_ex')) {
       // Divido la cadena obtenida en un array para obtener el número de id Auth0
       let obtener_id_auth = usuario.sub.split('|');
+
+      localStorage.setItem('_u_ky', obtener_id_auth[1]);
 
       // En primer obtendré
       this.getUsuarioSubscription = this.getUsuarios().subscribe((usuarios) => {
@@ -53,7 +49,7 @@ export class UsuariosService {
 
         // Si el usuario logueado existe entonces no es necesario que lo vuelva a crear, caso contrario, deberá crearlo en la base de datos.
         if (usuarioExistente.length != 0) {
-          // console.log('El usuario: existe', usuarioExistente);
+          console.log('El usuario: existe', usuarioExistente);
 
           // Si el usuario existe en la base de datos, entonce seteo en el localstorage la existencia del mismo para evitar enviar más peticiones de las correspondientes.
           localStorage.setItem('user_ex', 'true');
@@ -77,5 +73,11 @@ export class UsuariosService {
     } else {
       console.log('El usuario ya existe');
     }
+  }
+
+  getUsuarios() {
+    // console.log(this.usuarios);
+    // Estoy retornando un observable
+    return this.usuarios;
   }
 }
