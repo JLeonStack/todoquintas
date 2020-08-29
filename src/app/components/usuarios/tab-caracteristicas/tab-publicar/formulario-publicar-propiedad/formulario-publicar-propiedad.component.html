@@ -45,7 +45,13 @@
               style="font-size: 16.5px !important"
               class="d-flex align-items-center"
             >
-              <span class="material-icons bac-c-m"> create </span>Nombre
+              <span class="material-icons bac-c-m"> create </span>Nombre<span
+                [matTooltip]="descripcion_ayuda_nombre_propiedad"
+                matTooltipPosition="right"
+                class="ml-2 material-icons"
+              >
+                help_outline
+              </span>
             </h5>
             <div>
               <mat-form-field class="example-full-width">
@@ -56,7 +62,7 @@
                   placeholder="Ejemplo: 'La soñada'"
                 />
                 <mat-error *ngIf="nombreNoValidoPropiedad">
-                  El nombre de la propiedad es <strong>requerido</strong>
+                  Por favor, ingrese un <strong>nombre</strong>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -72,6 +78,12 @@
             >
               <span class="material-icons bac-c-m"> description </span
               >Descripción
+              <span
+                [matTooltip]="descripcion_ayuda_descripcion_propiedad"
+                matTooltipPosition="right"
+                class="ml-2 material-icons"
+                >help_outline</span
+              >
             </h5>
             <div>
               <mat-form-field class="example-full-width">
@@ -85,7 +97,7 @@
                   formControlName="descripcion"
                 ></textarea>
                 <mat-error *ngIf="descripcionNoValida">
-                  La descripción de la propiedad es <strong>requerida</strong>
+                  Por favor, ingrese una <strong>descripción</strong>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -485,6 +497,76 @@
           </div>
         </div>
         <!-- Input Select Provincia -->
+
+        <!-- Input Ciudad -->
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <h5
+              style="font-size: 16.5px !important"
+              class="d-flex align-items-center"
+            >
+              <span class="material-icons bac-c-m"> map </span>Ciudad
+              <span
+                [matTooltip]="descripcion_ayuda_ciudad"
+                matTooltipPosition="right"
+                class="ml-2 material-icons"
+              >
+                help_outline
+              </span>
+            </h5>
+
+            <div>
+              <mat-form-field class="example-full-width">
+                <mat-label>Ciudad</mat-label>
+                <input
+                  matInput
+                  formControlName="ciudad"
+                  placeholder="Ejemplo: 'Villa Carlos Paz'"
+                />
+                <mat-error *ngIf="nombreNoValidoPropiedad">
+                  Por favor, ingrese el nombre de su <strong>ciudad</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- Input Ciudad -->
+
+        <!-- Input Direccion -->
+        <div class="form-group row justify-content-center">
+          <div class="col-12 col-lg-6">
+            <h5
+              style="font-size: 16.5px !important"
+              class="d-flex align-items-center"
+            >
+              <span class="material-icons bac-c-m"> map </span>Dirección
+              <span
+                [matTooltip]="descripcion_ayuda_direccion"
+                matTooltipPosition="right"
+                class="ml-2 material-icons"
+              >
+                help_outline
+              </span>
+            </h5>
+
+            <div>
+              <mat-form-field class="example-full-width">
+                <mat-label>Dirección</mat-label>
+                <input
+                  matInput
+                  formControlName="dirrecion"
+                  placeholder="Ingrese la dirección exacta de su vivienda"
+                />
+                <mat-error *ngIf="nombreNoValidoPropiedad">
+                  Por favor, ingrese la <strong>dirección</strong> de su
+                  vivienda
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- Input Direccion -->
+
         <!-- Input mapa -->
         <div class="form-group row justify-content-center">
           <div class="col-12 col-lg-6 m-0 p-0">
@@ -494,10 +576,24 @@
                   style="font-size: 16.5px !important"
                   class="d-flex align-items-center"
                 >
-                  <span class="material-icons bac-c-m"> explore </span>Ubicación
+                  <span class="material-icons bac-c-m"> explore </span
+                  >Ubicación<span
+                    [matTooltip]="descripcion_ayuda_mapa"
+                    matTooltipPosition="right"
+                    class="ml-2 material-icons"
+                  >
+                    help_outline
+                  </span>
                 </h5>
                 <p class="text-center">
                   Marque en el mapa la ubicación aproximada de su propiedad
+                </p>
+                <p
+                  class="text-center"
+                  style="font-size: 12px; font-weight: 600"
+                >
+                  Nota: Utilice el buscador del mapa para localizar su propiedad
+                  ( preferentemenete, ciudad en la que se encuentra ) .
                 </p>
                 <app-mapa></app-mapa>
               </div>
@@ -641,6 +737,13 @@
                   </span>
                   Agregar período
                 </button>
+                <span
+                  [matTooltip]="descripcion_ayuda_periodo"
+                  matTooltipPosition="right"
+                  class="ml-2 material-icons"
+                >
+                  help_outline
+                </span>
               </div>
             </div>
           </div>
@@ -649,9 +752,13 @@
         <!-- Input Metros cuadrados -->
         <div class="form-group row justify-content-center mt-5">
           <div class="col-12 col-lg-6">
-            <p>
+            <p class="text-center">
               Seleccione las imágenes de su propiedad y colóquelas en el
               siguiente recuadro
+            </p>
+            <p class="text-center" style="font-size: 12px; font-weight: 600">
+              Nota: La primera imagen cargada, será la imagen principal de su
+              vivienda.
             </p>
             <div
               class="custom-dropzone"

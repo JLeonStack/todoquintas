@@ -29,29 +29,34 @@ export class MapaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   coordeanadasSubscripcion: Subscription;
 
+  contador = 0;
+
   // myEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.coordeanadasSubscripcion = this._GeorefArgService.AsignarCoordenadas$.subscribe(
       (data: any) => {
+        if (this.contador != 0) {
+          this.map.remove();
+        }
         this.coordenadas = data;
-        this.map.remove();
         this.map = L.map('mapid').setView(this.coordenadas, 10);
         this.iniciarMapa(this.map);
+        this.contador++;
       }
     );
   }
 
   ngOnDestroy(): void {
     this.coordeanadasSubscripcion.unsubscribe();
+    this.contador = 0;
   }
 
   ngAfterViewInit(): void {
     // En la propiedad map, crearé un nuevo mapa en el identificador "mapid"
-    this.map = L.map('mapid').setView(this.coordenadas, 10);
-
+    // this.map = L.map('mapid').setView(this.coordenadas, 10);
     // Ejecuto la función iniciarMapa para definir las características el mapa.
-    this.iniciarMapa(this.map);
+    // this.iniciarMapa(this.map);
   }
 
   private initMap(): void {

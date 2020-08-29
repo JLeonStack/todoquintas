@@ -8,6 +8,8 @@ import { PropiedadesService } from '../../../../../services/propiedades.service'
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
 
+import { PropiedadModel } from '../../../../../models/propiedad.model';
+
 @Component({
   selector: 'app-formulario-publicar-propiedad',
   templateUrl: './formulario-publicar-propiedad.component.html',
@@ -88,7 +90,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       (data: any) => {
         // Crearé una variable objeto temporal para ser capaz de pasarla al FormBuilder para actualizar las coordenadas
         let objeto = {
-          coordenadas: [data],
+          coordenadas: { ...data },
         };
 
         // La única forma de actualizar un valor en un formgroup es a través del método patchValue
@@ -99,17 +101,22 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
   // La siguinte función se encarga de realizar el submit del formulario
   guardarFormulario() {
-    console.log(this.prop_data);
     console.log(this.prop_data.value);
-
-    let publicar_propiedad_objeto = {
+    // Creo un objeto temporal para colocar la información del usuario
+    let publicar_propiedad_objeto: PropiedadModel = {
       user_p: localStorage.getItem('_u_ky'),
       propiedad: {
         ...this.prop_data.value,
-        calificacion: 4,
-        img_f: [],
       },
+      calificacion: [1],
+      img_f: [],
     };
+
+    // Cuando el formulario sea válido, procederé a publicar la propiedad
+    if (this.prop_data.valid) {
+    }
+
+    console.log(publicar_propiedad_objeto);
 
     this._propiedadesService.publicarPropiedad(
       publicar_propiedad_objeto,
@@ -144,8 +151,17 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       ropa_cama: [false],
       parilla: [false],
 
-      provincia: [''],
-      coordenadas: [''],
+      provincia: ['', Validators.required],
+      ciudad: ['', Validators.required],
+      dirrecion: ['', Validators.required],
+      coordenadas: [
+        [
+          {
+            lat: -34.600997983065824,
+            lng: -58.449325561523445,
+          },
+        ],
+      ],
       fechas_disponibles: this._formBuilder.group({
         precios: this._formBuilder.array([[0]]),
         fechas: this._formBuilder.array([[]]),
@@ -290,12 +306,30 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   files: File[] = [];
 
   onSelect(event) {
+    console.log(event);
     this.files.push(...event.addedFiles);
-    // console.log(this.files);
+    console.log(this.files);
   }
 
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
     console.log(this.files);
   }
+
+  descripcion_ayuda_ciudad =
+    'Nuestros algoritmos trabajan en base a las ubicaciones. \nPara que sean capaces de indexar su propiedad, debe ingresar el nombre completo de su ciudad.';
+
+  descripcion_ayuda_direccion =
+    'La direccion exacta de su vivienda sólo se enviará a las personas que realicen una reservación.';
+  descripcion_ayuda_mapa =
+    'La ubicación señalada en el mapa será mostrada a los usuarios.';
+
+  descripcion_ayuda_periodo =
+    'Los períodos son intervalos de tiempo en que usted puede permitir que sea reservada su propiedad. En cada uno de ellos puede ser asignado un precio distinto de acuerdo a la época del año.';
+
+  descripcion_ayuda_nombre_propiedad =
+    'El nombre de la propiedad es un nombre de fantasía con el cual será identificada su propiedad en el sitio.';
+
+  descripcion_ayuda_descripcion_propiedad =
+    'Describe lo que hace única a tu propiedad y por qué los usuarios deberían escogerla.';
 }

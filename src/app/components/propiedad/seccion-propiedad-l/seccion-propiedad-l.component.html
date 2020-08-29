@@ -5,7 +5,9 @@
       <div class="col-lg-8 single-list-page">
         <!-- Carousel Principal -->
 
-        <app-p-carousell-main></app-p-carousell-main>
+        <app-p-carousell-main
+          [imagenes_propiedad]="caracteristicas_propiedad"
+        ></app-p-carousell-main>
 
         <!-- Carousel Principal -->
 
@@ -39,13 +41,8 @@
 
           <h3 class="sl-sp-title">Descripción</h3>
           <div class="description">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              egestas fermentum ornareste. Donec index lorem. Vestibulum aliquet
-              odio, eget tempor libero. Cras congue cursus tincidunt. Nullam
-              venenatis dui id orci egestas tincidunt id elit. Nullam ut
-              vuputate justo. Integer lacnia pharetra pretium. Casan ante ipsum
-              primis in faucibus orci luctus et ultrice.
+            <p *ngIf="caracteristicas_propiedad">
+              {{ caracteristicas_propiedad.propiedad.descripcion }}
             </p>
           </div>
           <h3 class="sl-sp-title">Servicios</h3>

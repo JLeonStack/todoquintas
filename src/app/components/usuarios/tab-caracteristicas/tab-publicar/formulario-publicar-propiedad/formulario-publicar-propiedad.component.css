@@ -300,3 +300,9 @@ mat-stepper-horizontal {
   padding: 0.125rem 0.35rem !important;
   /* display: flex !important; */
 }
+
+::ng-deep .mat-tooltip {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+}

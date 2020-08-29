@@ -80,4 +80,10 @@ export class UsuariosService {
     // Estoy retornando un observable
     return this.usuarios;
   }
+
+  recuperarUserInformation(id_user) {
+    return (this.usuarios = this.firestore
+      .collection('usuarios', (ref) => ref.where('sub', '==', `${id_user}`))
+      .valueChanges());
+  }
 }

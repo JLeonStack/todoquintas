@@ -8,36 +8,38 @@
       <div class="item">
         <div class="property-wrap animate__animated animate__fadeIn">
           <a
-            [routerLink]="['/propiedad', '1']"
+            [routerLink]="['/propiedad', propiedad.id_prop]"
             class="img"
             [ngStyle]="{
-              'background-image': 'url(' + propiedad.imagen + ')'
+              'background-image': 'url(' + propiedad.img_f[0] + ')'
             }"
           >
             <p class="price d-flex justify-content-between">
               <span class="orig-price"
-                >${{ propiedad.precio }}<small> / día</small></span
+                >${{ propiedad.propiedad.precio_promedio
+                }}<small> / día</small></span
               >
               <span class="img-p-sp"
                 ><img
                   class="img-prop shadow"
-                  src="assets/images/des/linkedin.jpg"
+                  [src]="propiedad.user_picture"
                   title="Julian D."
               /></span>
             </p>
           </a>
           <div class="feature-text border-0">
             <div class="text-center feature-title">
-              <h5>{{ propiedad.nombre | titlecase }}</h5>
+              <h5>{{ propiedad.propiedad.nombre_propiedad | titlecase }}</h5>
               <p>
                 <i class="fa fa-map-marker"></i>
-                {{ propiedad.ubicacion | titlecase }}
+                {{ propiedad.propiedad.ciudad | titlecase }},
+                {{ propiedad.propiedad.provincia | titlecase }}
               </p>
             </div>
             <div class="col-md-12 text-center text-warning pb-3">
               <i
                 class="fa fa-star"
-                *ngFor="let n of numSequence(propiedad.calificacion)"
+                *ngFor="let n of numSequence(propiedad.calificacion_promedio)"
               ></i>
             </div>
             <div class="col-md-12 text-center pb-3">
