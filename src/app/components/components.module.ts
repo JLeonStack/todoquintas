@@ -62,8 +62,6 @@ import { TabPropiedadesComponent } from './usuarios/tab-caracteristicas/tab-prop
 import { TabReservasComponent } from './usuarios/tab-caracteristicas/tab-reservas/tab-reservas.component';
 import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-datos-usuario/tab-datos-usuario.component';
 
-import { CarouselModule } from 'ngx-owl-carousel-o';
-
 @NgModule({
   declarations: [
     FooterComponent,
@@ -162,7 +160,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MaterialModule,
     LayoutModule,
     NgxDropzoneModule,
-    CarouselModule,
   ],
   // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
   entryComponents: [TerminosCondicionesComponent, PoliticaPrivacidadComponent],

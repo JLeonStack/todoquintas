@@ -112,7 +112,7 @@ export class PropiedadesService {
 
           let obtener_extension = obtener_nombre[1].split('.');
 
-          let nombre_completo_con_extension = `${obtener_nombre[0]}%${obtener_extension[0]}_600x600.${obtener_extension[1]}?${obtener_id_auth[1]}`;
+          let nombre_completo_con_extension = `${obtener_nombre[0]}%${obtener_extension[0]}_800x800.${obtener_extension[1]}?${obtener_id_auth[1]}`;
 
           response_size_fit.push(nombre_completo_con_extension);
         }

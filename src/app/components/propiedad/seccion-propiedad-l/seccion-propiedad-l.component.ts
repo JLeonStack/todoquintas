@@ -9,8 +9,6 @@ import { PropiedadModel } from '../../../models/propiedad.model';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { OwlOptions } from 'ngx-owl-carousel-o';
-
 import { Subscription } from 'rxjs';
 
 declare var $: any;
@@ -46,6 +44,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
     });
   }
 
+  imagenes_fireb = [];
   ngOnInit(): void {
     this._activatedRoute.params.subscribe((params) => {
       this.propiedadSubscription = this._propiedadIndividualService
@@ -53,11 +52,14 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
         .subscribe((data: any) => {
           // Obtengo las características de la propiedad
           this.caracteristicas_propiedad = data.data();
-          console.log(this.caracteristicas_propiedad.propiedad.descripcion);
           console.log(data.data());
+
+          this.imagenes_fireb = this.caracteristicas_propiedad.img_f;
+          console.log(this.caracteristicas_propiedad.img_f);
+
           setTimeout(() => {
             this.iniciarCarousel();
-          }, 3000);
+          }, 1000);
         });
     });
   }
@@ -67,6 +69,72 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   }
 
   iniciarCarousel() {
+    var window_w = $(window).innerWidth();
+    /*------------------
+			Background set
+		--------------------*/
+    // $('.set-bg').each(function () {
+    //   var bg = $(this).data('setbg');
+    //   $(this).css('background-image', 'url(' + bg + ')');
+    // });
+
+    $('.gallery')
+      .find('.gallery-item')
+      .each(function () {
+        var pi_height1 = $(this).outerWidth(true),
+          pi_height2 = pi_height1 / 2;
+
+        if ($(this).hasClass('grid-long') && window_w > 991) {
+          $(this).css('height', pi_height2);
+        } else {
+          $(this).css('height', Math.abs(pi_height1));
+        }
+      });
+
+    $('.gallery').masonry({
+      itemSelector: '.gallery-item',
+      columnWidth: '.grid-sizer',
+      gutter: 20,
+    });
+
+    /*------------------
+			Review Slider
+		--------------------*/
+    $('.review-slider').owlCarousel({
+      loop: true,
+      margin: 0,
+      nav: false,
+      items: 1,
+      dots: false,
+      autoplay: true,
+    });
+
+    $('.clients-slider').owlCarousel({
+      loop: true,
+      autoplay: true,
+      margin: 30,
+      nav: false,
+      dots: false,
+      responsive: {
+        0: {
+          items: 2,
+          margin: 10,
+        },
+        600: {
+          items: 3,
+        },
+        800: {
+          items: 3,
+        },
+        1000: {
+          items: 5,
+        },
+      },
+    });
+
+    /*------------------
+			Review Slider
+		--------------------*/
     var sync1 = $('#sl-slider');
     var sync2 = $('#sl-slider-thumb');
     var slidesPerPage = 4; //globaly define number of elements per page
@@ -80,6 +148,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
         autoplay: true,
         dots: true,
         loop: true,
+        lazyLoad: true,
         responsiveRefreshRate: 200,
       })
       .on('changed.owl.carousel', syncPosition);
@@ -93,6 +162,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
         dots: true,
         nav: true,
         margin: 10,
+        lazyLoad: true,
         smartSpeed: 200,
         slideSpeed: 500,
         navText: [

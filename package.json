@@ -35,7 +35,6 @@
     "leaflet-geosearch": "^3.0.6",
     "moment": "^2.27.0",
     "ngx-dropzone": "^2.2.2",
-    "ngx-owl-carousel-o": "^4.0.0",
     "rxjs": "~6.5.5",
     "save": "^2.4.0",
     "tslib": "^2.0.0",

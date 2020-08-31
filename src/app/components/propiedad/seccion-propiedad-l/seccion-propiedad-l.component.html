@@ -5,17 +5,57 @@
       <div class="col-lg-8 single-list-page">
         <!-- Carousel Principal -->
 
-        <app-p-carousell-main
+        <!-- <app-p-carousell-main
           [imagenes_propiedad]="caracteristicas_propiedad"
-        ></app-p-carousell-main>
+        ></app-p-carousell-main> -->
+
+        <div
+          class="single-list-slider owl-carousel animate__animated animate__fadeIn"
+          id="sl-slider"
+        >
+          <div
+            class="sl-item set-bg rounded-lg"
+            *ngFor="let item of imagenes_fireb"
+            [ngStyle]="{ 'background-image': 'url(' + item + ')' }"
+            style="background-position: center !important"
+          ></div>
+          <!-- <img [src]="item" alt="asd" /> -->
+        </div>
+        <div
+          class="owl-carousel sl-thumb-slider animate__animated animate__fadeIn"
+          id="sl-slider-thumb"
+        >
+          <div class="sl-thumb set-bg" *ngFor="let item of imagenes_fireb">
+            <img [src]="item" alt="asd" style="width: 100% !important" />
+          </div>
+        </div>
+        <!-- Carousel -->
 
         <!-- Carousel Principal -->
 
         <div class="single-list-content">
           <div class="row">
-            <div class="col-xl-8 sl-title">
-              <h2>Estancias del Pilar</h2>
-              <p><i class="fa fa-map-marker"></i>Pilar, Buenos Aires.</p>
+            <div
+              class="col-xl-8 sl-title"
+              *ngIf="this.caracteristicas_propiedad"
+            >
+              <h2>
+                {{
+                  this.caracteristicas_propiedad.propiedad["nombre_propiedad"]
+                    | titlecase
+                }}
+              </h2>
+              <p>
+                <i class="fa fa-map-marker"></i
+                >{{
+                  this.caracteristicas_propiedad.propiedad["ciudad"]
+                    | titlecase
+                }},
+                {{
+                  this.caracteristicas_propiedad.propiedad["provincia"]
+                    | titlecase
+                }}
+              </p>
             </div>
             <div class="col-xl-4">
               <a href="#" class="btn price-btn">$5.500 p/día</a>
