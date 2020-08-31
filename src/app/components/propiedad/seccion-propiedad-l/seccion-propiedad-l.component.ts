@@ -9,7 +9,10 @@ import { PropiedadModel } from '../../../models/propiedad.model';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription, Observable } from 'rxjs';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+
+import { Subscription } from 'rxjs';
+
 declare var $: any;
 
 @Component({
@@ -52,7 +55,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
           this.caracteristicas_propiedad = data.data();
           console.log(this.caracteristicas_propiedad.propiedad.descripcion);
           console.log(data.data());
-          setTimeout((ejecutar) => {
+          setTimeout(() => {
             this.iniciarCarousel();
           }, 3000);
         });
