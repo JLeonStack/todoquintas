@@ -1,58 +1,135 @@
-<div class="row property-details-list">
+<div class="row property-details-list" *ngIf="detalles_propiedad">
   <div class="col-md-4 col-sm-6">
+    <!-- Tipo de propiedad -->
     <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        house
-      </span>
-      Quinta
+      <span class="material-icons bac-c-m mr-2"> house </span>
+      {{ detalles_propiedad.propiedad | titlecase }}
     </p>
+    <!-- Tipo de propiedad -->
 
+    <!-- Metros Totales -->
     <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        tab
-      </span>
-      200m <sup>2</sup>
+      <span class="material-icons bac-c-m mr-2"> tab </span>
+      {{ detalles_propiedad.metros_cuadrado }}m <sup>2</sup>
     </p>
+    <!-- Metros Totales -->
 
+    <!-- Metros cubiertos -->
     <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        tab_unselected
-      </span>
-      150m <sup>2</sup>
+      <span class="material-icons bac-c-m mr-2"> tab_unselected </span>
+      {{ detalles_propiedad.metros_cuadrado_cubiertos }}m <sup>2</sup>
     </p>
+    <!-- Metros cubiertos -->
+
+    <!-- Apto eventos -->
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.apto_eventos) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.apto_eventos) }"
+      >
+        cake
+      </span>
+      Apto eventos
+    </p>
+    <!-- Apto eventos -->
   </div>
 
   <div class="col-md-4 col-sm-6">
+    <!-- Capacidad de personas -->
     <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        person_add
-      </span>
-      10 personas
+      <span class="material-icons bac-c-m mr-2"> person_add </span>
+      {{ detalles_propiedad.capacidad_alojamiento }} personas
     </p>
-    <!-- <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2"> directions_car </span>2 Autos
-    </p> -->
+    <!-- Capacidad de personas -->
+
+    <!-- Dormitorios -->
     <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2"> waves </span>piscina
+      <span class="material-icons bac-c-m mr-2"> king_bed </span
+      >{{ detalles_propiedad.dormitorios }} dormitorios
     </p>
+    <!-- Dormitorios -->
+
+    <!-- Baños -->
+    <p class="d-flex align-items-center">
+      <span class="material-icons bac-c-m mr-2"> bathtub </span>
+      {{ detalles_propiedad.banos }} baños
+    </p>
+    <!-- Baños -->
+
+    <!-- Jacuzzi -->
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.jacuzzi) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.jacuzzi) }"
+      >
+        hot_tub </span
+      >Jacuzzi
+    </p>
+    <!-- Jacuzzi -->
   </div>
   <div class="col-md-4">
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2"> king_bed </span>4 dormitorios
+    <!-- Piscina -->
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.piscina) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.piscina) }"
+      >
+        waves </span
+      >piscina
     </p>
+    <!-- Piscina -->
 
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        bathtub
+    <!-- Mascotas -->
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.mascotas) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.mascotas) }"
+      >
+        pets </span
+      >Mascotas
+    </p>
+    <!-- Mascotas -->
+
+    <!-- Solo familia -->
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.solo_familia) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.solo_familia) }"
+      >
+        family_restroom
       </span>
-      2 baños
+      Solo Familia
     </p>
+    <!-- Solo familia -->
 
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
+    <!-- Parilla -->
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.parilla) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.parilla) }"
+      >
         outdoor_grill
       </span>
       Parilla
     </p>
+    <!-- Parilla -->
   </div>
 </div>

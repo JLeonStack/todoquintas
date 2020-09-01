@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 declare var $: any;
+declare var L: any;
 
 @Component({
   selector: 'app-seccion-propiedad-l',
@@ -44,9 +45,14 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
     });
   }
 
+  // La siguiente propiedad almacenará las imágenes que provengan de la base de datos.
   imagenes_fireb = [];
+  detalles_propiedad;
+
   ngOnInit(): void {
+    // Me subscribo a los parámetros que provengan de la url.
     this._activatedRoute.params.subscribe((params) => {
+      // Realizo una petición a la base de datos, enviándo el id de la propiedad para recibir toda la información asociada a la misma.
       this.propiedadSubscription = this._propiedadIndividualService
         .getPropiedad(params['id'])
         .subscribe((data: any) => {
@@ -54,11 +60,18 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
           this.caracteristicas_propiedad = data.data();
           console.log(data.data());
 
+          // Almacenaré en la propiedad, las imágenes provenientes de la base de datos.
           this.imagenes_fireb = this.caracteristicas_propiedad.img_f;
-          console.log(this.caracteristicas_propiedad.img_f);
 
+          this.detalles_propiedad = this.caracteristicas_propiedad.propiedad;
+          console.log(this.detalles_propiedad);
+          // Un segundo luego de recibida la información procederé a iniciar el carousel, de esta manera evito
           setTimeout(() => {
+            // Inicio el carousel principal
             this.iniciarCarousel();
+            this.iniciarCarouselDetallesPropiedad();
+            this.iniciarCarouselServiciosPropiedad();
+            this.initMap();
           }, 1000);
         });
     });
@@ -70,13 +83,6 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
 
   iniciarCarousel() {
     var window_w = $(window).innerWidth();
-    /*------------------
-			Background set
-		--------------------*/
-    // $('.set-bg').each(function () {
-    //   var bg = $(this).data('setbg');
-    //   $(this).css('background-image', 'url(' + bg + ')');
-    // });
 
     $('.gallery')
       .find('.gallery-item')
@@ -218,5 +224,80 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
       var number = $(this).index();
       sync1.data('owl.carousel').to(number, 300, true);
     });
+  }
+
+  iniciarCarouselDetallesPropiedad() {
+    // Carousel estinado a mostrar las características de las propiedades en la versión móvil
+    $('.owl-carousel.seccion-propiedades').owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 3,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 5,
+        },
+      },
+    });
+  }
+  colorClase(activado) {
+    if (activado) {
+      return '';
+    } else {
+      return '#CB3234';
+    }
+  }
+
+  iniciarCarouselServiciosPropiedad() {
+    // Carousel estinado a mostrar los servicios de las propiedades
+    $('.owl-carousel.seccion-servicios').owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 3,
+        },
+        600: {
+          items: 3,
+        },
+        1000: {
+          items: 5,
+        },
+      },
+    });
+  }
+
+  private initMap(): void {
+    var mymap = L.map('mapid2').setView(
+      [
+        this.detalles_propiedad.coordenadas.lat,
+        this.detalles_propiedad.coordenadas.lng,
+      ],
+      13
+    );
+    L.marker([
+      this.detalles_propiedad.coordenadas.lat,
+      this.detalles_propiedad.coordenadas.lng,
+    ]).addTo(mymap);
+
+    L.tileLayer(
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGVib25tYWxvbiIsImEiOiJjanZvMmRuaGIxdTRtNDRxcmJmcXVkZDl4In0.KX_zj5RVkp3pL5HKeckvEA',
+      {
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          'pk.eyJ1IjoiZGVib25tYWxvbiIsImEiOiJjanZvMmRuaGIxdTRtNDRxcmJmcXVkZDl4In0.KX_zj5RVkp3pL5HKeckvEA',
+      }
+    ).addTo(mymap);
   }
 }

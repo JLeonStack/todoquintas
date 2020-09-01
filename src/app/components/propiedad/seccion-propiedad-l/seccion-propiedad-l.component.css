@@ -733,3 +733,7 @@ ol {
 ::ng-deep.single-list-content .owl-carousel.owl-loaded {
   display: block !important;
 }
+
+#mapid2 {
+  height: 500px;
+}

@@ -5,10 +5,6 @@
       <div class="col-lg-8 single-list-page">
         <!-- Carousel Principal -->
 
-        <!-- <app-p-carousell-main
-          [imagenes_propiedad]="caracteristicas_propiedad"
-        ></app-p-carousell-main> -->
-
         <div
           class="single-list-slider owl-carousel animate__animated animate__fadeIn"
           id="sl-slider"
@@ -19,7 +15,6 @@
             [ngStyle]="{ 'background-image': 'url(' + item + ')' }"
             style="background-position: center !important"
           ></div>
-          <!-- <img [src]="item" alt="asd" /> -->
         </div>
         <div
           class="owl-carousel sl-thumb-slider animate__animated animate__fadeIn"
@@ -67,15 +62,168 @@
 
           <app-propiedad-detalles-list
             *ngIf="navbar_desktop"
+            [detalles_propiedad]="caracteristicas_propiedad"
           ></app-propiedad-detalles-list>
 
           <!-- Detalles de la propiedad  -->
 
           <!-- Carousel Características de las propiedades -->
 
-          <app-carousel-propiedad-detalles-list
-            *ngIf="navbar_mobile"
-          ></app-carousel-propiedad-detalles-list>
+          <div
+            class="owl-carousel seccion-propiedades text-center"
+            *ngIf="navbar_mobile && detalles_propiedad"
+          >
+            <div class="item">
+              <p class="d-flex align-items-center">
+                <span class="material-icons bac-c-m mr-2"> house </span>
+                {{ detalles_propiedad.propiedad | titlecase }}
+              </p>
+            </div>
+            <div class="item">
+              <!-- Metros Totales -->
+              <p class="d-flex align-items-center">
+                <span class="material-icons bac-c-m mr-2"> tab </span>
+                {{ detalles_propiedad.metros_cuadrado }}m <sup>2</sup>
+              </p>
+              <!-- Metros Totales -->
+            </div>
+            <div class="item">
+              <!-- Metros cubiertos -->
+              <p class="d-flex align-items-center">
+                <span class="material-icons bac-c-m mr-2">
+                  tab_unselected
+                </span>
+                {{ detalles_propiedad.metros_cuadrado_cubiertos }}m <sup>2</sup>
+              </p>
+              <!-- Metros cubiertos -->
+            </div>
+            <div class="item">
+              <!-- Apto eventos -->
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{
+                  color: colorClase(detalles_propiedad.apto_eventos)
+                }"
+              >
+                <span
+                  class="material-icons bac-c-m mr-2"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.apto_eventos)
+                  }"
+                >
+                  cake
+                </span>
+                Apto eventos
+              </p>
+              <!-- Apto eventos -->
+            </div>
+            <div class="item">
+              <!-- Capacidad de personas -->
+              <p class="d-flex align-items-center">
+                <span class="material-icons bac-c-m mr-2"> person_add </span>
+                {{ detalles_propiedad.capacidad_alojamiento }} personas
+              </p>
+              <!-- Capacidad de personas -->
+            </div>
+
+            <div class="item">
+              <!-- Dormitorios -->
+              <p class="d-flex align-items-center">
+                <span class="material-icons bac-c-m mr-2"> king_bed </span
+                >{{ detalles_propiedad.dormitorios }} dormitorios
+              </p>
+              <!-- Dormitorios -->
+            </div>
+            <div class="item">
+              <!-- Baños -->
+              <p class="d-flex align-items-center">
+                <span class="material-icons bac-c-m mr-2"> bathtub </span>
+                {{ detalles_propiedad.banos }} baños
+              </p>
+              <!-- Baños -->
+            </div>
+            <div class="item">
+              <!-- Jacuzzi -->
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.jacuzzi) }"
+              >
+                <span
+                  class="material-icons bac-c-m mr-2"
+                  [ngStyle]="{ color: colorClase(detalles_propiedad.jacuzzi) }"
+                >
+                  hot_tub </span
+                >Jacuzzi
+              </p>
+              <!-- Jacuzzi -->
+            </div>
+            <div class="item">
+              <!-- Piscina -->
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.piscina) }"
+              >
+                <span
+                  class="material-icons bac-c-m mr-2"
+                  [ngStyle]="{ color: colorClase(detalles_propiedad.piscina) }"
+                >
+                  waves </span
+                >piscina
+              </p>
+              <!-- Piscina -->
+            </div>
+            <div class="item">
+              <!-- Mascotas -->
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.mascotas) }"
+              >
+                <span
+                  class="material-icons bac-c-m mr-2"
+                  [ngStyle]="{ color: colorClase(detalles_propiedad.mascotas) }"
+                >
+                  pets </span
+                >Mascotas
+              </p>
+              <!-- Mascotas -->
+            </div>
+            <div class="item">
+              <!-- Solo familia -->
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{
+                  color: colorClase(detalles_propiedad.solo_familia)
+                }"
+              >
+                <span
+                  class="material-icons bac-c-m mr-2"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.solo_familia)
+                  }"
+                >
+                  family_restroom
+                </span>
+                Solo Familia
+              </p>
+              <!-- Solo familia -->
+            </div>
+            <div class="item">
+              <!-- Parilla -->
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.parilla) }"
+              >
+                <span
+                  class="material-icons bac-c-m mr-2"
+                  [ngStyle]="{ color: colorClase(detalles_propiedad.parilla) }"
+                >
+                  outdoor_grill
+                </span>
+                Parilla
+              </p>
+              <!-- Parilla -->
+            </div>
+          </div>
 
           <!-- Carousel Características de las propiedades -->
 
@@ -91,23 +239,171 @@
 
           <app-propiedad-servicios-list
             *ngIf="navbar_desktop"
+            [detalles_propiedad]="caracteristicas_propiedad"
           ></app-propiedad-servicios-list>
 
           <!-- Servicios de la propiedad  -->
 
           <!-- Carousel servicios de las propiedades -->
 
-          <app-carousel-propiedad-servicios
-            *ngIf="navbar_mobile"
-          ></app-carousel-propiedad-servicios>
+          <div
+            class="owl-carousel seccion-servicios text-center"
+            *ngIf="navbar_mobile && detalles_propiedad"
+          >
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.internet) }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{ color: colorClase(detalles_propiedad.internet) }"
+                >
+                  {{
+                    detalles_propiedad.internet == true ? "done" : "clear"
+                  }}</span
+                >
+                Internet
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.ropa_cama) }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.ropa_cama)
+                  }"
+                >
+                  {{
+                    detalles_propiedad.ropa_cama == true ? "done" : "clear"
+                  }}</span
+                >
+                Ropa de cama
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{
+                  color: colorClase(detalles_propiedad.aire_acondicionado)
+                }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.aire_acondicionado)
+                  }"
+                >
+                  {{
+                    detalles_propiedad.aire_acondicionado == true
+                      ? "done"
+                      : "clear"
+                  }}</span
+                >
+                Aire acondicionado
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.seguridad) }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.seguridad)
+                  }"
+                >
+                  {{
+                    detalles_propiedad.seguridad == true ? "done" : "clear"
+                  }}</span
+                >
+                Seguridad
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.tv) }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{ color: colorClase(detalles_propiedad.tv) }"
+                >
+                  {{ detalles_propiedad.tv == true ? "done" : "clear" }}</span
+                >
+                Television
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{
+                  color: colorClase(detalles_propiedad.calefaccion)
+                }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.calefaccion)
+                  }"
+                >
+                  {{
+                    detalles_propiedad.calefaccion == true ? "done" : "clear"
+                  }}</span
+                >
+                Calefacción
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{
+                  color: colorClase(detalles_propiedad.serv_limpieza)
+                }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.serv_limpieza)
+                  }"
+                >
+                  {{
+                    detalles_propiedad.serv_limpieza == true ? "done" : "clear"
+                  }}</span
+                >
+                S.Limpieza
+              </p>
+            </div>
+            <div class="item">
+              <p
+                class="d-flex align-items-center"
+                [ngStyle]="{ color: colorClase(detalles_propiedad.lavarropas) }"
+              >
+                <span
+                  class="material-icons bac-c-m"
+                  [ngStyle]="{
+                    color: colorClase(detalles_propiedad.lavarropas)
+                  }"
+                >
+                  {{
+                    detalles_propiedad.lavarropas == true ? "done" : "clear"
+                  }}</span
+                >
+                Lavarropas
+              </p>
+            </div>
+          </div>
 
           <!-- Carousel Características de las propiedades -->
 
           <h3 class="sl-sp-title mt-5">Ubicación</h3>
-          <p class="lead">Pilar, Buenos Aires.</p>
           <!-- Mapa -->
 
-          <app-mapa></app-mapa>
+          <div id="mapid2" style="z-index: 5"></div>
 
           <!-- Mapa -->
         </div>

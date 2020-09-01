@@ -1,44 +1,106 @@
-<div class="row property-details-list">
+<div class="row property-details-list" *ngIf="detalles_propiedad">
   <div class="col-md-4 col-sm-6">
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        done
-      </span>
-      Aire Acondicionado
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.internet) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.internet) }"
+      >
+        {{ detalles_propiedad.internet == true ? "done" : "clear" }}</span
+      >
+      Internet
     </p>
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        done
-      </span>
-      Teléfono
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.ropa_cama) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.ropa_cama) }"
+      >
+        {{ detalles_propiedad.ropa_cama == true ? "done" : "clear" }}</span
+      >
+      Ropa de cama
+    </p>
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.aire_acondicionado) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.aire_acondicionado) }"
+      >
+        {{
+          detalles_propiedad.aire_acondicionado == true ? "done" : "clear"
+        }}</span
+      >
+      Aire acondicionado
     </p>
   </div>
   <div class="col-md-4 col-sm-6">
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        done
-      </span>
-      Calefacción
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.seguridad) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.seguridad) }"
+      >
+        {{ detalles_propiedad.seguridad == true ? "done" : "clear" }}</span
+      >
+      Seguridad
     </p>
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        done
-      </span>
-      Televisión
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.tv) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.tv) }"
+      >
+        {{ detalles_propiedad.tv == true ? "done" : "clear" }}</span
+      >
+      Television
+    </p>
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.calefaccion) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.calefaccion) }"
+      >
+        {{ detalles_propiedad.calefaccion == true ? "done" : "clear" }}</span
+      >
+      Calefacción
     </p>
   </div>
   <div class="col-md-4">
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        done
-      </span>
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.serv_limpieza) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.serv_limpieza) }"
+      >
+        {{ detalles_propiedad.serv_limpieza == true ? "done" : "clear" }}</span
+      >
       Servicio de Limpieza
     </p>
-    <p class="d-flex align-items-center">
-      <span class="material-icons bac-c-m mr-2">
-        done
-      </span>
-      Internet
+    <p
+      class="d-flex align-items-center"
+      [ngStyle]="{ color: colorClase(detalles_propiedad.lavarropas) }"
+    >
+      <span
+        class="material-icons bac-c-m mr-2"
+        [ngStyle]="{ color: colorClase(detalles_propiedad.lavarropas) }"
+      >
+        {{ detalles_propiedad.lavarropas == true ? "done" : "clear" }}</span
+      >
+      Lavarropas
     </p>
   </div>
 </div>

@@ -26,11 +26,10 @@ import { PCarousellMainComponent } from './propiedad/seccion-propiedad-l/p-carou
 import { ReservationDialogComponent } from './propiedad/reservation-dialog/reservation-dialog.component';
 import { DatePickerReservaComponent } from './propiedad/reservation-dialog/date-picker-reserva/date-picker-reserva.component';
 import { PropiedadDetallesListComponent } from './propiedad/seccion-propiedad-l/propiedad-detalles-list/propiedad-detalles-list.component';
-import { CarouselPropiedadDetallesListComponent } from './propiedad/seccion-propiedad-l/carousel-propiedad-detalles-list/carousel-propiedad-detalles-list.component';
 
 import { SeccionPropiedadLComponent } from './propiedad/seccion-propiedad-l/seccion-propiedad-l.component';
 import { PropiedadesRelacionadasComponent } from './propiedad/seccion-propiedad-l/propiedades-relacionadas/propiedades-relacionadas.component';
-import { CarouselPropiedadServiciosComponent } from './propiedad/seccion-propiedad-l/carousel-propiedad-servicios/carousel-propiedad-servicios.component';
+
 import { NavbarEPropComponent } from './shared/navbar-e-prop/navbar-e-prop.component';
 
 import { PropiedadServiciosListComponent } from './propiedad/seccion-propiedad-l/propiedad-servicios-list/propiedad-servicios-list.component';
@@ -89,10 +88,9 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
     ReservationDialogComponent,
     DatePickerReservaComponent,
     PropiedadDetallesListComponent,
-    CarouselPropiedadDetallesListComponent,
+
     SeccionPropiedadLComponent,
     PropiedadesRelacionadasComponent,
-    CarouselPropiedadServiciosComponent,
     NavbarEPropComponent,
     PropiedadServiciosListComponent,
     NavbarEPropMobileComponent,
@@ -134,10 +132,9 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
     ReservationDialogComponent,
     DatePickerReservaComponent,
     PropiedadDetallesListComponent,
-    CarouselPropiedadDetallesListComponent,
+
     SeccionPropiedadLComponent,
     PropiedadesRelacionadasComponent,
-    CarouselPropiedadServiciosComponent,
     NavbarEPropComponent,
     NavbarEPropMobileComponent,
     TabCaracteristicasComponent,
