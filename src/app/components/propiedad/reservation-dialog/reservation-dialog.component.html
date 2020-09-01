@@ -1,47 +1,91 @@
-<div class="seccion-formulario-reservacion">
-  <div
-    class="container-fluid contact-form-card rounded sticky-top shadow bg-white mt-2"
-    style="z-index: 0 !important;"
-  >
-  <div class="row">
-    <div class="col-12">
-      <h5 class="titulo-reserv">Reservación</h5>
-      <hr style="background: #02A69A;"/>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <h5 class="h5-size h5-size-2"><span class="material-icons bac-c-m  mr-2">
-        date_range
-        </span>Fecha de ingreso / egreso</h5>
-      <app-date-picker-reserva></app-date-picker-reserva>
-    </div>
-  </div>
+<form
+  autocomplete="off"
+  [formGroup]="reservar_data"
+  (ngSubmit)="reservarPropiedad()"
+>
+  <div class="seccion-formulario-reservacion">
+    <div
+      class="container-fluid contact-form-card rounded sticky-top shadow bg-white mt-2"
+      style="z-index: 0 !important"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h5 class="titulo-reserv">Reservación</h5>
+          <hr style="background: #02a69a" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <h5 class="h5-size h5-size-2">
+            <span class="material-icons bac-c-m mr-2"> date_range </span>Fecha
+            de ingreso / egreso
+          </h5>
+          <app-date-picker-reserva
+            [nuevo_max_min_firebase]="intervalo_maxmin_fechas"
+          ></app-date-picker-reserva>
+        </div>
+      </div>
 
-  <div class="row mt-3">
-    <div class="col-12">
-      <h5 class="h5-size"><span class="material-icons bac-c-m  mr-2">
-        person_add
-        </span>Huéspedes</h5>
-      <app-number-spinner></app-number-spinner>
+      <div class="row mt-3">
+        <div class="col-12">
+          <h5 class="h5-size">
+            <span class="material-icons bac-c-m mr-2"> person_add </span
+            >Huéspedes
+          </h5>
+          <!-- <app-number-spinner></app-number-spinner> -->
+          <div class="input-group shadow">
+            <button
+              class="btn btn-sm border-right boton-input minus-btn"
+              type="button"
+              (click)="
+                reducirInput({
+                  personas_hospedar: 0
+                })
+              "
+            ></button>
+            <input
+              type="number"
+              class="form-control range-number"
+              min="1"
+              disabled
+              formControlName="personas_hospedar"
+            />
+            <button
+              type="button"
+              class="btn btn-sm border-left boton-input plus-btn"
+              (click)="
+                incrementarInput({
+                  personas_hospedar: 0
+                })
+              "
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <hr style="background: #02a69a" />
+
+          <h5 class="h5-size">
+            <span class="material-icons bac-c-m mr-2"> attach_money </span>Total
+          </h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100% !important; background: #02a69a !important"
+            type="submit"
+          >
+            Reservar
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-
-  
-  <div class="row mt-4">
-    <div class="col-12">
-      <hr style="background: #02A69A;"/>
-
-      <h5 class="h5-size"><span class="material-icons bac-c-m  mr-2">
-        attach_money
-        </span>Total</h5>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <button mat-flat-button color="primary" style="width: 100% !important; background: #02A69A!important;">Reservar</button>
-    </div>
-  </div>
-
-  </div>
-</div>
+</form>

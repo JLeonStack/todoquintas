@@ -36,4 +36,13 @@ export class PropiedadIndividualService {
       .doc(propiedad_id)
       .get());
   }
+
+  // Con el siguiente método obtendré lo información del usuario
+  getUserInfo(user_id: string) {
+    this.conexiónFirebase();
+    return (this.propiedad = this.firestore
+      .collection('usuarios')
+      .doc(user_id)
+      .get());
+  }
 }

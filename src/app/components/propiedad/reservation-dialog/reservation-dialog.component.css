@@ -1,6 +1,5 @@
 .contact-form-card {
   padding: 29px;
-  border: 1px solid #ebebeb;
   border-radius: 1px;
   margin-bottom: 80px;
 }
@@ -9,32 +8,6 @@
   font-weight: 400;
   margin-bottom: 0px;
 }
-
-.contact-form-card input,
-.contact-form-card textarea {
-  width: 100%;
-  border: 1px solid #ebebeb;
-  margin-bottom: 17px;
-  height: 36px;
-  padding: 0 20px;
-}
-
-.contact-form-card textarea {
-  height: 100px;
-  padding: 10px 20px;
-}
-
-/* .contact-form-card button {
-  background: #30caa0;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  min-width: 80px;
-  height: 30px;
-  border-radius: 1px;
-  cursor: pointer;
-} */
 
 .seccion-formulario-reservacion {
   height: 1500px;
@@ -71,3 +44,72 @@
   color: #02a69a;
   margin-right: 0.5rem !important;
 }
+
+/* Input range numérico */
+::ng-deep.range-number {
+  font-size: 18px;
+  font-weight: 400 !important;
+  height: 4rem;
+  padding: 0 4rem;
+  border-radius: 2rem;
+  border: 0;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 10px 65px -10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: lighter;
+}
+
+.input-group {
+  border-radius: 2rem;
+}
+
+::ng-deep.range-number:focus {
+  outline: none;
+  box-shadow: 0 5px 55px -10px rgba(0, 0, 0, 0.2), 0 0 4px #3fb0ff; /* Allows border radius on focus */
+}
+
+.boton-input {
+  color: black;
+  position: relative;
+  /* width: 2.8rem; */
+  width: 2rem;
+  height: 2rem;
+  top: 0.6rem;
+  /* display: block; */
+  padding: 0;
+  border: 0;
+  border-color: #02a69a !important;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100%;
+  border-radius: 1.4rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  opacity: 0.5;
+}
+
+.plus-btn {
+  background: url("/assets/mas_verde.svg") no-repeat 0 0;
+  background-size: 20px 40px;
+  background-position: center;
+  /* background-color: #02A69A; */
+  margin-right: 5px;
+}
+
+.minus-btn {
+  background: url("/assets/menos_verde.svg") no-repeat 0 0;
+  background-size: 20px 40px;
+  background-position: center;
+  /* background-color: #02A69A; */
+  margin-left: 5px;
+}
+
+button:active {
+  /* background-position-y: 1px; */
+  box-shadow: inset 0 2px 12px -4px #c5d1d9 !important;
+}
+/* Input range numérico */

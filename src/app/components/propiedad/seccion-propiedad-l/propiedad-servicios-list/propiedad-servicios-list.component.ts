@@ -20,7 +20,6 @@ export class PropiedadServiciosListComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.detalles_propiedad) {
       this.detalles_propiedad = this.detalles_propiedad.propiedad;
-      console.log('Estos son los servicios:', this.detalles_propiedad);
     }
   }
   colorClase(activado) {

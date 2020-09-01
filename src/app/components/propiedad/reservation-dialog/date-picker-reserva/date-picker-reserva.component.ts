@@ -3,6 +3,9 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
+  OnChanges,
+  Input,
+  SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
@@ -29,7 +32,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })
-export class DatePickerReservaComponent implements OnInit, OnDestroy {
+export class DatePickerReservaComponent
+  implements OnInit, OnDestroy, OnChanges {
+  @Input() nuevo_max_min_firebase;
+
   headerDateRangePicker = HeaderDateRangePicker;
 
   minDate: Date;
@@ -53,6 +59,33 @@ export class DatePickerReservaComponent implements OnInit, OnDestroy {
     this.maxDate = new Date(currentYear + 1, 4, 0);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // Compruebo si existe algún dato en la propiedad del input
+    if (this.nuevo_max_min_firebase) {
+      // Si es así, quiere decir que he recibido información actualizada en el input
+      console.log('DatePicker:', this.nuevo_max_min_firebase.fechas);
+      let nuevoMinDate_firebase = new Date(
+        this.nuevo_max_min_firebase.fechas[0].start.seconds * 1000
+      );
+
+      let actual_minDate = new Date();
+      if (nuevoMinDate_firebase <= actual_minDate) {
+        this.minDate = actual_minDate;
+      } else {
+        // Seteo las fechas posibles de seleccionar en base a lo que el usuario decide
+        this.minDate = nuevoMinDate_firebase;
+      }
+
+      this.maxDate = new Date(
+        this.nuevo_max_min_firebase.fechas[
+          this.nuevo_max_min_firebase.fechas.length - 1
+        ].end.seconds * 1000
+      );
+
+      // console.log(this.maxDate);
+    }
+  }
+
   ngOnInit(): void {
     // console.log(this.range.value.start);
     if (this.range.value.start != null) {
@@ -69,7 +102,11 @@ export class DatePickerReservaComponent implements OnInit, OnDestroy {
 
         // Establezco nuevamente las fechas mínimas y máximas que se puedan seleccionar
         this.minDate = new Date();
-        this.maxDate = new Date(this.currentYear + 1, 4, 0);
+        this.maxDate = new Date(
+          this.nuevo_max_min_firebase.fechas[
+            this.nuevo_max_min_firebase.fechas.length - 1
+          ].end.seconds * 1000
+        );
         console.log('Observable Mensaje');
       }
     );

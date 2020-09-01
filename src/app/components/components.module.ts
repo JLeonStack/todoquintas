@@ -22,7 +22,7 @@ import { TarjetaPropiedadBComponent } from './listing-homes/listado-casas-busque
 import { HeaderListadoCComponent } from './listing-homes/header-listado-c/header-listado-c.component';
 import { FiltrosSidenavComponent } from './listing-homes/sidenav/filtros-sidenav/filtros-sidenav.component';
 import { SelectPropiedadFComponent } from './listing-homes/sidenav/filtros-sidenav/select-propiedad-f/select-propiedad-f.component';
-import { PCarousellMainComponent } from './propiedad/seccion-propiedad-l/p-carousell-main/p-carousell-main.component';
+
 import { ReservationDialogComponent } from './propiedad/reservation-dialog/reservation-dialog.component';
 import { DatePickerReservaComponent } from './propiedad/reservation-dialog/date-picker-reserva/date-picker-reserva.component';
 import { PropiedadDetallesListComponent } from './propiedad/seccion-propiedad-l/propiedad-detalles-list/propiedad-detalles-list.component';
@@ -84,7 +84,7 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
     HeaderListadoCComponent,
     FiltrosSidenavComponent,
     SelectPropiedadFComponent,
-    PCarousellMainComponent,
+
     ReservationDialogComponent,
     DatePickerReservaComponent,
     PropiedadDetallesListComponent,
@@ -128,7 +128,7 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
     HeaderListadoCComponent,
     FiltrosSidenavComponent,
     SelectPropiedadFComponent,
-    PCarousellMainComponent,
+
     ReservationDialogComponent,
     DatePickerReservaComponent,
     PropiedadDetallesListComponent,

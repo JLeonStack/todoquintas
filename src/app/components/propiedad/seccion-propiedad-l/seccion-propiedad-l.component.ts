@@ -25,8 +25,10 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   navbar_mobile: boolean;
 
   propiedadSubscription: Subscription;
+  user_infoSubscription: Subscription;
 
   caracteristicas_propiedad: PropiedadModel;
+  user_info;
 
   // BreakpointObserver se encargará de observar el tamaño de la pantalla en todo momento y evaluar los cambios que se producen. Esto me permitirá poder mostrar/ocultar elementos en base al tamaño de pantalla.
   constructor(
@@ -62,9 +64,17 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
 
           // Almacenaré en la propiedad, las imágenes provenientes de la base de datos.
           this.imagenes_fireb = this.caracteristicas_propiedad.img_f;
-
           this.detalles_propiedad = this.caracteristicas_propiedad.propiedad;
+
           console.log(this.detalles_propiedad);
+
+          // Con las siguientes instrucciones realizo una petición a firebase obteniendo la información del usuario
+          this.user_infoSubscription = this._propiedadIndividualService
+            .getUserInfo(this.caracteristicas_propiedad.user_p)
+            .subscribe((user_info) => {
+              this.user_info = user_info.data();
+            });
+
           // Un segundo luego de recibida la información procederé a iniciar el carousel, de esta manera evito
           setTimeout(() => {
             // Inicio el carousel principal
@@ -79,6 +89,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.propiedadSubscription.unsubscribe();
+    this.user_infoSubscription.unsubscribe();
   }
 
   iniciarCarousel() {
@@ -245,12 +256,18 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
       },
     });
   }
+
   colorClase(activado) {
     if (activado) {
       return '';
     } else {
       return '#CB3234';
     }
+  }
+
+  recortarNombre(nombre: string) {
+    let nombre_u = nombre.split(' ');
+    return nombre_u[0];
   }
 
   iniciarCarouselServiciosPropiedad() {

@@ -412,17 +412,20 @@
       <!-- sidebar -->
 
       <div class="col-lg-4 col-md-7 sidebar">
-        <div class="author-card shadow-sm rounded">
+        <div class="author-card shadow-sm rounded" *ngIf="user_info">
           <div
             class="author-img set-bg"
-            data-setbg="assets/images/des/linkedin.jpg"
+            [ngStyle]="{ 'background-image': 'url(' + user_info.picture + ')' }"
+            style="background-position: center !important"
           ></div>
           <div class="author-info">
-            <h5>Julián D.</h5>
+            <h5>{{ recortarNombre(user_info.name) }}</h5>
             <p>Propietario</p>
           </div>
         </div>
-        <app-reservation-dialog></app-reservation-dialog>
+        <app-reservation-dialog
+          [intervalo_maxmin_fechas]="detalles_propiedad"
+        ></app-reservation-dialog>
       </div>
     </div>
 
