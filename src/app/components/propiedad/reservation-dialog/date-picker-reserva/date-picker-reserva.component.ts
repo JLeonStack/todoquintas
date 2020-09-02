@@ -69,7 +69,8 @@ export class DatePickerReservaComponent
     // Compruebo si existe algún dato en la propiedad del input
     if (this.nuevo_max_min_firebase) {
       // Si es así, quiere decir que he recibido información actualizada en el input
-      console.log('DatePicker:', this.nuevo_max_min_firebase.fechas);
+
+      console.log('DatePicker Fechas:', this.nuevo_max_min_firebase.fechas);
 
       // Creo una variable tempeoral, la cual servirá para establecer el minDate
       /* Para esto multiplicaré la información proveniente del input, que está en segunos, a milisegundos, para establecer la fecha correcta a setear.*/
@@ -123,7 +124,6 @@ export class DatePickerReservaComponent
             this.nuevo_max_min_firebase.fechas.length - 1
           ].end.seconds * 1000
         );
-        console.log('Observable Mensaje');
       }
     );
 
@@ -156,7 +156,7 @@ export class DatePickerReservaComponent
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
 
-    console.log(event.value);
+    // console.log(event.value);
     // Establezco las fechas mínimas y máximas que se pueden seleccionar en base a la fecha inicial que se haya seleccionado.
     this.minDate = new Date(event.value); // Cuando el usuario decida seleccionar una fecha como punto de partida, impediré que seleccione fechas hacia atrás.
 

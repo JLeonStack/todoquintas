@@ -8,6 +8,8 @@ import {
 
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-reservation-dialog',
   templateUrl: './reservation-dialog.component.html',
@@ -21,7 +23,10 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
   // Creo una nueva propiedad del tipo FormGroup, donde almacenaré los distintos formcontrol que tendrá el formulario de reservación
   reservar_data: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _activatedRoute: ActivatedRoute
+  ) {
     // Creo el formulario con los campos.
     this.crearFormularioReservacion();
   }
@@ -38,7 +43,12 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Obtengo el id de la propiedad a través de la información que proviene de la url para colocarla en el formgroup de reservación.
+    this._activatedRoute.params.subscribe((params) => {
+      this.reservar_data.get('propiedad_id').setValue(params['id']);
+    });
+  }
 
   // La siguiente función se encarga de hacer el submit de la reservación.
   reservarPropiedad() {
@@ -49,37 +59,27 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
   crearFormularioReservacion() {
     this.reservar_data = this._formBuilder.group({
       personas_hospedar: [0],
-      fechas_disponibles: [''],
-      usuario: [''],
-      precio: [0],
+      fechas_reservadas: [],
+      usuario: [localStorage.getItem('_u_ky')],
       propiedad_id: [''],
+      precio: [0],
+      confirmada: [0],
     });
   }
 
-  // Este objeto es utilizado par almacenar las fechas provenientes del datepicker y, al mismo tiempo, retornar al componente datepicker de las fechas seleccionadas para restablecerlas.
-  guardarFecha: Object = {
-    start: null,
-    end: null,
-  };
-
-  vectorFechas = [];
   // La siguiente función se encargará de recibir el Output del calendario, el rango de fechas seleccionado en el mismo.
-  // Para esto recibiré un parámetro event, y una posición i que me indirá la posición del array en el que debo almacenar
   recogerFechas(event: any) {
-    console.log(event);
-    // this.vectorFechas[i] = event;
-    // console.log('Vectorrr', this.vectorFechas);
-    // console.log(i);
-    // Defino una variable controles que contendrá un array de controles de las
-    // let controles = (this.this.reservar_data
-    //   .get('fechas_disponibles')
-    //   .get('fechas') as FormArray).controls;
+    if (event.start && event.end) {
+      let guardarFecha = {
+        start: JSON.parse(JSON.stringify(event.start)),
+        end: JSON.parse(JSON.stringify(event.end)),
+      };
+      this.reservar_data.get('fechas_reservadas').setValue(guardarFecha);
+    }
+  }
 
-    // A continuación evaluo si la información que proviene del date picker corresponde a una modificación hecha en la selección de la fecha inicial o de la fecha final, y almaceno todo esto enn un objeto guardarFecha que actualizará la información del FormGrouup
-
-    // controles[i].setValue(event);
-
-    // this.guardarFecha = controles[controles.length - 1].value;
+  calcularPrecioReservacion(fecha) {
+    let precio_total = 0;
   }
 
   // Las siguientes son funciones encargadas de controlar el input de cantidad de personas que vayan a hospedarse en la propiedad
