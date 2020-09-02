@@ -6,6 +6,8 @@ import {
   OnChanges,
   Input,
   SimpleChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
@@ -34,12 +36,18 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 })
 export class DatePickerReservaComponent
   implements OnInit, OnDestroy, OnChanges {
+  // En el siguiente input, yo recibo las fechas min-max capaces de ser seleccionadas en el datepicker.
   @Input() nuevo_max_min_firebase;
 
+  @Output() intervalo_seleccinado: EventEmitter<Object>;
+
+  // A continuación almaceno el header del datepicker para posteriormente pasarlo como propiedad al mat-date-range-picker
   headerDateRangePicker = HeaderDateRangePicker;
 
+  // Establezco dos propiedades que serán del tipo Date, encargadas de gestionar las fechas máximas y mínimas del datepicker
   minDate: Date;
   maxDate: Date;
+
   currentYear = new Date().getFullYear();
   test: number;
 
@@ -53,22 +61,27 @@ export class DatePickerReservaComponent
 
   // Constructor
   constructor(private _limpiarFechaService: LimpiarFechasService) {
-    // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date();
-    this.maxDate = new Date(currentYear + 1, 4, 0);
+    this.intervalo_seleccinado = new EventEmitter();
   }
 
+  // Cuando detecte que se ha pasado información al componente datepicker desde reservation-dialog, procederé a establecer las fechas min-max del datepicker.
   ngOnChanges(changes: SimpleChanges) {
     // Compruebo si existe algún dato en la propiedad del input
     if (this.nuevo_max_min_firebase) {
       // Si es así, quiere decir que he recibido información actualizada en el input
       console.log('DatePicker:', this.nuevo_max_min_firebase.fechas);
+
+      // Creo una variable tempeoral, la cual servirá para establecer el minDate
+      /* Para esto multiplicaré la información proveniente del input, que está en segunos, a milisegundos, para establecer la fecha correcta a setear.*/
       let nuevoMinDate_firebase = new Date(
         this.nuevo_max_min_firebase.fechas[0].start.seconds * 1000
       );
 
+      // Propiedad temporal donde almacenaré la fecha actual.
       let actual_minDate = new Date();
+
+      // A continuación evaluaré si la fecha mínima capaz de ser seleccionada es menor a la actual.
+      /* Si esto es así, lo que haré será setear como minDate la fecha actual, para evitar que se reserven día anteriores al día de hoy.*/
       if (nuevoMinDate_firebase <= actual_minDate) {
         this.minDate = actual_minDate;
       } else {
@@ -76,6 +89,7 @@ export class DatePickerReservaComponent
         this.minDate = nuevoMinDate_firebase;
       }
 
+      // A continuación lo que haré será configurar la fecha máxima. Para esto, le pasaré la úiltima fecha que se encuentre en el array de fechas.
       this.maxDate = new Date(
         this.nuevo_max_min_firebase.fechas[
           this.nuevo_max_min_firebase.fechas.length - 1
@@ -102,6 +116,8 @@ export class DatePickerReservaComponent
 
         // Establezco nuevamente las fechas mínimas y máximas que se puedan seleccionar
         this.minDate = new Date();
+
+        // Establecezco la fecha máxima capaz de ser seleccionada.
         this.maxDate = new Date(
           this.nuevo_max_min_firebase.fechas[
             this.nuevo_max_min_firebase.fechas.length - 1
@@ -110,6 +126,11 @@ export class DatePickerReservaComponent
         console.log('Observable Mensaje');
       }
     );
+
+    // Me subscribo a los cambios que se vayan a producir en el datepicker con el objetivo de transmitir al componente padre la inforormación y almacenarla en el FormGroup
+    this.range.valueChanges.subscribe((data) => {
+      this.intervalo_seleccinado.emit(data);
+    });
   }
 
   ngOnDestroy(): void {
@@ -125,9 +146,9 @@ export class DatePickerReservaComponent
 
   // Estas son las fechas que ya están reservadas. Este array vendrá de un servicio.
   datesReserved = [
-    '2020-08-23T03:00:00.000Z',
-    '2020-08-21T03:00:00.000Z',
-    '2020-08-18T03:00:00.000Z',
+    '2020-09-03T03:00:00.000Z',
+    '2020-09-05T03:00:00.000Z',
+    '2020-09-08T03:00:00.000Z',
   ];
 
   events: string[] = [];
@@ -135,7 +156,7 @@ export class DatePickerReservaComponent
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
 
-    // console.log(event.value);
+    console.log(event.value);
     // Establezco las fechas mínimas y máximas que se pueden seleccionar en base a la fecha inicial que se haya seleccionado.
     this.minDate = new Date(event.value); // Cuando el usuario decida seleccionar una fecha como punto de partida, impediré que seleccione fechas hacia atrás.
 
@@ -151,6 +172,8 @@ export class DatePickerReservaComponent
         this.test = new Date(this.datesReserved[index]).getTime();
         // Le resto un día al tiempo obtenido para que el maxDate sea hasta (sin incluir), la fecha reservada
         this.maxDate = new Date(this.test - 86400000);
+        // Cuando se encuentre una coincidencia de que la fecha seleccionada es menor a una de las fechas ya reservadas anteriormente, procederé a romper el ciclo, para que quede seteado el MaxDate, con la primera fecha encontrada.
+        break;
       }
     }
   }

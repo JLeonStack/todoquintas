@@ -22,6 +22,7 @@
           </h5>
           <app-date-picker-reserva
             [nuevo_max_min_firebase]="intervalo_maxmin_fechas"
+            (intervalo_seleccinado)="recogerFechas($event)"
           ></app-date-picker-reserva>
         </div>
       </div>
