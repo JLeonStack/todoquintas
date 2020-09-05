@@ -113,3 +113,8 @@ button:active {
   box-shadow: inset 0 2px 12px -4px #c5d1d9 !important;
 }
 /* Input range numérico */
+
+:host ::ng-deep.mat-stroked-button {
+  /* border: 1px solid #02a69a; */
+  outline: none !important;
+}

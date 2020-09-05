@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -37,6 +38,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTabsModule,
     MatStepperModule,
     MatTooltipModule,
+    MatTableModule,
   ], // Vamos a darle los módulos que queremos importar desde las librerías
   exports: [
     MatInputModule,
@@ -54,6 +56,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTabsModule,
     MatStepperModule,
     MatTooltipModule,
+    MatTableModule,
   ], //Modulos que queremos exportar para que puedan ser utilizados en todo el programa
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'es-ar' }],
 })
