@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BrowserModule } from '@angular/platform-browser';
-
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HeaderComponent } from './home/header/header.component';
@@ -62,6 +60,7 @@ import { TabFavoritosComponent } from './usuarios/tab-caracteristicas/tab-favori
 import { TabPropiedadesComponent } from './usuarios/tab-caracteristicas/tab-propiedades/tab-propiedades.component';
 import { TabReservasComponent } from './usuarios/tab-caracteristicas/tab-reservas/tab-reservas.component';
 import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-datos-usuario/tab-datos-usuario.component';
+import { DialogPrecioComponent } from './propiedad/reservation-dialog/dialog-precio/dialog-precio.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +106,7 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
     TabPropiedadesComponent,
     TabReservasComponent,
     TabDatosUsuarioComponent,
+    DialogPrecioComponent,
   ],
   exports: [
     FooterComponent,
@@ -149,6 +149,7 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
     TabPropiedadesComponent,
     TabReservasComponent,
     TabDatosUsuarioComponent,
+    DialogPrecioComponent,
   ],
   imports: [
     CommonModule,

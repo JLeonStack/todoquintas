@@ -59,16 +59,18 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
 
       let cantidad_calificaciones = item.calificacion.length;
 
-      for (let precio of item.propiedad.fechas_disponibles['precios']) {
-        precio_promedio += precio;
-      }
+      // for (let precio of item.propiedad.fechas_disponibles['precios']) {
+      //   precio_promedio += precio;
+      // }
+
+      precio_promedio = item.propiedad.fechas_disponibles['precios'][0];
 
       for (let calificacion of item.calificacion) {
         calificacion_promedio += calificacion;
       }
 
       // Agrego una nueva propiedad al objeto devuelvo por el servicio denominado "precio_promedio"
-      item.propiedad['precio_promedio'] = precio_promedio / cantidad_precios;
+      item.propiedad['precio_promedio'] = precio_promedio;
 
       // Agrego una nueva propiedad al item denominada calificacion promedio
       item['calificacion_promedio'] =

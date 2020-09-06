@@ -120,8 +120,8 @@ export class PropiedadesService {
         // Agrego la propiedad img_f a las propiedades para almacenar las direcciones de las fotos que el usuario ha subido
         propiedad['img_f'] = response_size_fit;
         console.log(propiedad['img_f']);
-        // Agrego un nuevo documento a la colección con los campos correspondientes a la variable propiedad.
 
+        // Agrego un nuevo documento a la colección con los campos correspondientes a la variable propiedad.
         this.propiedadesCollection.add({ ...propiedad });
       });
     } else {

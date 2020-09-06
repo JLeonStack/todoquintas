@@ -41,7 +41,10 @@
                 }}
               </h2>
               <p>
-                <i class="fa fa-map-marker"></i
+                <i
+                  class="fa fa-map-marker"
+                  style="color: #02a69a !important"
+                ></i
                 >{{
                   this.caracteristicas_propiedad.propiedad["ciudad"]
                     | titlecase
@@ -52,11 +55,23 @@
                 }}
               </p>
             </div>
-            <div class="col-xl-4">
-              <a href="#" class="btn price-btn">$5.500 p/día</a>
+            <div class="col-xl-4 text-center">
+              <p
+                *ngIf="this.caracteristicas_propiedad"
+                class="btn price-btn m-0"
+                style="cursor: default !important"
+              >
+                {{
+                  this.caracteristicas_propiedad.propiedad[
+                    "fechas_disponibles"
+                  ]["precios"][0] | currency
+                }}
+                <span style="font-size: 15px !important">p/día * </span>
+              </p>
+              <p class="m-0 p-0">* Precio base</p>
             </div>
           </div>
-          <h3 class="sl-sp-title">Detalles de la Propiedad</h3>
+          <h3 class="sl-sp-title mt-5">Detalles de la Propiedad</h3>
 
           <!-- Detalles de la propiedad  -->
 
@@ -227,7 +242,7 @@
 
           <!-- Carousel Características de las propiedades -->
 
-          <h3 class="sl-sp-title">Descripción</h3>
+          <h3 class="sl-sp-title mt-5">Descripción</h3>
           <div class="description">
             <p *ngIf="caracteristicas_propiedad">
               {{ caracteristicas_propiedad.propiedad.descripcion }}

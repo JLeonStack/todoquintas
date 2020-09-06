@@ -102,7 +102,7 @@
           <p
             *ngIf="!reservar_permitido_denegado"
             style="font-size: 12px; color: darkgrey"
-            class="mt-2 text-center"
+            class="mt-2 mb-0 text-center"
           >
             Necesita estar registrado para reservar.
           </p>
@@ -115,6 +115,25 @@
           >
             Reservar
           </button>
+        </div>
+        <div
+          class="col-12 d-flex justify-content-center align-items-center mt-3"
+        >
+          <div class="lds-dual-ring" *ngIf="loading"></div>
+          <p
+            class="text-center m-0"
+            style="color: #02a69a"
+            *ngIf="loading_text"
+          >
+            Su reserva se realizó correctamente
+          </p>
+          <p
+            class="text-center m-0"
+            style="color: rgb(203, 50, 52)"
+            *ngIf="loading_error"
+          >
+            Por favor, complete los campos antes de reservar
+          </p>
         </div>
       </div>
     </div>

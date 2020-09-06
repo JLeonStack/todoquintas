@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 //Formularios
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +22,13 @@ import { MatTabsModule } from '@angular/material/tabs';
     PropiedadPageComponent,
     UsuariosComponent,
   ],
-  imports: [CommonModule, ComponentsModule, MatTabsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ComponentsModule,
+    MatTabsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+  ],
 })
 export class PagesModule {}
 

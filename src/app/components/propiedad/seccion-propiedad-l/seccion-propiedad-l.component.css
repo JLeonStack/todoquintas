@@ -211,6 +211,20 @@ ol {
   font-size: 18px;
 }
 
+@media (min-width: 320px) and (max-width: 767px) {
+  .single-list-content .sl-title h2 {
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    text-align: center !important;
+  }
+
+  .single-list-content .sl-title p {
+    text-align: center !important;
+    font-size: 18px;
+  }
+}
+
 .single-list-content p i {
   color: #30caa0;
   margin-right: 5px;
@@ -222,11 +236,10 @@ ol {
   font-weight: 600;
   text-align: center;
   padding: 9px;
-  background: #30caa0;
+  background: #02a69a;
   color: #fff;
   min-width: 200px;
   border-radius: 3px;
-  margin-bottom: 70px;
 }
 
 .single-list-content .sl-sp-title {
@@ -311,7 +324,7 @@ ol {
 
 .author-card .author-contact p i {
   margin-right: 5px;
-  color: #30caa0;
+  color: #02a69a;
 }
 
 .contact-form-card {

@@ -21,6 +21,9 @@ import { HeaderDateRangePicker } from './header-date-picker-range/header-date-pi
 //Servicios
 //Importo el servicio que controlará el limpiado del calendario
 import { LimpiarFechasService } from '../../../../services/limpiar-fechas.service';
+import { ReservacionService } from '../../../../services/reservacion.service';
+
+import { ActivatedRoute, Router } from '@angular/router';
 
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
@@ -53,6 +56,12 @@ export class DatePickerReservaComponent
 
   fechaSubscripcion: Subscription;
 
+  // El siguiente es el array que almacenará las fechas en formato yy-mm-dd
+  array_fechas = [];
+
+  // El siguiente es el array con las fechas en formato JSON.
+  array_fechas_json = [];
+
   // Esta es el FromGroup encargado de capturar los valores del input daterangepicker.
   range = new FormGroup({
     start: new FormControl(),
@@ -60,7 +69,11 @@ export class DatePickerReservaComponent
   });
 
   // Constructor
-  constructor(private _limpiarFechaService: LimpiarFechasService) {
+  constructor(
+    private _limpiarFechaService: LimpiarFechasService,
+    private _reservacionService: ReservacionService,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this.intervalo_seleccinado = new EventEmitter();
   }
 
@@ -131,6 +144,76 @@ export class DatePickerReservaComponent
     this.range.valueChanges.subscribe((data) => {
       this.intervalo_seleccinado.emit(data);
     });
+
+    // Obtengo el id de la propiedad a través de la información que proviene de la url para colocarla en el formgroup de reservación.
+    this._activatedRoute.params.subscribe((params) => {
+      this._reservacionService.getReservas(params['id']).subscribe((data) => {
+        console.log('Data de firebase: Datepicker ', data);
+        for (let i = 0; i < data.length; i++) {
+          this.calcularRangoEntreFechas(data[i]);
+        }
+        console.log(this.array_fechas_json);
+      });
+    });
+  }
+
+  // La siguiente función se encargará de tomar el intervalo de fechas que ha seleccionado el usuario, y desestructurarlo en un array con todas las fechas que componen este intervalo. Es decir:
+  /* Si el usuario selecciona: 1-09-2020 hasta 20-09-2020, el array estará comprendido por cada una de las fechas entre ese intervalo, incluyendo los extremos. */
+  calcularRangoEntreFechas(fechas_reservadas) {
+    /* Tomaré la fecha inicial selecciona por el usuario, que proviene en formato JSON, y la convertiré en formato string, para posteriormente poder utilizar los métodos de un objeto Date. */
+    let newDate = new Date(
+      fechas_reservadas.fechas_reservadas.start
+    ).toString();
+
+    /* Proceso a convertir ahora la fecha final seleccionada por el usuario. */
+    let newDateEnd = new Date(
+      fechas_reservadas.fechas_reservadas.end
+    ).toString();
+
+    // Formateo la fecha obtenida para que ahora sea del tipo Date.
+    let newDate_2 = new Date(newDate);
+    let newDateEnd_2 = new Date(newDateEnd);
+
+    // Fabrico una fecha inciial en el formato yy-mm-dd
+    let fecha_inicio = `${newDate_2.getFullYear()}/${
+      newDate_2.getMonth() + 1
+    }/${newDate_2.getDate()}`;
+    // console.log(fecha_inicio);
+
+    // Fabrico una fecha final en el formato yy-mm-dd
+    let fecha_final = `${newDateEnd_2.getFullYear()}/${
+      newDateEnd_2.getMonth() + 1
+    }/${newDateEnd_2.getDate()}`;
+
+    // console.log(fecha_final);
+
+    // Establezco una nueva fecha inicial, y final, para poder generar el array con las fechas comprendidas entre ese intervalo
+    var fechaInicio = new Date(fecha_inicio);
+    var fechaFin = new Date(fecha_final);
+
+    // Mientras la fecha final sea mayor a la fecha inicial, procederé a ejecutar el ciclo while
+    while (fechaFin.getTime() >= fechaInicio.getTime()) {
+      this.array_fechas.push(
+        `${
+          fechaInicio.getFullYear() +
+          '/' +
+          (fechaInicio.getMonth() + 1) +
+          '/' +
+          fechaInicio.getDate()
+        }`
+      );
+      // Agregaré un elemento al array de fechas en formato yy-mm-dd
+
+      fechaInicio.setDate(fechaInicio.getDate() + 1);
+    }
+
+    /* A continuación lo que haré será recorrer todo el array de fechas en formato yy-mm-dd y paso a convertirlas en formato JSON: 2020-09-08T03:00:00.000Z */
+
+    for (let i = 0; i < this.array_fechas.length; i++) {
+      this.array_fechas_json[i] = JSON.parse(
+        JSON.stringify(new Date(this.array_fechas[i]))
+      );
+    }
   }
 
   ngOnDestroy(): void {
@@ -145,11 +228,13 @@ export class DatePickerReservaComponent
   };
 
   // Estas son las fechas que ya están reservadas. Este array vendrá de un servicio.
-  datesReserved = [
-    '2020-09-03T03:00:00.000Z',
-    '2020-09-05T03:00:00.000Z',
-    '2020-09-08T03:00:00.000Z',
-  ];
+  // datesReserved = [
+  //   '2020-09-03T03:00:00.000Z',
+  //   '2020-09-05T03:00:00.000Z',
+  //   '2020-09-08T03:00:00.000Z',
+  // ];
+
+  datesReserved = this.array_fechas_json;
 
   events: string[] = [];
 

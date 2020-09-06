@@ -11,7 +11,11 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { ActivatedRoute } from '@angular/router';
+import { DialogPrecioComponent } from './dialog-precio/dialog-precio.component';
+
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ReservacionService } from '../../../services/reservacion.service';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -38,12 +42,18 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
 
   fechas_disponibles;
 
+  loading = false;
+  loading_text = false;
+  loading_error = false;
+
   reservar_permitido_denegado = false;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _activatedRoute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _reservacionService: ReservacionService,
+    private router: Router
   ) {
     // Creo el formulario con los campos.
     this.crearFormularioReservacion();
@@ -72,18 +82,47 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
 
   // La siguiente función se encarga de hacer el submit de la reservación.
   reservarPropiedad() {
-    console.log(this.reservar_data.value);
+    this.loading = false;
+    this.loading_text = false;
+    this.loading_error = false;
+
+    // Si el formulario es válido, es decir, si todos sus campos están completos, procederé a guardar la reserva en firebase.
+    if (this.reservar_data.valid) {
+      this.loading_text = false;
+      // Si el formulario está completo, desactivo el mensaje de error
+      this.loading_error = false;
+      // Una vez que he hace click en el formulario, procederé a activar la simulación del "loading"
+      this.loading = true;
+      // this.router.navigate(['/usuario']);
+
+      // Llamo al service para que guarde en firebase la reserva
+      let reservarPromise = this._reservacionService.reservarPropiedad(
+        this.reservar_data.value
+      );
+      // Como se retorna una promeso, decido capturar lo que me devuelve, de tal forma que cuando se acabe de guardar la reservación, puedo desactivar el loading, y mostrar un texto en pantalla indicando que se ha reservado la propiedad correctamente.
+      reservarPromise.then((data) => {
+        console.log('Se guardó en firebase');
+        this.loading = false;
+        this.loading_text = true;
+        // Una vez que se ha reservado correctamente, procedo a llevar al usuario al apartado de reservaciones, en la sección de usuario
+        setTimeout(() => {
+          // this.router.navigate(['/usuario']);
+        }, 1000);
+      });
+    } else {
+      this.loading_error = true;
+    }
   }
 
   // La siguiente función se encarga de la creación de los distintos form-controls.
   crearFormularioReservacion() {
     this.reservar_data = this._formBuilder.group({
-      personas_hospedar: [0],
-      fechas_reservadas: [],
+      personas_hospedar: [null, Validators.required],
+      fechas_reservadas: [null, Validators.required],
       usuario: [localStorage.getItem('_u_ky')],
       propiedad_id: [''],
-      precio: [0],
-      confirmada: [0],
+      precio: [null, Validators.required],
+      confirmada: [0, Validators.required],
     });
   }
 
@@ -97,8 +136,12 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       this.reservar_data.get('fechas_reservadas').setValue(guardarFecha);
       this.calcularRangoEntreFechas(guardarFecha);
     }
+    if (event.start == null && event.end == null) {
+      this.reservar_data.get('fechas_reservadas').setValue(null);
+    }
   }
 
+  // La siguiente función se encargará de calcular el precio total que se deberá abonar según el rango de fechas, y el precio para cada uno de los períodos.
   calcularPrecioReservacion() {
     // A continuación almacenaré el precio total que se deberá abonar por los días reservados.
     let precio = 0;
@@ -112,7 +155,6 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     // Cuento con dos ciclos for, uno de ellos recorrerá cada uno de los períodos de fechas disponibles.
     // Y a continuación se recorrerán cada una de las fechas seleccionadas por el usuario para reservar. En caso de que éstas sean menor o igual al paríodo
 
-    console.log(this.fechas_disponibles.fechas.length);
     for (
       let periodo = 0;
       periodo <= this.fechas_disponibles.fechas.length;
@@ -122,12 +164,19 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       for (let i = contador_dias; i < this.array_fechas_json.length; i++) {
         // Lo que se hará a continuación es evaluar si la fecha en la posición i del array (JSON) es menor a la fecha final del primer período de fechas disponibles para ser reservadas
         if (
-          new Date(this.array_fechas_json[i]).getTime() <
-          new Date(this.fechas_disponibles.fechas[periodo].end * 1000).getTime()
+          new Date(this.array_fechas_json[i]).getTime() <=
+          this.fechas_disponibles.fechas[periodo].end.seconds * 1000
         ) {
-          console.log(
-            `Periodo: ${periodo}, precio ${this.fechas_disponibles.precios[periodo]}`
-          );
+          // console.log(
+          //   `Fecha inicial: ${new Date(
+          //     this.array_fechas_json[i]
+          //   ).getTime()}\nFecha final: ${
+          //     this.fechas_disponibles.fechas[periodo].end.seconds * 1000
+          //   }`
+          // );
+          // console.log(
+          //   `Periodo: ${periodo}, precio ${this.fechas_disponibles.precios[periodo]}`
+          // );
           // En caso de que sea cierto, procederé a acumular los precios correspondientes a ese fecha.
           precio = precio + this.fechas_disponibles.precios[periodo];
           contador_dias_pagados++;
@@ -137,15 +186,16 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
         }
         if (
           new Date(this.array_fechas_json[i]).getTime() ==
-          new Date(this.fechas_disponibles.fechas[periodo].end * 1000).getTime()
+          this.fechas_disponibles.fechas[periodo].end.seconds * 1000
         ) {
+          console.log('Encontré una fecha igual a la fecha final de período');
           break;
         }
 
         // En caso de que la fecha actual que se pretenda reservar sea mayor a la que admite el actual período de fechas, entonces procederé a cortar este for, para pasar al siguiente período de fechas.
         if (
           new Date(this.array_fechas_json[i]).getTime() >
-          new Date(this.fechas_disponibles.fechas[periodo].end * 1000).getTime()
+          this.fechas_disponibles.fechas[periodo].end.seconds * 1000
         ) {
           break;
         }
@@ -153,13 +203,13 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
 
       // Una vez que se han acumulador todos los días a pagar, y éste coincida con la cantidad de días que efectivamente se quieren reservar, procederé a cortar el ciclo for.
       if (contador_dias_pagados == longitud_array) {
-        console.log('Cortando');
+        // console.log('Cortando');
         break;
       }
     }
 
     this.reservar_data.get('precio').setValue(precio);
-    console.log('Precio:', precio);
+    // console.log('Precio:', precio);
   }
 
   // La siguiente función se encargará de tomar el intervalo de fechas que ha seleccionado el usuario, y desestructurarlo en un array con todas las fechas que componen este intervalo. Es decir:
@@ -184,14 +234,14 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     let fecha_inicio = `${newDate_2.getFullYear()}/${
       newDate_2.getMonth() + 1
     }/${newDate_2.getDate()}`;
-    console.log(fecha_inicio);
+    // console.log(fecha_inicio);
 
     // Fabrico una fecha final en el formato yy-mm-dd
     let fecha_final = `${newDateEnd_2.getFullYear()}/${
       newDateEnd_2.getMonth() + 1
     }/${newDateEnd_2.getDate()}`;
 
-    console.log(fecha_final);
+    // console.log(fecha_final);
 
     // Establezco una nueva fecha inicial, y final, para poder generar el array con las fechas comprendidas entre ese intervalo
     var fechaInicio = new Date(fecha_inicio);
@@ -224,7 +274,7 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     this.calcularPrecioReservacion();
   }
 
-  // Cookies
+  // Obtengo la cookie según el parámetro de búsqueda
   getCookie(name) {
     // Split cookie string and get all individual name=value pairs in an array
     var cookieArr = document.cookie.split(';');
@@ -244,6 +294,8 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     // Return null if not found
     return null;
   }
+
+  // Chequeo que el usuario esté logueado para poder habilitar el botón de reservación
   checkCookieAuth0() {
     // Get cookie using our custom function
     var autenticado = this.getCookie('auth0.is.authenticated');
@@ -255,12 +307,38 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     }
   }
 
-  // La siguiente función se encargará de desplejar el cuadro de diálogo correspondiente a la Política de privacidad
+  // La siguiente función se encargará de desplejar el cuadro de diálogo correspondiente a la tabla de precios
   openDialog() {
-    this.dialog.open(DialogDataExampleDialog, {
-      data: {
-        animal: 'panda',
-      },
+    let array_fechas = [];
+
+    // Recorro las fechas disponibles para convertir los segundos a una fecha capaz de ser almacenada
+    for (let i = 0; i < this.fechas_disponibles.fechas.length; i++) {
+      let minDate = new Date(
+        this.fechas_disponibles.fechas[i].start.seconds * 1000
+      );
+      let maxDate = new Date(
+        this.fechas_disponibles.fechas[i].end.seconds * 1000
+      );
+
+      // Convierto las fechas a formato dd-mm-yy
+      let minFormatdate = `${minDate.getDate()}/${
+        minDate.getMonth() + 1
+      }/${minDate.getFullYear()}`;
+      let maxFormatdate = `${maxDate.getDate()}/${
+        maxDate.getMonth() + 1
+      }/${maxDate.getFullYear()}`;
+
+      array_fechas.push({
+        start: minFormatdate,
+        end: maxFormatdate,
+        precio: this.fechas_disponibles.precios[i],
+      });
+    }
+
+    console.log([...array_fechas]);
+
+    this.dialog.open(DialogPrecioComponent, {
+      data: [...array_fechas],
     });
   }
 
@@ -292,12 +370,4 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       this.reservar_data.patchValue(objeto);
     }
   }
-}
-
-@Component({
-  selector: 'dialog-data-example-dialog',
-  templateUrl: 'dialog-data-example-dialog.html',
-})
-export class DialogDataExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

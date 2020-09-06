@@ -1,0 +1,30 @@
+<h5 mat-dialog-title class="d-flex align-items-center">
+  Tabla de precios
+  <span
+    matTooltip="Nuestros algoritmos calcularán automáticamente el precio total que deberá pagar según el período en el que desea reservar."
+    matTooltipPosition="right"
+    class="ml-2 material-icons"
+    >help_outline</span
+  >
+</h5>
+<div mat-dialog-content>
+  <table class="table my-3">
+    <thead>
+      <tr>
+        <th scope="col">Período</th>
+        <th scope="col">Fechas</th>
+        <th scope="col">Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.start }} - {{ item.end }}</td>
+        <td>{{ item.precio | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close class="c_color">Cerrar</button>
+</mat-dialog-actions>
