@@ -1,0 +1,22 @@
+/* PARRAFO FILTRO */
+.p-filtro {
+  font-size: 21px;
+  font-weight: 300;
+  color: #02a69a;
+}
+/* PARRAFO FILTRO */
+.separacion-filtro-color {
+  background-color: #02a69a;
+}
+
+/* Color striped table */
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #02a69a;
+  color: whitesmoke;
+}
+
+:host ::ng-deep.mat-raised-button {
+  /* border: 1px solid #02a69a; */
+  outline: none !important;
+}

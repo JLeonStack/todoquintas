@@ -1,1 +1,125 @@
-<p>tab-reservas works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 mt-3">
+      <mat-tab-group mat-align-tabs="center" selectedIndex="0">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div>
+              <span
+                class="material-icons md-24 d-block"
+                style="color: #00a699; font-size: 25px !important"
+              >
+                call_received
+              </span>
+              Reservas recibidas
+            </div>
+          </ng-template>
+          <div class="container">
+            <div class="row mt-5">
+              <div class="col-12">
+                <p class="p-filtro p-0 mt-2 text-center">
+                  Reservaciones recibidas
+                  <span
+                    matTooltip="Si publicó una propiedad, en esta sección se indicarán las reservaciones solicitadas por parte de los huéspedes"
+                    matTooltipPosition="right"
+                    class="ml-2 material-icons"
+                    >help_outline</span
+                  >
+                </p>
+
+                <hr class="mb-5 separacion-filtro-color" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-center">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Propiedad</th>
+                      <th scope="col">Fechas</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center" *ngIf="!reservas"></tbody>
+                  <tbody class="text-center" *ngIf="reservas">
+                    <tr *ngFor="let item of reservas; let i = index">
+                      <th scope="row">{{ i + 1 }}</th>
+                      <td>{{ item.nombre_propiedad | titlecase }}</td>
+                      <td>
+                        {{ item.fechas_reservadas.start | date }} -
+                        {{ item.fechas_reservadas.end | date }}
+                      </td>
+                      <td>{{ item.precio | currency }}</td>
+                      <td>
+                        <button
+                          mat-raised-button
+                          type="button"
+                          (click)="confirmarReserva(item.id_reserva)"
+                        >
+                          <span
+                            class="material-icons md-24 d-block"
+                            style="color: #00a699; font-size: 25px !important"
+                          >
+                            check
+                          </span>
+                        </button>
+                        <button
+                          mat-raised-button
+                          type="button"
+                          (click)="rechazarReserva(item.id_reserva)"
+                        >
+                          <span
+                            class="material-icons md-24 d-block"
+                            style="color: #00a699; font-size: 25px !important"
+                          >
+                            clear
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr class="mb-5 separacion-filtro-color" />
+            </div>
+          </div>
+        </mat-tab>
+        <!-- Reservas recibidas -->
+
+        <!-- Reservas enviadas -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div>
+              <span
+                class="material-icons md-24 d-block"
+                style="color: #00a699; font-size: 25px !important"
+              >
+                call_made
+              </span>
+              Reservas enviadas
+            </div>
+          </ng-template>
+          <div class="container">
+            <div class="row mt-5">
+              <div class="col-12">
+                <p class="p-filtro p-0 mt-2 text-center">
+                  Reservaciones enviadas
+                  <span
+                    matTooltip="Si reservó una propiedad, en esta sección se indicará si fue o no aceptada"
+                    matTooltipPosition="right"
+                    class="ml-2 material-icons"
+                    >help_outline</span
+                  >
+                </p>
+
+                <hr class="mb-5 separacion-filtro-color" />
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

@@ -42,7 +42,8 @@
               "@firebase/util",
               "@firebase/component",
               "@firebase/remote-config",
-              "@firebase/auth"
+              "@firebase/auth",
+              "scriptjs"
             ]
           },
           "configurations": {

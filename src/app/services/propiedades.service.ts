@@ -35,6 +35,13 @@ export class PropiedadesService {
     // Obtengo la colección para posteriormente agregar al nuevo usuario a la base de datos de firebase
     this.propiedadesCollection = this.firestore.collection('propiedades');
   }
+  // La siguiente función se encargará de verificar si existe una conexión a firebase. Si existe, no establecerá una nueva. De esta manera evitamos abrir múltiples conexiones sin usar.
+  verificarConexionFirebase() {
+    if (!this.propiedadesCollection) {
+      // console.log('Se ha creado la conexión a firebase');
+      this.conexiónFirebase();
+    }
+  }
 
   //! Este funciona
   cargarImagenesFirebase(imagenes) {
@@ -98,7 +105,7 @@ export class PropiedadesService {
   }
 
   publicarPropiedad(propiedad, files) {
-    this.conexiónFirebase();
+    this.verificarConexionFirebase();
     // Compruebo que efectivamente se hayan enviados fotos, de lo contrario no haré ninguna petición a firebase
     if (files.length != 0) {
       // Cuando se hayan terminado de cargar las imágenes publicaré la propiedad añadiéndole el array de direcciones de imágenes
@@ -131,7 +138,7 @@ export class PropiedadesService {
 
   // Con el siguiente método obtendré las diferentes propiedades alojadas en la base de datos.
   getPropiedad() {
-    this.conexiónFirebase();
+    this.verificarConexionFirebase();
     // this.propiedades = this.firestore
     //   .collection('propiedades', (ref) => ref.where('usuario', '==', `${usuarioLogueado}`))
     //   .valueChanges();

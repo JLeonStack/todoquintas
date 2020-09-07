@@ -26,6 +26,7 @@
     "@angular/router": "~10.0.3",
     "@angular/service-worker": "~10.0.3",
     "@auth0/auth0-spa-js": "^1.11.0",
+    "@types/scriptjs": "0.0.2",
     "animate.css": "^4.1.0",
     "esri-leaflet": "^2.5.0",
     "express": "^4.17.1",
@@ -37,6 +38,7 @@
     "ngx-dropzone": "^2.2.2",
     "rxjs": "~6.5.5",
     "save": "^2.4.0",
+    "scriptjs": "^2.5.9",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

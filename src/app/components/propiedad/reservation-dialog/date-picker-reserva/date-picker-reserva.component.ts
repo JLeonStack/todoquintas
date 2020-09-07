@@ -234,6 +234,7 @@ export class DatePickerReservaComponent
   //   '2020-09-08T03:00:00.000Z',
   // ];
 
+  // Estas son las fechas que ya están reservadas.
   datesReserved = this.array_fechas_json;
 
   events: string[] = [];

@@ -79,7 +79,7 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
       item['user_picture'] = info_usuario[0].picture;
     }
 
-    console.log(this.propiedades);
+    // console.log(this.propiedades);
   }
 
   numSequence(n: number): Array<number> {
