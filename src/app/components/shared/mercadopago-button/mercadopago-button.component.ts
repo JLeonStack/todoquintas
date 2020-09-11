@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CheckoutService } from '../../../services/checkout.service';
 
 import { get } from 'scriptjs';
@@ -17,10 +11,14 @@ import { get } from 'scriptjs';
 export class MercadoPagoButtonComponent implements OnInit {
   init_point: any;
 
+  @Input() informacion_propiedad;
+
+  procesando = false;
+
   preference = {
     // Lugares a donde se redireccionará el pago si es correcto
     back_urls: {
-      success: 'http://localhost:4200/usuario',
+      success: 'http://localhost:4200/process-payment',
       failure: 'http://localhost:4200/',
       pending: 'http://localhost:4200/',
     },
@@ -52,6 +50,13 @@ export class MercadoPagoButtonComponent implements OnInit {
   constructor(private checkoutService: CheckoutService) {}
 
   ngOnInit(): void {
+    if (this.informacion_propiedad) {
+      // Almaceno distinta información en la preferencia correspondiente a la propiedad.
+      this.preference.items[0].unit_price = this.informacion_propiedad.precio;
+      this.preference.items[0].title = this.informacion_propiedad.nombre_propiedad;
+      this.preference.items[0].id = this.informacion_propiedad.id_reserva;
+      this.preference.items[0].description = `Id Propiedad: ${this.informacion_propiedad.propiedad_id}\n Nombre Usuario: ${this.informacion_propiedad.info_huesped.nombre_huesped}\n User_id: ${this.informacion_propiedad.usuario}`;
+    }
     get(
       'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js',
       () => {
@@ -62,12 +67,19 @@ export class MercadoPagoButtonComponent implements OnInit {
 
   // Función que se ejecutará una vez que se haga click en el botón
   onBuy() {
+    this.procesando = true;
     this.checkoutService
       .goCheckOut(this.preference)
       .then((result) => {
+        // Almaceno temporamente el id de la reserva que estoy intentando pagar, para posteriormente poder actualizar su documento en firebase y agregar información respecto a si la reserva ha sido pagada o no.
+        localStorage.setItem('id-r', this.informacion_propiedad.id_reserva);
+
         // Read result of the Cloud Function.
+
         this.init_point = result.data.result;
-        console.log(this.init_point);
+        // console.log(this.init_point);
+
+        // Redirreciono al link de mercadopago para abonar el pago.
         window.location.href = this.init_point;
       })
       .catch((error) => {

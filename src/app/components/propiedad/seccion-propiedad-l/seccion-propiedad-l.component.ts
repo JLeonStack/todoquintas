@@ -61,6 +61,10 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
           // Obtengo las características de la propiedad
           this.caracteristicas_propiedad = data.data();
           console.log(data.data());
+          localStorage.setItem(
+            '_u_ky_p',
+            this.caracteristicas_propiedad.user_p
+          );
 
           // Almacenaré en la propiedad, las imágenes provenientes de la base de datos.
           this.imagenes_fireb = this.caracteristicas_propiedad.img_f;
@@ -90,6 +94,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.propiedadSubscription.unsubscribe();
     this.user_infoSubscription.unsubscribe();
+    localStorage.removeItem('_u_ky_p');
   }
 
   iniciarCarousel() {

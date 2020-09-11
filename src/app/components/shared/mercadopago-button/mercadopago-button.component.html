@@ -1,10 +1,21 @@
 <form action="/procesar-pago" method="POST">
   <button
+  *ngIf="!procesando"
     type="button"
     (click)="onBuy()"
     class="mercadopago-button"
     id="mercadopago-button"
   >
     Reservar
+  </button>
+  <button
+  *ngIf="procesando"
+
+    type="button"
+    (click)="onBuy()"
+    class="mercadopago-button"
+    id="mercadopago-button"
+  >
+    Procesando<span class="lds-ellipsis"><div></div><div></div><div></div><div></div></span>
   </button>
 </form>

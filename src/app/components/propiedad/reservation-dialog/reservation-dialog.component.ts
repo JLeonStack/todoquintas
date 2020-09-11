@@ -54,15 +54,16 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     public dialog: MatDialog,
     private _reservacionService: ReservacionService,
     private router: Router
-  ) {
-    // Creo el formulario con los campos.
-    this.crearFormularioReservacion();
-  }
+  ) {}
 
   // Escucho los cambios que se produzcan en el input intervalo_maxmin_fechas
   ngOnChanges(changes: SimpleChanges) {
     // Si el input contiene informarmación, entonces, proceré a almacenar en él, el intervalo de fechas que estará disponible para ser reservado.
     if (this.intervalo_maxmin_fechas) {
+      localStorage.setItem(
+        'n_p',
+        this.intervalo_maxmin_fechas.nombre_propiedad
+      );
       console.log(
         'Reservation:',
         this.intervalo_maxmin_fechas.fechas_disponibles
@@ -73,6 +74,9 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    // Creo el formulario con los campos.
+    this.crearFormularioReservacion();
+
     // Obtengo el id de la propiedad a través de la información que proviene de la url para colocarla en el formgroup de reservación.
     this._activatedRoute.params.subscribe((params) => {
       this.reservar_data.get('propiedad_id').setValue(params['id']);
@@ -120,10 +124,13 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       personas_hospedar: [null, Validators.required],
       fechas_reservadas: [null, Validators.required],
       usuario: [localStorage.getItem('_u_ky')],
+      usuario_p: [localStorage.getItem('_u_ky_p')],
       propiedad_id: [''],
+      nombre_propiedad: [localStorage.getItem('n_p')],
       precio: [null, Validators.required],
       confirmada: [0, Validators.required],
     });
+    console.log(this.reservar_data);
   }
 
   // La siguiente función se encargará de recibir el Output del calendario, el rango de fechas seleccionado en el mismo.

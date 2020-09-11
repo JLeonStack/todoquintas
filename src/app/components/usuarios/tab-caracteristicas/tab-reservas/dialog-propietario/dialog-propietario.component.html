@@ -1,0 +1,36 @@
+<div mat-dialog-title class="container">
+  <div class="row align-items-center justify-content-lg-between">
+    <div class="col-12 col-md-4 text-center">
+      <span class="img-p-sp mr-2"
+        ><img
+          class="img-prop shadow"
+          [src]="user_info.picture"
+          [title]="user_info.name"
+      /></span>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <p class="m-0 p-0 p-filtro text-center">{{ user_info.name }}</p>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <p
+        class="m-0 p-0 p-filtro text-center"
+        style="font-size: 14px !important"
+      >
+        {{ user_info.email }}
+      </p>
+    </div>
+  </div>
+</div>
+<hr class="mb-5 separacion-filtro-color" />
+
+<mat-dialog-content class="mat-typography">
+  <p>
+    The metadata for a service class provides the information Angular needs to
+    make it available to components through Dependency Injection (DI).
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close class="c_color">Cerrar</button>
+</mat-dialog-actions>

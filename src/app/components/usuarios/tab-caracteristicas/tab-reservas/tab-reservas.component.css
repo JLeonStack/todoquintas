@@ -20,3 +20,25 @@
   /* border: 1px solid #02a69a; */
   outline: none !important;
 }
+
+::ng-deep.img-prop {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep.img-p-sp {
+  background: none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+:host ::ng-deep.mat-flat-button {
+  /* border: 1px solid #02a69a; */
+  outline: none !important;
+}
+
+:host ::ng-deep.mat-stroked-button {
+  /* border: 1px solid #02a69a; */
+  outline: none !important;
+}

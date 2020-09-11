@@ -14,6 +14,7 @@ import { ListingHomesComponent } from './listing-homes/listing-homes.component';
 import { PropiedadPageComponent } from './propiedad/propiedad-page.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ProcessPaymentComponent } from './process-payment/process-payment.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     ListingHomesComponent,
     PropiedadPageComponent,
     UsuariosComponent,
+    ProcessPaymentComponent,
   ],
   imports: [
     CommonModule,

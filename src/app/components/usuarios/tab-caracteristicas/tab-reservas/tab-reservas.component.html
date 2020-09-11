@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 mt-3">
-      <mat-tab-group mat-align-tabs="center" selectedIndex="0">
+      <mat-tab-group mat-align-tabs="center" selectedIndex="1">
         <mat-tab>
           <ng-template mat-tab-label>
             <div>
@@ -31,28 +31,66 @@
               </div>
             </div>
             <div class="row">
+              <form autocomplete="off" [formGroup]="propiedad_seleccionada">
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>Propiedad</mat-label>
+                      <mat-select formControlName="id_propiedad">
+                        <mat-option
+                          *ngFor="let item of array_id_propiedades"
+                          [value]="item.id_propiedad"
+                          >{{ item.nombre }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>Estado</mat-label>
+                      <mat-select formControlName="confirmada">
+                        <mat-option value="0">Sin Confirmar</mat-option>
+                        <mat-option value="1">Confirmadas</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row">
               <div class="table-responsive">
                 <table class="table">
                   <thead class="text-center">
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Propiedad</th>
                       <th scope="col">Fechas</th>
-                      <th scope="col">Precio</th>
+                      <th scope="col">Valor por reservación</th>
+                      <th scope="col">Huésped</th>
                       <th scope="col">Acción</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center" *ngIf="!reservas"></tbody>
+
                   <tbody class="text-center" *ngIf="reservas">
+                    <tr *ngIf="reserva_bandera">
+                      <td class="text-center">No existen reservas</td>
+                    </tr>
                     <tr *ngFor="let item of reservas; let i = index">
                       <th scope="row">{{ i + 1 }}</th>
-                      <td>{{ item.nombre_propiedad | titlecase }}</td>
                       <td>
                         {{ item.fechas_reservadas.start | date }} -
                         {{ item.fechas_reservadas.end | date }}
                       </td>
                       <td>{{ item.precio | currency }}</td>
                       <td>
+                        <span class="img-p-sp mr-2"
+                          ><img
+                            class="img-prop shadow"
+                            [src]="item.info_huesped.picture"
+                            [title]="item.info_huesped.nombre_huesped"
+                        /></span>
+                        {{ item.info_huesped.nombre_huesped.split(" ")[0] }}
+                      </td>
+                      <td *ngIf="item.confirmada == 0">
                         <button
                           mat-raised-button
                           type="button"
@@ -116,6 +154,88 @@
 
                 <hr class="mb-5 separacion-filtro-color" />
               </div>
+            </div>
+            <div class="row">
+              <form autocomplete="off" [formGroup]="reserva_seleccionada">
+                <div class="row">
+                  <div class="col">
+                    <mat-form-field>
+                      <mat-label>Estado</mat-label>
+                      <mat-select formControlName="confirmada">
+                        <mat-option value="0">Sin Confirmar</mat-option>
+                        <mat-option value="1">Confirmadas</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-center">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Propiedad</th>
+                      <th scope="col">Fechas</th>
+                      <th scope="col">Valor por reservación</th>
+                      <th scope="col">Confirmada</th>
+                      <th scope="col">Pagar</th>
+                    </tr>
+                  </thead>
+
+                  <tbody class="text-center" *ngIf="reservas_enviadas">
+                    <tr *ngIf="reserva_bandera_env">
+                      <td class="text-center">No existen reservas</td>
+                    </tr>
+                    <tr *ngFor="let item of reservas_enviadas; let i = index">
+                      <th scope="row">{{ i + 1 }}</th>
+                      <td>
+                        <a [routerLink]="['/propiedad', item.propiedad_id]">{{
+                          item.nombre_propiedad | titlecase
+                        }}</a>
+                      </td>
+                      <td>
+                        {{ item.fechas_reservadas.start | date }} -
+                        {{ item.fechas_reservadas.end | date }}
+                      </td>
+                      <td>{{ item.precio | currency }}</td>
+
+                      <td *ngIf="item.confirmada == 0">No</td>
+                      <td *ngIf="item.confirmada == 1">Si</td>
+                      <td>
+                        <button
+                          *ngIf="item.confirmada == 0"
+                          mat-flat-button
+                          mat-dialog-close
+                          style="background: #009ee3 !important"
+                          disabled
+                        >
+                          Reservar
+                        </button>
+
+                        <app-mercadopago-button
+                          *ngIf="item.confirmada == 1"
+                          [informacion_propiedad]="item"
+                        ></app-mercadopago-button>
+                      </td>
+
+                      <td>
+                        <button
+                          mat-stroked-button
+                          style="width: 100% !important"
+                          (click)="openDialog(item.usuario_p)"
+                          type="button"
+                        >
+                          Propietario
+                        </button>
+                      </td>
+                      <td *ngIf="item.info_mp">info-mp</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr class="mb-5 separacion-filtro-color" />
             </div>
           </div>
         </mat-tab>

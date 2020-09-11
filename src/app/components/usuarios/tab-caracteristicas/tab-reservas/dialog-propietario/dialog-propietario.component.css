@@ -1,0 +1,21 @@
+::ng-deep.img-prop {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep.img-p-sp {
+  background: none !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+/* PARRAFO FILTRO */
+.separacion-filtro-color {
+  background-color: #02a69a;
+}
+/* PARRAFO FILTRO */
+.p-filtro {
+  font-size: 21px;
+  font-weight: 300;
+  color: #02a69a;
+}
