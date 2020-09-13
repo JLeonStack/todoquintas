@@ -128,7 +128,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // La siguiente función se encargará de crear el formulario con cada uno de los controles.
   crearFormulario() {
     this.prop_data = this._formBuilder.group({
-      propiedad: ['quinta', Validators.required],
+      tipo_propiedad: ['quinta', Validators.required],
       nombre_propiedad: ['', Validators.required],
       descripcion: ['', Validators.required],
       metros_cuadrado: [null, Validators.required],
@@ -153,7 +153,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
       provincia: ['', Validators.required],
       ciudad: ['', Validators.required],
-      dirrecion: ['', Validators.required],
+      direccion: ['', Validators.required],
       coordenadas: [
         [
           {

@@ -5,22 +5,16 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 
+// Modelo de datos
 import { PropiedadModelGet } from '../models/propiedad.model';
+import { ReservarPropiedadModel } from '../models/reservar.model';
+import { usuarioModel } from '../models/usuario.model';
 
-import * as firebase from 'firebase';
+//Servicios
+import { UsuariosService } from '../services/usuarios.service';
 
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-interface Reserva {
-  confirmada: number;
-  fechas_reservadas: { start: string; end: string };
-  id_reserva: string;
-  personas_hospedar: number;
-  precio: number;
-  propiedad_id: string;
-  usuario: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +27,14 @@ export class ReservacionService {
   reservaDoc;
   reservas: Observable<any>;
   propiedades: Observable<any>;
-  usuarios;
 
-  constructor(public firestore: AngularFirestore) {}
+  // La siguiente
+  usuariosCollectionRef: AngularFirestoreCollection;
+
+  constructor(
+    private firestore: AngularFirestore,
+    private _usuariosService: UsuariosService
+  ) {}
 
   conexiónFirebase() {
     // Obtengo la colección para posteriormente agregar al nuevo usuario a la base de datos de firebase
@@ -52,30 +51,39 @@ export class ReservacionService {
 
   /* La siguiente función se encarga de agregar la reservación en firebase. 
   ! En este caso adicionaré información del usuario al documento para posteriormente utilizarla a la hora de mostrar las reservaciones y evitar un doble llamado a firebase. */
-  reservarPropiedad(reserva) {
+  reservarPropiedad(reserva: ReservarPropiedadModel) {
     // Si no existe la conexión la creo
     this.verificarConexionFirebase();
-    return this.userInfo(reserva.usuario).then((data: any) => {
-      console.log(data.data());
-      reserva.info_huesped = {};
-      reserva.info_huesped.nombre_huesped = data.data().name;
-      reserva.info_huesped.picture = data.data().picture;
-      reserva.info_huesped.email = data.data().email;
 
-      return this.reservasCollection.add({ ...reserva });
-    });
-  }
-
-  // Retornaré una promesa, de tal forma que yo pueda retornar información hacia los componentes una vez que se ha producido una operación asincrónica.
-  userInfo(id_user) {
+    // Creo y retornaré una premisa para veriicar si se ha cargado satisfactoriamente la reserva
     return new Promise((resolve, reject) => {
-      this.recuperarUserInformation(id_user).subscribe((data) => {
-        // Una vez que recibo la información, llamo al resolve, indicando que ha completado esta operación de buscar la información del usuario, para posteriormente, capturar esta información con un then()
-        resolve(data);
-      });
+      // A continuación llamo al servicio "Usuarios" para pedir información del huesped que se encuentra reservando una propiedad y poder cargar esta Info en la reserva.
+      this._usuariosService
+        .retrieveUserInfo(reserva.huesped_id)
+        .then((data: usuarioModel) => {
+          console.log(data);
+
+          // Agrego la información del huesped al objeto reserva.
+          reserva.huesped_info = {
+            nombre_huesped: data.name,
+            email: data.email,
+            picture: data.picture,
+          };
+
+          // Agrego la reserva a la colección de reservas.
+          this.reservasCollection.add({ ...reserva }).then((data) => {
+            // Retorno la data que devuelva el hecho de agregar la reserva a la colección.
+            resolve(data);
+          });
+        })
+        .catch((err) => {
+          // Capturo error, y lo retorno al componente de reserva.
+          reject(err);
+        });
     });
   }
 
+  // La siguiente función creará un listener a firestore para estar pendiente en los cambios de
   getReservas(id_propiedad) {
     // Si no existe la conexión la creo
     this.verificarConexionFirebase();
@@ -89,7 +97,6 @@ export class ReservacionService {
         map((actions) =>
           actions.map((a) => {
             const data: any = a.payload.doc.data();
-            const id_prop = a.payload.doc.id;
             let reserva_firebase = {
               ...data,
             };
@@ -122,13 +129,6 @@ export class ReservacionService {
           })
         )
       ));
-  }
-
-  recuperarUserInformation(id_user) {
-    return (this.usuarios = this.firestore
-      .collection('usuarios')
-      .doc(id_user)
-      .get());
   }
 
   // La siguiente función se encargará de devolver las reservas que ha hecho el usuario, y que el propietario debe confirmar.

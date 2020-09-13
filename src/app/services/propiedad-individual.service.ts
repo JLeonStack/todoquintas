@@ -35,7 +35,7 @@ export class PropiedadIndividualService {
         .doc(propiedad_id)
         .get()
         .forEach((data) => {
-          resolve(data.data());
+          resolve({ ...data.data(), propiedad_id: data.id });
         });
     });
   }

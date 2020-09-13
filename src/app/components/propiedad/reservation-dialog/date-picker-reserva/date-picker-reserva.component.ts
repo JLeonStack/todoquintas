@@ -9,7 +9,12 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+
+// Librerías para administrar los formularios
 import { FormControl, FormGroup } from '@angular/forms';
+
+/*//! Configuración calendario*/
+
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 
 // Con esta librería puedo capturar eventos del data picker
@@ -18,17 +23,23 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 // Importo el header que tendrá le datepicker
 import { HeaderDateRangePicker } from './header-date-picker-range/header-date-picker-range.component';
 
+// Seteo el calendario con la región de Argentina.
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+/*//! Configuración calendario*/
+
 //Servicios
 //Importo el servicio que controlará el limpiado del calendario
 import { LimpiarFechasService } from '../../../../services/limpiar-fechas.service';
 import { ReservacionService } from '../../../../services/reservacion.service';
 
-import { ActivatedRoute, Router } from '@angular/router';
+// Models
+import { PropiedadIndividualGetModel } from '../../../../models/propiedad.model';
+//
+import { ActivatedRoute } from '@angular/router';
 
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
-
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
   selector: 'app-date-picker-reserva',
@@ -40,30 +51,31 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 export class DatePickerReservaComponent
   implements OnInit, OnDestroy, OnChanges {
   // En el siguiente input, yo recibo las fechas min-max capaces de ser seleccionadas en el datepicker.
-  @Input() nuevo_max_min_firebase;
+  @Input() propiedad: PropiedadIndividualGetModel;
 
+  // La siguiente propiedad será un eventEmitter que me pemitirá enviar al componente padre el rango de fechas que se acaban de seleccionar.
   @Output() intervalo_seleccinado: EventEmitter<Object>;
 
   // A continuación almaceno el header del datepicker para posteriormente pasarlo como propiedad al mat-date-range-picker
-  headerDateRangePicker = HeaderDateRangePicker;
+  public headerDateRangePicker = HeaderDateRangePicker;
 
   // Establezco dos propiedades que serán del tipo Date, encargadas de gestionar las fechas máximas y mínimas del datepicker
-  minDate: Date;
-  maxDate: Date;
+  public minDate: Date;
+  public maxDate: Date;
 
   currentYear = new Date().getFullYear();
   test: number;
 
-  fechaSubscripcion: Subscription;
+  private fechaSubscripcion: Subscription;
 
   // El siguiente es el array que almacenará las fechas en formato yy-mm-dd
-  array_fechas = [];
+  public array_fechas = [];
 
   // El siguiente es el array con las fechas en formato JSON.
-  array_fechas_json = [];
+  public array_fechas_json = [];
 
   // Esta es el FromGroup encargado de capturar los valores del input daterangepicker.
-  range = new FormGroup({
+  public range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
@@ -77,18 +89,62 @@ export class DatePickerReservaComponent
     this.intervalo_seleccinado = new EventEmitter();
   }
 
-  // Cuando detecte que se ha pasado información al componente datepicker desde reservation-dialog, procederé a establecer las fechas min-max del datepicker.
+  ngOnInit(): void {
+    // Me subscribo al evento que me permitirá limpiar las fechas del calendario
+    this.fechaSubscripcion = this._limpiarFechaService.LimpiezaFecha$.subscribe(
+      () => {
+        // Cuando se detecte que se ha emitido un evento de borrar fechas se ejecutará el siguiente conjunto de instrucciones
+        this.range.setValue({ start: null, end: null }); // Vacío la selección de fechas en los inputs
+
+        // Establezco nuevamente las fechas mínimas y máximas que se puedan seleccionar
+        this.minDate = new Date();
+
+        let nuevo_max_min = this.propiedad.propiedad.fechas_disponibles;
+
+        // Establecezco la fecha máxima capaz de ser seleccionada.
+        this.maxDate = new Date(
+          nuevo_max_min.fechas[nuevo_max_min.fechas.length - 1].end.seconds *
+            1000
+        );
+      }
+    );
+
+    // Me subscribo a los cambios que se vayan a producir en el datepicker con el objetivo de transmitir al componente padre la inforormación y almacenarla en el FormGroup
+    this.range.valueChanges.subscribe((data) => {
+      console.log(data);
+      this.intervalo_seleccinado.emit(data);
+    });
+
+    // Obtengo el id de la propiedad a través de la información que proviene de la url para colocarla en el formgroup de reservación.
+
+    this._reservacionService
+      .getReservas(this.propiedad.propiedad_id)
+      .subscribe((data) => {
+        console.log('Data de firebase: Datepicker ', data);
+        for (let i = 0; i < data.length; i++) {
+          this.calcularRangoEntreFechas(data[i]);
+        }
+        console.log(this.array_fechas_json);
+      });
+  }
+
+  // Cuando detecte que se ha pasado información al componente datepicker desde reservation-dialog, procederé a establecer las fechas min-max iniciales del datepicker.
   ngOnChanges(changes: SimpleChanges) {
+    this.configurarFechasInitMinMax();
+  }
+
+  configurarFechasInitMinMax() {
     // Compruebo si existe algún dato en la propiedad del input
-    if (this.nuevo_max_min_firebase) {
+    if (this.propiedad) {
+      let nuevo_max_min = this.propiedad.propiedad.fechas_disponibles;
       // Si es así, quiere decir que he recibido información actualizada en el input
 
-      console.log('DatePicker Fechas:', this.nuevo_max_min_firebase.fechas);
+      console.log('DatePicker Fechas:', nuevo_max_min.fechas);
 
-      // Creo una variable tempeoral, la cual servirá para establecer el minDate
+      // Creo una variable temporal, la cual servirá para establecer el minDate
       /* Para esto multiplicaré la información proveniente del input, que está en segunos, a milisegundos, para establecer la fecha correcta a setear.*/
       let nuevoMinDate_firebase = new Date(
-        this.nuevo_max_min_firebase.fechas[0].start.seconds * 1000
+        nuevo_max_min.fechas[0].start.seconds * 1000
       );
 
       // Propiedad temporal donde almacenaré la fecha actual.
@@ -105,58 +161,10 @@ export class DatePickerReservaComponent
 
       // A continuación lo que haré será configurar la fecha máxima. Para esto, le pasaré la úiltima fecha que se encuentre en el array de fechas.
       this.maxDate = new Date(
-        this.nuevo_max_min_firebase.fechas[
-          this.nuevo_max_min_firebase.fechas.length - 1
-        ].end.seconds * 1000
+        nuevo_max_min.fechas[nuevo_max_min.fechas.length - 1].end.seconds * 1000
       );
-
-      // console.log(this.maxDate);
     }
   }
-
-  ngOnInit(): void {
-    // console.log(this.range.value.start);
-    if (this.range.value.start != null) {
-      // Establezco las fechas iniciales que pueden ser seleccionadas en el datapicker.
-      this.minDate = new Date(this.range.value.start);
-      this.maxDate = new Date(this.currentYear + 1, 4, 0);
-    }
-
-    // Me subscribo al evento que me permitirá limpiar las fechas del calendario
-    this.fechaSubscripcion = this._limpiarFechaService.LimpiezaFecha$.subscribe(
-      () => {
-        // Cuando se detecte que se ha emitido un evento de borrar fechas se ejecutará el siguiente conjunto de instrucciones
-        this.range.setValue({ start: null, end: null }); // Vacío la selección de fechas en los inputs
-
-        // Establezco nuevamente las fechas mínimas y máximas que se puedan seleccionar
-        this.minDate = new Date();
-
-        // Establecezco la fecha máxima capaz de ser seleccionada.
-        this.maxDate = new Date(
-          this.nuevo_max_min_firebase.fechas[
-            this.nuevo_max_min_firebase.fechas.length - 1
-          ].end.seconds * 1000
-        );
-      }
-    );
-
-    // Me subscribo a los cambios que se vayan a producir en el datepicker con el objetivo de transmitir al componente padre la inforormación y almacenarla en el FormGroup
-    this.range.valueChanges.subscribe((data) => {
-      this.intervalo_seleccinado.emit(data);
-    });
-
-    // Obtengo el id de la propiedad a través de la información que proviene de la url para colocarla en el formgroup de reservación.
-    this._activatedRoute.params.subscribe((params) => {
-      this._reservacionService.getReservas(params['id']).subscribe((data) => {
-        console.log('Data de firebase: Datepicker ', data);
-        for (let i = 0; i < data.length; i++) {
-          this.calcularRangoEntreFechas(data[i]);
-        }
-        console.log(this.array_fechas_json);
-      });
-    });
-  }
-
   // La siguiente función se encargará de tomar el intervalo de fechas que ha seleccionado el usuario, y desestructurarlo en un array con todas las fechas que componen este intervalo. Es decir:
   /* Si el usuario selecciona: 1-09-2020 hasta 20-09-2020, el array estará comprendido por cada una de las fechas entre ese intervalo, incluyendo los extremos. */
   calcularRangoEntreFechas(fechas_reservadas) {

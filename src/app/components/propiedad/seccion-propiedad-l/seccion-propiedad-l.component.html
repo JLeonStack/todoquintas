@@ -78,7 +78,7 @@
             <div class="item">
               <p class="d-flex align-items-center">
                 <span class="material-icons bac-c-m mr-2"> house </span>
-                {{ detalles_propiedad.propiedad | titlecase }}
+                {{ detalles_propiedad.tipo_propiedad | titlecase }}
               </p>
             </div>
             <div class="item">
@@ -428,7 +428,7 @@
           </div>
         </div>
         <app-reservation-dialog
-          [propiedad]="detalles_propiedad"
+          [propiedad]="propiedad"
         ></app-reservation-dialog>
       </div>
     </div>

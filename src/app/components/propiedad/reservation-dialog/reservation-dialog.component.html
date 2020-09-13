@@ -21,7 +21,8 @@
             de ingreso / egreso
           </h5>
           <app-date-picker-reserva
-            [nuevo_max_min_firebase]="intervalo_maxmin_fechas"
+            *ngIf="propiedad"
+            [propiedad]="propiedad"
             (intervalo_seleccinado)="recogerFechas($event)"
           ></app-date-picker-reserva>
           <button

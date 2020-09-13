@@ -5,7 +5,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { PropiedadIndividualService } from '../../../services/propiedad-individual.service';
 
 // Models
-import { PropiedadModel } from '../../../models/propiedad.model';
+import { PropiedadIndividualGetModel } from '../../../models/propiedad.model';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   navbar_desktop: boolean;
   navbar_mobile: boolean;
 
-  propiedad: PropiedadModel;
+  propiedad: PropiedadIndividualGetModel;
   user_info;
 
   // BreakpointObserver se encargará de observar el tamaño de la pantalla en todo momento y evaluar los cambios que se producen. Esto me permitirá poder mostrar/ocultar elementos en base al tamaño de pantalla.
@@ -54,12 +54,10 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
       // Ejecuto la función getPropiedad del servicio "propiedad individual"
       this._propiedadIndividualService
         .getPropiedad(params['id'])
-        .then((data: PropiedadModel) => {
-          console.log('recibiendo data', data);
+        .then((data: PropiedadIndividualGetModel) => {
+          // console.log('recibiendo data', data);
           // Asigno la propiedad devuelta por firebase a la variable propiedad.
           this.propiedad = data;
-
-          localStorage.setItem('_u_ky_p', this.propiedad['prop_info'].sub);
 
           // Almacenaré en la propiedad, las imágenes provenientes de la base de datos.
           this.imagenes_fireb = this.propiedad.img_f;

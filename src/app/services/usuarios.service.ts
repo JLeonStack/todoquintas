@@ -20,13 +20,25 @@ export class UsuariosService {
 
   public usuarios: Observable<any>;
 
-  constructor(private firestore: AngularFirestore) {
+  constructor(private firestore: AngularFirestore) {}
+
+  conexiónFirebase() {
     // A continuación creo una referencia a la colección usuarios
     this.usuariosCollectionRef = this.firestore.collection('usuarios');
   }
 
+  // La siguiente función se encargará de verificar si existe una conexión a firebase. Si existe, no establecerá una nueva. De esta manera evitamos abrir múltiples conexiones sin usar.
+  verificarConexionFirebase() {
+    if (!this.usuariosCollectionRef) {
+      // console.log('Se ha creado la conexión a firebase');
+      this.conexiónFirebase();
+    }
+  }
   // La siguiente función se encargará de evaluar si el usuario que se acaba de loguear con Auth0, existe en firebase.
   checkUserExists(usuario: usuarioModel): void {
+    // Procedemos a verificar si existe una conexión, si no la hay, crearemos una
+    this.verificarConexionFirebase();
+
     // Obtengo el id auth0;
     let obtener_id_auth = usuario.sub.split('|');
     let id_auth = obtener_id_auth[1];
@@ -76,14 +88,11 @@ export class UsuariosService {
     localStorage.setItem('_u_ky', user_id);
   }
 
-  // La siguiente función recupera la información de un usuario en base a su id.
-  recuperarUserInformation(id_user: string) {
-    return (this.usuarios = this.firestore
-      .collection('usuarios', (ref) => ref.where('sub', '==', `${id_user}`))
-      .valueChanges());
-  }
-
   retrieveUserInfo(id_user: string) {
+    // Procedemos a verificar si existe una conexión, si no la hay, crearemos una
+    this.verificarConexionFirebase();
+
+    // Retornamos una premisa con la información del usuario seleccionado
     return new Promise((resolve, reject) => {
       this.usuariosCollectionRef.ref
         .where('sub', '==', `${id_user}`)
