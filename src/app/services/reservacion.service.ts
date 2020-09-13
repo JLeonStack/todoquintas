@@ -5,7 +5,7 @@ import {
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 
-import { PropiedadModel, PropiedadModelGet } from '../models/propiedad.model';
+import { PropiedadModelGet } from '../models/propiedad.model';
 
 import * as firebase from 'firebase';
 
@@ -50,6 +50,8 @@ export class ReservacionService {
     }
   }
 
+  /* La siguiente función se encarga de agregar la reservación en firebase. 
+  ! En este caso adicionaré información del usuario al documento para posteriormente utilizarla a la hora de mostrar las reservaciones y evitar un doble llamado a firebase. */
   reservarPropiedad(reserva) {
     // Si no existe la conexión la creo
     this.verificarConexionFirebase();
@@ -58,6 +60,8 @@ export class ReservacionService {
       reserva.info_huesped = {};
       reserva.info_huesped.nombre_huesped = data.data().name;
       reserva.info_huesped.picture = data.data().picture;
+      reserva.info_huesped.email = data.data().email;
+
       return this.reservasCollection.add({ ...reserva });
     });
   }

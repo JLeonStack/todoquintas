@@ -46,7 +46,7 @@ export class ProcessPaymentComponent implements OnInit {
                 .then((data) => {
                   console.log('Se ha guardado la información de mercadopago');
                   localStorage.removeItem('id-r');
-                  this._router.navigate(['/usuario']);
+                  // this._router.navigate(['/usuario']);
                 });
               console.log(data);
             }

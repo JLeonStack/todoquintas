@@ -9,8 +9,6 @@ import { PropiedadModel } from '../../../models/propiedad.model';
 
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription } from 'rxjs';
-
 declare var $: any;
 declare var L: any;
 
@@ -24,10 +22,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   navbar_desktop: boolean;
   navbar_mobile: boolean;
 
-  propiedadSubscription: Subscription;
-  user_infoSubscription: Subscription;
-
-  caracteristicas_propiedad: PropiedadModel;
+  propiedad: PropiedadModel;
   user_info;
 
   // BreakpointObserver se encargará de observar el tamaño de la pantalla en todo momento y evaluar los cambios que se producen. Esto me permitirá poder mostrar/ocultar elementos en base al tamaño de pantalla.
@@ -36,6 +31,7 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
     private _propiedadIndividualService: PropiedadIndividualService,
     private _activatedRoute: ActivatedRoute
   ) {
+    // El siguiente observador se encargará de llevar un control del tamaño que contiene la pantalla para poder mostrar o ocultar las diferentes barras de navegación
     this._observer.observe('(min-width: 768px)').subscribe((result) => {
       if (result.matches) {
         this.navbar_desktop = result.matches;
@@ -48,36 +44,27 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   }
 
   // La siguiente propiedad almacenará las imágenes que provengan de la base de datos.
-  imagenes_fireb = [];
-  detalles_propiedad;
+  public imagenes_fireb = [];
+  public detalles_propiedad;
 
   ngOnInit(): void {
-    // Me subscribo a los parámetros que provengan de la url.
+    // Procederé a capturar los parámetros que se vayan a enviar, que será especialmente, el id de la propiedad que deseo visualizar.
+    /*  Una vez capturado el id de la propiedad, procederé a realizar una petición fetch a la API para que me traiga toda la información relacionada a esa propiedad.  */
     this._activatedRoute.params.subscribe((params) => {
-      // Realizo una petición a la base de datos, enviándo el id de la propiedad para recibir toda la información asociada a la misma.
-      this.propiedadSubscription = this._propiedadIndividualService
+      // Ejecuto la función getPropiedad del servicio "propiedad individual"
+      this._propiedadIndividualService
         .getPropiedad(params['id'])
-        .subscribe((data: any) => {
-          // Obtengo las características de la propiedad
-          this.caracteristicas_propiedad = data.data();
-          console.log(data.data());
-          localStorage.setItem(
-            '_u_ky_p',
-            this.caracteristicas_propiedad.user_p
-          );
+        .then((data: PropiedadModel) => {
+          console.log('recibiendo data', data);
+          // Asigno la propiedad devuelta por firebase a la variable propiedad.
+          this.propiedad = data;
+
+          localStorage.setItem('_u_ky_p', this.propiedad['prop_info'].sub);
 
           // Almacenaré en la propiedad, las imágenes provenientes de la base de datos.
-          this.imagenes_fireb = this.caracteristicas_propiedad.img_f;
-          this.detalles_propiedad = this.caracteristicas_propiedad.propiedad;
+          this.imagenes_fireb = this.propiedad.img_f;
 
-          console.log(this.detalles_propiedad);
-
-          // Con las siguientes instrucciones realizo una petición a firebase obteniendo la información del usuario
-          this.user_infoSubscription = this._propiedadIndividualService
-            .getUserInfo(this.caracteristicas_propiedad.user_p)
-            .subscribe((user_info) => {
-              this.user_info = user_info.data();
-            });
+          this.detalles_propiedad = this.propiedad.propiedad;
 
           // Un segundo luego de recibida la información procederé a iniciar el carousel, de esta manera evito
           setTimeout(() => {
@@ -92,8 +79,6 @@ export class SeccionPropiedadLComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.propiedadSubscription.unsubscribe();
-    this.user_infoSubscription.unsubscribe();
     localStorage.removeItem('_u_ky_p');
   }
 

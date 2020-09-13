@@ -1,89 +1,100 @@
 import { Injectable } from '@angular/core';
-// Importo firestore
-import { AngularFirestore } from '@angular/fire/firestore';
 
-// Importo interfaz
+// Importo firestore
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+
+// Importo modelo de datos
 import { usuarioModel } from '../models/usuario.model';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuariosService {
-  // Creo una subscripción para el observable.
-  getUsuarioSubscription: Subscription;
+  // Las sigueintes propiedades serán referencias hacia la base de datos.
+  private usuariosCollectionRef: AngularFirestoreCollection;
 
-  usuariosCollection;
-  usuariosDoc;
-  usuarios: Observable<any>;
+  public usuarios: Observable<any>;
 
-  constructor(public firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) {
+    // A continuación creo una referencia a la colección usuarios
+    this.usuariosCollectionRef = this.firestore.collection('usuarios');
+  }
 
-  checkExistedUsuario(usuario: usuarioModel) {
-    // Obtengo cada uno de los documentos(usuarios) de la base de datos para posteriormente analizar si es o no necesario agregarlos a la base de datos o no.
-    this.usuarios = this.firestore.collection('usuarios').valueChanges();
+  // La siguiente función se encargará de evaluar si el usuario que se acaba de loguear con Auth0, existe en firebase.
+  checkUserExists(usuario: usuarioModel): void {
+    // Obtengo el id auth0;
+    let obtener_id_auth = usuario.sub.split('|');
+    let id_auth = obtener_id_auth[1];
 
-    // Obtengo la colección para posteriormente agregar al nuevo usuario a la base de datos de firebase
-    this.usuariosCollection = this.firestore.collection('usuarios');
-
-    // En el caso de que la variable user_ex no exista en el localstorage, entonces sí verificaré si el usuario está o no registrado. En caso de que exista, quiere decir que este usaro
-    if (!localStorage.getItem('user_ex')) {
-      // Divido la cadena obtenida en un array para obtener el número de id Auth0
-      let obtener_id_auth = usuario.sub.split('|');
-
-      localStorage.setItem('_u_ky', obtener_id_auth[1]);
-
-      // En primer obtendré
-      this.getUsuarioSubscription = this.getUsuarios().subscribe((usuarios) => {
-        // Recorreré la lista de usuarios uno por uno en busca de aquel que coincida con el usuario logueado actualmente.
-        var usuarioExistente = usuarios.filter(function (usuario) {
-          // Compruebo si el id proviente de la base de datos, coincide con el de Auth0.
-          if (usuario.sub == obtener_id_auth[1]) {
-            // Si se encuentra compatibilidad de ids retorno ese usuario
-            return usuario;
-          }
-        });
-
-        // console.log(usuarioExistente);
-
-        // Si el usuario logueado existe entonces no es necesario que lo vuelva a crear, caso contrario, deberá crearlo en la base de datos.
-        if (usuarioExistente.length != 0) {
-          console.log('El usuario: existe', usuarioExistente);
-
-          // Si el usuario existe en la base de datos, entonce seteo en el localstorage la existencia del mismo para evitar enviar más peticiones de las correspondientes.
-          localStorage.setItem('user_ex', 'true');
-        } else {
-          // console.log('Agregando usuario');
-
-          // Agrego el usuario en la base de datos con el id proveniente de auth0
-          this.usuariosCollection.doc(`${obtener_id_auth[1]}`).set({
-            sub: obtener_id_auth[1],
+    // Una vez que creo la referencia hacia los usuarios, compruebo si existe registrado el usuario de Auth0 en nuestra colección usuarios.
+    this.usuariosCollectionRef.ref
+      .where('sub', '==', `${id_auth}`)
+      .get()
+      .then((data) => {
+        // Al utilizar la query where, de nos devolverá un objeto con una propiedad empty, la cual nos dirá si el documento ha venido lleno o no.
+        /* En caso de que haya venido vacío, devolverá true, y si viene lleno, un false.*/
+        if (data.empty) {
+          // El siguiente objeto será un "Usuario Auth" que será almacenado en nuestra base de datos.
+          let user_auth0: usuarioModel = {
+            sub: id_auth,
             name: usuario.name,
             email: usuario.email,
             email_verified: usuario.email_verified,
             picture: usuario.picture,
             updated_at: usuario.updated_at,
-          });
+          };
+
+          // A continuación vuelvo a hacer referencia a la colección de usuarios, en esta ocasión, para almacenar un nuevo usuario id, y le mandaré un objeto con la información de auth0.
+          this.usuariosCollectionRef
+            .doc(`${id_auth}`)
+            .set(user_auth0)
+            .then(() => {
+              // Almaceno en el localStorage el id del usuario
+              this.setUserIdLocalStorage(id_auth);
+
+              // console.log('Se ha guardado el usuario en firebase');
+            })
+            .catch((err) => {
+              // console.log(err);
+            });
+        } else {
+          // Almaceno en el localStorage el id del usuario
+          this.setUserIdLocalStorage(id_auth);
         }
-
-        // Una vez que obtengo la verificación de que el usuario existe, me desuscribo del observable.
-        this.getUsuarioSubscription.unsubscribe();
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    } else {
-      console.log('El usuario ya existe');
-    }
   }
 
-  getUsuarios() {
-    // console.log(this.usuarios);
-    // Estoy retornando un observable
-    return this.usuarios;
+  setUserIdLocalStorage(user_id: string) {
+    localStorage.setItem('_u_ky', user_id);
   }
 
-  recuperarUserInformation(id_user) {
+  // La siguiente función recupera la información de un usuario en base a su id.
+  recuperarUserInformation(id_user: string) {
     return (this.usuarios = this.firestore
       .collection('usuarios', (ref) => ref.where('sub', '==', `${id_user}`))
       .valueChanges());
+  }
+
+  retrieveUserInfo(id_user: string) {
+    return new Promise((resolve, reject) => {
+      this.usuariosCollectionRef.ref
+        .where('sub', '==', `${id_user}`)
+        .get()
+        .then((doc) => {
+          if (!doc.empty) {
+            doc.forEach((data) => {
+              resolve(data.data());
+            });
+          }
+        });
+    });
   }
 }

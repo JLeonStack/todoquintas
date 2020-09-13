@@ -24,7 +24,7 @@ export class MercadoPagoButtonComponent implements OnInit {
     },
     auto_return: 'approved',
     // Solo permito pagar a usuarios registrado con MercadoPago
-    purpose: 'wallet_purchase',
+    // purpose: 'wallet_purchase',
     items: [
       {
         id: '1234', //id de la propiedad ha reservar
@@ -37,11 +37,11 @@ export class MercadoPagoButtonComponent implements OnInit {
     ],
     // A continuación excluyo la opción que se pueda pagar con efectivos
     payment_methods: {
-      excluded_payment_types: [
-        {
-          id: 'ticket',
-        },
-      ],
+      // excluded_payment_types: [
+      //   {
+      //     id: 'ticket',
+      //   },
+      // ],
       // La siguiente configuración setea la cantidad máximas de cuotas con las que se puede pagar.
       installments: 12,
     },

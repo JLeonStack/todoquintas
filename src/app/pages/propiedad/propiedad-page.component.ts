@@ -38,7 +38,7 @@ export class PropiedadPageComponent implements OnInit {
     /*  Una vez capturado el id de la propiedad, procederé a realizar una petición fetch a la API para que me traiga toda la información relacionada a esa propiedad.  */
     this.activatedRoute.params.subscribe((params) => {
       // Aquí adentro irá el fetch a la API para que me atraiga toda la información correspondiente a la propiedad
-      console.log(params);
+      // console.log(params);
     });
   }
 

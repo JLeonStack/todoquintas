@@ -1,6 +1,6 @@
-// Modelo de datos de la propiedad
-export interface PropiedadModel {
-  propiedad: {
+// Modelo de datos de la propiedad que se publica
+export class PropiedadModel {
+  public propiedad: {
     tipo_propiedad: string;
     nombre_propiedad: string;
     descripcion: string;
@@ -30,14 +30,14 @@ export interface PropiedadModel {
     coordenadas: object;
     fechas_disponibles: object;
   };
-  img_f: string[];
-  user_p: string;
-  calificacion: number[];
+  public user_prop_id: string;
+  public img_f: string[];
+  public calificacion: number[];
 }
 
-// Modelo de datos de la propiedad
-export interface PropiedadModelGet {
-  propiedad: {
+// Modelo de datos de la propiedad que se obtiene de la base de datos
+export class PropiedadModelGet {
+  public propiedad: {
     tipo_propiedad: string;
     nombre_propiedad: string;
     descripcion: string;
@@ -67,8 +67,17 @@ export interface PropiedadModelGet {
     coordenadas: object;
     fechas_disponibles: object;
   };
-  img_f: string[];
-  user_p: string;
-  calificacion: number[];
-  id_prop: string;
+  public prop_info: {
+    sub: string; // id del usuario Auth0
+    name: string; // nombre completo
+    email: string; // Email
+    email_verified: boolean; // Email verificado o no
+    picture: string; // Imagen
+    updated_at: string; // Registro.
+  };
+  public img_f: string[];
+  public calificacion: number[];
+  public id_prop: string;
+  public user_prop_id: string;
+  public propiedad_id: string;
 }

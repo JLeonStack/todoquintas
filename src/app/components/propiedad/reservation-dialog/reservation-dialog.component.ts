@@ -4,22 +4,17 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  Inject,
 } from '@angular/core';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { DialogPrecioComponent } from './dialog-precio/dialog-precio.component';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ReservacionService } from '../../../services/reservacion.service';
-
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
 
 @Component({
   selector: 'app-reservation-dialog',
@@ -29,7 +24,7 @@ export interface DialogData {
 export class ReservationDialogComponent implements OnInit, OnChanges {
   // En el siguiente input, yo recibiré la información que envié desde la página "propiedad"
   // Esta información incluirá las fechas min-max que pueden ser seleccionadas en la propiedad.
-  @Input() intervalo_maxmin_fechas;
+  @Input() propiedad;
 
   // Creo una nueva propiedad del tipo FormGroup, donde almacenaré los distintos formcontrol que tendrá el formulario de reservación
   reservar_data: FormGroup;
@@ -56,20 +51,22 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     private router: Router
   ) {}
 
-  // Escucho los cambios que se produzcan en el input intervalo_maxmin_fechas
+  // Escucho los cambios que se produzcan en el input propiedad
   ngOnChanges(changes: SimpleChanges) {
     // Si el input contiene informarmación, entonces, proceré a almacenar en él, el intervalo de fechas que estará disponible para ser reservado.
-    if (this.intervalo_maxmin_fechas) {
-      localStorage.setItem(
-        'n_p',
-        this.intervalo_maxmin_fechas.nombre_propiedad
-      );
-      console.log(
-        'Reservation:',
-        this.intervalo_maxmin_fechas.fechas_disponibles
-      );
-      this.fechas_disponibles = this.intervalo_maxmin_fechas.fechas_disponibles;
-      this.intervalo_maxmin_fechas = this.intervalo_maxmin_fechas.fechas_disponibles;
+    if (this.propiedad) {
+      localStorage.setItem('n_p', this.propiedad.nombre_propiedad);
+      this.reservar_data.get('usuario').setValue(localStorage.getItem('_u_ky'));
+      this.reservar_data
+        .get('usuario_p')
+        .setValue(localStorage.getItem('_u_ky_p'));
+      this.reservar_data
+        .get('nombre_propiedad')
+        .setValue(localStorage.getItem('n_p'));
+
+      console.log('Reservation:', this.propiedad.fechas_disponibles);
+      this.fechas_disponibles = this.propiedad.fechas_disponibles;
+      this.propiedad = this.propiedad.fechas_disponibles;
     }
   }
 
@@ -123,10 +120,10 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     this.reservar_data = this._formBuilder.group({
       personas_hospedar: [null, Validators.required],
       fechas_reservadas: [null, Validators.required],
-      usuario: [localStorage.getItem('_u_ky')],
-      usuario_p: [localStorage.getItem('_u_ky_p')],
+      usuario: [''],
+      usuario_p: [''],
       propiedad_id: [''],
-      nombre_propiedad: [localStorage.getItem('n_p')],
+      nombre_propiedad: [''],
       precio: [null, Validators.required],
       confirmada: [0, Validators.required],
     });

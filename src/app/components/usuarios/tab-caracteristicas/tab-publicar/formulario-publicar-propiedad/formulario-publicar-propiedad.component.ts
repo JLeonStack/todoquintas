@@ -104,7 +104,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     console.log(this.prop_data.value);
     // Creo un objeto temporal para colocar la información del usuario
     let publicar_propiedad_objeto: PropiedadModel = {
-      user_p: localStorage.getItem('_u_ky'),
+      user_prop_id: localStorage.getItem('_u_ky'),
       propiedad: {
         ...this.prop_data.value,
       },

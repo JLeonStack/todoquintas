@@ -158,7 +158,7 @@ export class TabReservasComponent implements OnInit, OnDestroy {
     let array_fechas = [];
 
     this.dialog.open(DialogPropietarioComponent, {
-      data: [`${usuario_prop}`],
+      data: usuario_prop,
     });
   }
 }
