@@ -8,13 +8,7 @@
         [min]="minDate"
         [max]="maxDate"
       >
-        <input
-          matStartDate
-          formControlName="start"
-          (dateInput)="addEvent('input', $event)"
-          (dateChange)="addEvent('change', $event)"
-          readonly
-        />
+        <input matStartDate formControlName="start" readonly />
 
         <input matEndDate formControlName="end" readonly />
       </mat-date-range-input>

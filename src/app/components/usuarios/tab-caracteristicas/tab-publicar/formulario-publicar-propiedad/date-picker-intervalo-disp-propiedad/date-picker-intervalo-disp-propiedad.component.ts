@@ -3,8 +3,6 @@ import {
   OnInit,
   OnDestroy,
   Output,
-  OnChanges,
-  SimpleChanges,
   ChangeDetectionStrategy,
   EventEmitter,
   Input,
@@ -12,17 +10,9 @@ import {
 
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
-
-// Con esta librería puedo capturar eventos del data picker
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
 // Importo el header que tendrá le datepicker
 
 import { HeaderDatePickerIntervaloDispPropiedadComponent } from './header-date-picker-intervalo-disp-propiedad/header-date-picker-intervalo-disp-propiedad.component';
-
-// Me subscribo al observable a la espera de cambios
-import { Subscription } from 'rxjs';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -65,8 +55,8 @@ export class DatePickerIntervaloDispPropiedadComponent
 
   ngOnInit(): void {
     if (this.nuevoMinDate['end'] != null) {
-      console.log('Ng On Init Datepicker', this.nuevoMinDate);
-      console.log(this.nuevoMinDate);
+      // console.log('Ng On Init Datepicker', this.nuevoMinDate);
+      // console.log(this.nuevoMinDate);
       this.minDate = this.nuevoMinDate['end'];
       var nuevoMinDate = new Date(this.minDate).getTime();
       this.minDate = new Date(nuevoMinDate + 86400000);
@@ -99,7 +89,7 @@ export class DatePickerIntervaloDispPropiedadComponent
 
   // El siguiente método se ejecutará cuando el usuario le haga click al botón de reiniciar fechas.
   restablecerFechas() {
-    console.log('click');
+    // console.log('click');
 
     if (this.restablecer.start != null) {
       this.minDate = this.restablecer.start;
@@ -117,23 +107,23 @@ export class DatePickerIntervaloDispPropiedadComponent
   ngOnDestroy(): void {}
 
   // Estas son las fechas que ya están reservadas
-  datesReserved = [];
+  // datesReserved = [];
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    // console.log(event.value);
-    // Establezco las fechas mínimas y máximas que se pueden seleccionar en base a la fecha inicial que se haya seleccionado.
-    this.minDate = new Date(event.value); // Cuando el usuario decida seleccionar una fecha como punto de partida, impediré que seleccione fechas hacia atrás.
+  // addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+  //   // console.log(event.value);
+  //   // Establezco las fechas mínimas y máximas que se pueden seleccionar en base a la fecha inicial que se haya seleccionado.
+  //   this.minDate = new Date(event.value); // Cuando el usuario decida seleccionar una fecha como punto de partida, impediré que seleccione fechas hacia atrás.
 
-    // Recorreré cada una de las fechas indicadas como "ocupadas", y procederé a que se impida seleccionar fechas por encima de éstas.
-    for (let index = 0; index < this.datesReserved.length; index++) {
-      if (this.range.value.start < new Date(this.datesReserved[index])) {
-        // Estableceré cómo máxima fecha posible de reservación la que
-        // this.maxDate = new Date(this.datesReserved[index]);
-        // Obtengo el tiempo en milisegundos
-        this.test = new Date(this.datesReserved[index]).getTime();
-        // Le resto un día al tiempo obtenido para que el maxDate sea hasta (sin incluir), la fecha reservada
-        this.maxDate = new Date(this.test - 86400000);
-      }
-    }
-  }
+  //   // Recorreré cada una de las fechas indicadas como "ocupadas", y procederé a que se impida seleccionar fechas por encima de éstas.
+  //   for (let index = 0; index < this.datesReserved.length; index++) {
+  //     if (this.range.value.start < new Date(this.datesReserved[index])) {
+  //       // Estableceré cómo máxima fecha posible de reservación la que
+  //       // this.maxDate = new Date(this.datesReserved[index]);
+  //       // Obtengo el tiempo en milisegundos
+  //       this.test = new Date(this.datesReserved[index]).getTime();
+  //       // Le resto un día al tiempo obtenido para que el maxDate sea hasta (sin incluir), la fecha reservada
+  //       this.maxDate = new Date(this.test - 86400000);
+  //     }
+  //   }
+  // }
 }

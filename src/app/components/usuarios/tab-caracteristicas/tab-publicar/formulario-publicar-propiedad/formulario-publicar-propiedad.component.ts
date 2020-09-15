@@ -13,6 +13,9 @@ import { Subscription } from 'rxjs';
 // Modelo de datos
 import { PropiedadModel } from '../../../../../models/propiedad.model';
 
+// Router
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-formulario-publicar-propiedad',
   templateUrl: './formulario-publicar-propiedad.component.html',
@@ -38,11 +41,18 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
   desactivarBotonAgregarPeriodo = true;
 
+  // Loading
+
+  loading_cargar_propiedad = false;
+  mensaje_error_campos = false;
+  boton_publicar_bandera = false;
+
   // En el constructor inializaré el servicio y el formBuilder.
   constructor(
     private _formBuilder: FormBuilder,
     private _georefArgService: GeorefArgService,
-    private _propiedadesService: PropiedadesService
+    private _propiedadesService: PropiedadesService,
+    private _router: Router
   ) {
     // ? Ejecuto la función encargada de crear cada uno de los controles del formulario.
     this.crearFormulario();
@@ -104,6 +114,9 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
   // La siguinte función se encarga de realizar el submit del formulario
   guardarFormulario() {
+    this.mensaje_error_campos = false;
+    this.loading_cargar_propiedad = false;
+
     console.log(this.prop_data.value);
     // Creo un objeto temporal para colocar la información del usuario
     let publicar_propiedad_objeto: PropiedadModel = {
@@ -120,11 +133,18 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       let validacion = this.validarFormulario(this.prop_data.value);
       if (validacion) {
         console.log('Se puede publicar');
+        this.loading_cargar_propiedad = true;
+        this.boton_publicar_bandera = true;
         this._propiedadesService
           .publicarPropiedad(publicar_propiedad_objeto, this.files)
           .then((data: boolean) => {
             // Procedo a desactivar el loading
             if (data) {
+              this.loading_cargar_propiedad = false;
+              this._router.navigate(['/usuario', 'propiedades']);
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
             }
           })
           .catch((err: boolean) => {
@@ -133,9 +153,11 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
             }
           });
       } else {
+        this.mensaje_error_campos = true;
         console.log('Hay campos incompletos');
       }
     } else {
+      this.mensaje_error_campos = true;
       console.log('Hay campos incompletos');
     }
   }
@@ -283,9 +305,6 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       this._formBuilder.control(null, Validators.required)
     );
   }
-
-  currentYear = new Date().getFullYear();
-
   desactivarbnb = 1;
 
   desactivarBotonBorrado(i) {
@@ -315,10 +334,10 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       .get('fechas_disponibles')
       .get('fechas') as FormArray).controls;
 
-    console.log(controles);
+    // console.log(controles);
     if (controles[controles.length - 1].value != null) {
       this.guardarFecha = controles[controles.length - 1].value;
-      console.log(this.guardarFecha);
+      // console.log(this.guardarFecha);
     }
   }
 
@@ -333,8 +352,8 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   // Para esto recibiré un parámetro event, y una posición i que me indirá la posición del array en el que debo almacenar
   recogerFechas(event: any, i: number) {
     this.vectorFechas[i] = event;
-    console.log('Vectorrr', this.vectorFechas);
-    console.log(i);
+    // console.log('Vectorrr', this.vectorFechas);
+    // console.log(i);
     // Defino una variable controles que contendrá un array de controles de las
     let controles = (this.prop_data
       .get('fechas_disponibles')
@@ -349,19 +368,18 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     this.guardarFecha = controles[controles.length - 1].value;
   }
 
-  // Eventos encargados de gestionar los archivos que se suben al drag&Drop.
-
+  //! Eventos encargados de gestionar los archivos que se suben al drag&Drop.
   files: File[] = [];
 
   onSelect(event) {
-    console.log(event);
+    // console.log(event);
     this.files.push(...event.addedFiles);
-    console.log(this.files);
+    // console.log(this.files);
   }
 
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
-    console.log(this.files);
+    // console.log(this.files);
   }
 
   descripcion_ayuda_ciudad =
@@ -382,5 +400,5 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     'Describe lo que hace única a tu propiedad y por qué los usuarios deberían escogerla.';
 
   descripcion_ayuda_veinte_porciento =
-    'Los huéspedes abonarán el 20% de la reserva a través de MercadoPago, y el otro 80% en efectivo al llegar a la propiedad';
+    'Los huéspedes abonarán el 20% de la reserva a través de MercadoPago, y el otro 80% en efectivo al llegar a la propiedad.';
 }

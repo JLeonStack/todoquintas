@@ -285,7 +285,7 @@
             <button mat-icon-button matStepperNext type="button">
               <span
                 class="material-icons md-24 d-block"
-                style="color: #00a699; font-size: 25px !important"
+                style="color: #02a69a; font-size: 25px !important"
               >
                 keyboard_arrow_right
               </span>
@@ -442,7 +442,7 @@
                 <button mat-icon-button matStepperPrevious type="button">
                   <span
                     class="material-icons md-24 d-block"
-                    style="color: #00a699; font-size: 25px !important"
+                    style="color: #02a69a; font-size: 25px !important"
                   >
                     keyboard_arrow_left
                   </span>
@@ -454,7 +454,7 @@
                 <button mat-icon-button matStepperNext type="button">
                   <span
                     class="material-icons md-24 d-block"
-                    style="color: #00a699; font-size: 25px !important"
+                    style="color: #02a69a; font-size: 25px !important"
                   >
                     keyboard_arrow_right
                   </span>
@@ -607,7 +607,7 @@
                 <button mat-icon-button matStepperPrevious type="button">
                   <span
                     class="material-icons md-24 d-block"
-                    style="color: #00a699; font-size: 25px !important"
+                    style="color: #02a69a; font-size: 25px !important"
                   >
                     keyboard_arrow_left
                   </span>
@@ -619,7 +619,7 @@
                 <button mat-icon-button matStepperNext type="button">
                   <span
                     class="material-icons md-24 d-block"
-                    style="color: #00a699; font-size: 25px !important"
+                    style="color: #02a69a; font-size: 25px !important"
                   >
                     keyboard_arrow_right
                   </span>
@@ -699,7 +699,7 @@
                           >
                             <span
                               class="material-icons md-24 d-block"
-                              style="color: #00a699; font-size: 25px !important"
+                              style="color: #02a69a; font-size: 25px !important"
                             >
                               clear
                             </span>
@@ -748,7 +748,7 @@
                 >
                   <span
                     class="material-icons md-24"
-                    style="color: #00a699; font-size: 25px !important"
+                    style="color: #02a69a; font-size: 25px !important"
                   >
                     add
                   </span>
@@ -808,7 +808,7 @@
                 <button mat-icon-button matStepperPrevious type="button">
                   <span
                     class="material-icons md-24 d-block"
-                    style="color: #00a699; font-size: 25px !important"
+                    style="color: #02a69a; font-size: 25px !important"
                   >
                     keyboard_arrow_left
                   </span>
@@ -819,9 +819,39 @@
               >
                 <div class="form-group row">
                   <div class="col-12 col-lg-4">
-                    <button mat-raised-button type="submit">Publicar</button>
+                    <button
+                      mat-raised-button
+                      type="submit"
+                      [disabled]="boton_publicar_bandera"
+                    >
+                      Publicar
+                    </button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12" *ngIf="mensaje_error_campos">
+                <p class="text-danger text-center">
+                  No se han completado todos los campos del formulario.
+                </p>
+              </div>
+              <div class="col-12" *ngIf="loading_cargar_propiedad">
+                <p style="color: #02a69a" class="text-center">
+                  La propiedad se está publicando
+                  <span class="lds-ellipsis"
+                    ><div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div
+                  ></span>
+                </p>
+                <p
+                  style="color: #02a69a; font-size: 14px"
+                  class="text-center m-0 p-0"
+                >
+                  Está operación puede tardar un par de minutos.
+                </p>
               </div>
             </div>
           </div>
@@ -829,15 +859,15 @@
       </mat-step>
     </mat-horizontal-stepper>
 
-    <hr class="mt-5 separacion-filtro-color" />
+    <!-- <hr class="mt-5 separacion-filtro-color" /> -->
 
-    <hr class="mt-5 separacion-filtro-color" />
+    <!-- <hr class="mt-5 separacion-filtro-color" /> -->
 
     <!-- Input mapa -->
   </div>
 </form>
 
-<hr />
+<!-- <hr />
 <pre>
   Estado del formulario {{ prop_data.valid }}
   <br>
@@ -846,4 +876,4 @@
 
 <pre>
   {{ prop_data.value | json }}
-</pre>
+</pre> -->
