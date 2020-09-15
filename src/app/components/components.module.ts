@@ -63,6 +63,7 @@ import { TabDatosUsuarioComponent } from './usuarios/tab-caracteristicas/tab-dat
 import { DialogPrecioComponent } from './propiedad/reservation-dialog/dialog-precio/dialog-precio.component';
 import { MercadoPagoButtonComponent } from './shared/mercadopago-button/mercadopago-button.component';
 import { DialogPropietarioComponent } from './usuarios/tab-caracteristicas/tab-reservas/dialog-propietario/dialog-propietario.component';
+import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { DialogPropietarioComponent } from './usuarios/tab-caracteristicas/tab-r
     DialogPrecioComponent,
     MercadoPagoButtonComponent,
     DialogPropietarioComponent,
+    ChatComponent,
   ],
   exports: [
     FooterComponent,
@@ -156,6 +158,7 @@ import { DialogPropietarioComponent } from './usuarios/tab-caracteristicas/tab-r
     DialogPrecioComponent,
     MercadoPagoButtonComponent,
     DialogPropietarioComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,

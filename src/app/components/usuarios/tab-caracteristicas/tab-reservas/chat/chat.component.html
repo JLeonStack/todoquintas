@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="chat-window shadow py-4">
+        <p class="p-filtro">Chat</p>
+        <hr class="separacion-filtro-color" />
+
+        <div class="app-mensajes py-3" id="app-mensajes">
+          <div *ngIf="chat$ | async as chat">
+            <div
+              *ngFor="let message of chat.messages; trackBy: trackByCreated"
+              [ngClass]="{ 'text-right': message.user_id == user_login }"
+            >
+              <span *ngIf="message.user_id == user_login">
+                {{ message.createdAt | date: "dd-M-yyyy H:mm" }}
+              </span>
+              <span
+                *ngIf="
+                  message.user_id == user_login &&
+                  reserva.tipo_usuario == 'propietario'
+                "
+                class="badge p-2"
+                [ngClass]="{
+                  'badge-primary': message.user_id == user_login
+                }"
+              >
+                Propietario</span
+              >
+              <span
+                *ngIf="
+                  message.user_id != user_login &&
+                  reserva.tipo_usuario == 'propietario'
+                "
+                class="badge p-2"
+                [ngClass]="{
+                  'badge-success': message.user_id != user_login
+                }"
+              >
+                Huésped</span
+              >
+              <span *ngIf="message.user_id != user_login">
+                {{ message.createdAt | date: "dd-M-yyyy H:mm" }}
+              </span>
+              <span
+                *ngIf="
+                  message.user_id == user_login &&
+                  reserva.tipo_usuario != 'propietario'
+                "
+                class="badge p-2"
+                [ngClass]="{
+                  'badge-primary': message.user_id == user_login
+                }"
+              >
+                Huésped</span
+              >
+              <span
+                *ngIf="
+                  message.user_id != user_login &&
+                  reserva.tipo_usuario != 'propietario'
+                "
+                class="badge p-2"
+                [ngClass]="{
+                  'badge-success': message.user_id != user_login
+                }"
+              >
+                Propietario</span
+              >
+
+              <p class="pt-1">
+                {{ message.content }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr class="separacion-filtro-color" />
+        <mat-form-field class="example-full-width">
+          <mat-label>Mensaje: </mat-label>
+          <input
+            matInput
+            type="text"
+            name="mensaje"
+            [(ngModel)]="mensaje"
+            maxlength="100"
+            placeholder="Enviar mensaje"
+            (keyup.enter)="enviar_mensaje()"
+            autocomplete="off"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <p>Más info</p>
+    </div>
+  </div>
+</div>

@@ -4,13 +4,13 @@
       <span class="img-p-sp mr-2"
         ><img
           class="img-prop shadow"
-          [src]="user_info.picture"
-          [title]="user_info.name"
+          [src]="propietario_info.picture"
+          [title]="propietario_info.name"
       /></span>
     </div>
 
     <div class="col-12 col-md-4">
-      <p class="m-0 p-0 p-filtro text-center">{{ user_info.name }}</p>
+      <p class="m-0 p-0 p-filtro text-center">{{ propietario_info.name }}</p>
     </div>
 
     <div class="col-12 col-md-4">
@@ -18,7 +18,7 @@
         class="m-0 p-0 p-filtro text-center"
         style="font-size: 14px !important"
       >
-        {{ user_info.email }}
+        {{ propietario_info.email }}
       </p>
     </div>
   </div>
@@ -26,6 +26,7 @@
 <hr class="mb-5 separacion-filtro-color" />
 
 <mat-dialog-content class="mat-typography">
+  <app-chat [reserva]="reserva"></app-chat>
   <p>
     The metadata for a service class provides the information Angular needs to
     make it available to components through Dependency Injection (DI).

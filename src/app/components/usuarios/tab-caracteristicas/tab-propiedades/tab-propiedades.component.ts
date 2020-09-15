@@ -6,6 +6,13 @@ import { PropiedadesService } from '../../../../services/propiedades.service';
 // Modelos
 import { PropiedadModelGet } from '../../../../models/propiedad.model';
 
+// Importo AuthService
+import { AuthService } from '../../../../services/auth.service';
+import { Subscription } from 'rxjs';
+
+// Importo modelo de datos
+import { usuarioModel } from '../../../../models/usuario.model';
+
 @Component({
   selector: 'app-tab-propiedades',
   templateUrl: './tab-propiedades.component.html',
@@ -16,24 +23,59 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
   /* Es un array de propiedades */
   public propiedades: PropiedadModelGet[];
 
-  constructor(private _propiedadesService: PropiedadesService) {}
+  // La siguiente es la subscripción de Auth0.
+  private auth0Subscription: Subscription;
+
+  constructor(
+    private _propiedadesService: PropiedadesService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     // Almaceno el id del usuario logueado.
     let userAuth0 = localStorage.getItem('_u_ky');
 
-    // A continuación, llamo a la funcion getPropiedad del servicios propidades para obtener todas las propiedades que tenga el usuario logueado publicadas.
-    this._propiedadesService
-      .getPropiedad(userAuth0)
-      .then((data: PropiedadModelGet[]) => {
-        // Asigno a la propiedad data, la información proveniente de firebase
-        this.propiedades = data;
+    if (userAuth0) {
+      // A continuación, llamo a la funcion getPropiedad del servicios propidades para obtener todas las propiedades que tenga el usuario logueado publicadas.
+      this._propiedadesService
+        .getPropiedad(userAuth0)
+        .then((data: PropiedadModelGet[]) => {
+          console.log(data);
+          // Asigno a la propiedad data, la información proveniente de firebase
+          this.propiedades = data;
 
-        // Proceso la información para poder mostrarla correctamente en pantalla.
-        this.procesarDatos(this.propiedades);
-      });
+          // Proceso la información para poder mostrarla correctamente en pantalla.
+          this.procesarDatos(this.propiedades);
+        });
+    } else {
+      this.auth0Subscription = this.auth.userProfile$.subscribe(
+        (usuarioAuth: usuarioModel) => {
+          // Realizo una pequeña validación, asegurándome que obtengo los datos provenientes de auth0.
+          if (usuarioAuth) {
+            // Obtengo el id auth0;
+            let obtener_id_auth = usuarioAuth.sub.split('|');
+            let id_auth = obtener_id_auth[1];
+            // A continuación, llamo a la funcion getPropiedad del servicios propidades para obtener todas las propiedades que tenga el usuario logueado publicadas.
+            this._propiedadesService
+              .getPropiedad(id_auth)
+              .then((data: PropiedadModelGet[]) => {
+                console.log(data);
+                // Asigno a la propiedad data, la información proveniente de firebase
+                this.propiedades = data;
+
+                // Proceso la información para poder mostrarla correctamente en pantalla.
+                this.procesarDatos(this.propiedades);
+              });
+          }
+        }
+      );
+    }
   }
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    if (this.auth0Subscription) {
+      this.auth0Subscription.unsubscribe();
+    }
+  }
 
   // La siguiente función tendrá como tarea tomar cada una del las propiedades que tenga publicada el usuario, y se le agregará el precio base, y la calificación promedio.
   procesarDatos(propiedades: PropiedadModelGet[]) {

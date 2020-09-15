@@ -1,10 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-// Importo servicios
-import { UsuariosService } from '../../../../../services/usuarios.service';
-import { PropiedadesService } from '../../../../../services/propiedades.service';
-import { Subscription } from 'rxjs';
+import { ReservarPropiedadcModel } from '../../../../../models/reservar.model';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -15,37 +12,30 @@ export interface DialogData {
   styleUrls: ['./dialog-propietario.component.css'],
 })
 export class DialogPropietarioComponent implements OnInit {
-  usuarioInfoSubscription: Subscription;
+  public reserva: ReservarPropiedadcModel;
 
-  user_info = {
-    email: null,
-    name: null,
-    picture: null,
-  };
+  public propietario_info: { email: string; name: string; picture: string };
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private _usuariosService: UsuariosService,
-    private _propiedadesService: PropiedadesService
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ReservarPropiedadcModel) {}
 
   ngOnInit(): void {
     if (this.data) {
-      this.user_info.picture = this.data['info_huesped'].picture;
-      this.user_info.name = this.data['info_huesped'].nombre_huesped;
-      this.user_info.email = this.data['info_huesped'].email;
-    }
-    console.log(this.data);
-    // let user_p_id = this.data[0];
+      this.reserva = this.data;
 
-    // Realizo una petición a firebase para obtener
-    // this.usuarioInfoSubscription = this._usuariosService
-    //   .recuperarUserInformation(user_p_id)
-    //   .subscribe((data: any) => {
-    //     this.user_info.picture = data[0].picture;
-    //     this.user_info.name = data[0].name;
-    //     this.user_info.email = data[0].email;
-    //     console.log('Propietario info:', data);
-    //   });
+      // Si el propietario hace click sobre
+      if (this.reserva.tipo_usuario == 'propietario') {
+        this.propietario_info = {
+          name: this.reserva.huesped_info.nombre_huesped,
+          email: this.reserva.huesped_info.email,
+          picture: this.reserva.huesped_info.picture,
+        };
+      } else {
+        this.propietario_info = {
+          name: this.reserva.prop_info.name,
+          email: this.reserva.prop_info.email,
+          picture: this.reserva.prop_info.picture,
+        };
+      }
+    }
   }
 }

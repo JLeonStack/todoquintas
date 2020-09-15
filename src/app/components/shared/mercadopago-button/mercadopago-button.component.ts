@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CheckoutService } from '../../../services/checkout.service';
 
+import { ReservarPropiedadMPModel } from '../../../models/reservar.model';
 import { get } from 'scriptjs';
 
 @Component({
@@ -11,7 +12,7 @@ import { get } from 'scriptjs';
 export class MercadoPagoButtonComponent implements OnInit {
   init_point: any;
 
-  @Input() informacion_propiedad;
+  @Input() propiedad: ReservarPropiedadMPModel;
 
   procesando = false;
 
@@ -50,12 +51,12 @@ export class MercadoPagoButtonComponent implements OnInit {
   constructor(private checkoutService: CheckoutService) {}
 
   ngOnInit(): void {
-    if (this.informacion_propiedad) {
+    if (this.propiedad) {
       // Almaceno distinta información en la preferencia correspondiente a la propiedad.
-      this.preference.items[0].unit_price = this.informacion_propiedad.precio;
-      this.preference.items[0].title = this.informacion_propiedad.nombre_propiedad;
-      this.preference.items[0].id = this.informacion_propiedad.id_reserva;
-      this.preference.items[0].description = `Id Propiedad: ${this.informacion_propiedad.propiedad_id}\n Nombre Usuario: ${this.informacion_propiedad.info_huesped.nombre_huesped}\n User_id: ${this.informacion_propiedad.usuario}`;
+      this.preference.items[0].unit_price = this.propiedad.precio;
+      this.preference.items[0].title = this.propiedad.caracteristicas_propiedad.nombre_propiedad;
+      this.preference.items[0].id = this.propiedad.id_reserva;
+      this.preference.items[0].description = `Id Propiedad: ${this.propiedad.propiedad_id}\n Nombre Usuario: ${this.propiedad.huesped_info.nombre_huesped}\n User_id: ${this.propiedad.huesped_id}`;
     }
     get(
       'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js',
@@ -72,7 +73,7 @@ export class MercadoPagoButtonComponent implements OnInit {
       .goCheckOut(this.preference)
       .then((result) => {
         // Almaceno temporamente el id de la reserva que estoy intentando pagar, para posteriormente poder actualizar su documento en firebase y agregar información respecto a si la reserva ha sido pagada o no.
-        localStorage.setItem('id-r', this.informacion_propiedad.id_reserva);
+        localStorage.setItem('id-r', this.propiedad.id_reserva);
 
         // Read result of the Cloud Function.
 

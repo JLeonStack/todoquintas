@@ -35,7 +35,8 @@ import { ReservacionService } from '../../../../services/reservacion.service';
 
 // Models
 import { PropiedadIndividualGetModel } from '../../../../models/propiedad.model';
-//
+import { ReservarPropiedadModel } from '../../../../models/reservar.model';
+
 import { ActivatedRoute } from '@angular/router';
 
 // Me subscribo al observable a la espera de cambios
@@ -109,18 +110,22 @@ export class DatePickerReservaComponent
       }
     );
 
-    // Me subscribo a los cambios que se vayan a producir en el datepicker con el objetivo de transmitir al componente padre la inforormación y almacenarla en el FormGroup
-    this.range.valueChanges.subscribe((data) => {
-      console.log(data);
-      this.intervalo_seleccinado.emit(data);
-    });
+    // Me subscribo a los cambios que se vayan a producir en el datepicker con el objetivo de transmitir al componente padre las fechas y almacenarla en el FormGroup
+    this.range.valueChanges.subscribe(
+      (data: { start: string; end: string }) => {
+        if (data.start && data.end) {
+          console.log(data);
+          this.intervalo_seleccinado.emit(data);
+        }
+      }
+    );
 
-    // Obtengo el id de la propiedad a través de la información que proviene de la url para colocarla en el formgroup de reservación.
-
+    // A continuación procederé a obtener las reservas que tengan hechas la propiedad.
     this._reservacionService
       .getReservas(this.propiedad.propiedad_id)
-      .subscribe((data) => {
-        console.log('Data de firebase: Datepicker ', data);
+      .then((data: ReservarPropiedadModel[]) => {
+        // Obtendré como respuesta un vector del tipo reservas
+        // console.log(data);
         for (let i = 0; i < data.length; i++) {
           this.calcularRangoEntreFechas(data[i]);
         }

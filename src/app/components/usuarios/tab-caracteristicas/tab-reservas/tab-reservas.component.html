@@ -36,10 +36,10 @@
                   <div class="col">
                     <mat-form-field>
                       <mat-label>Propiedad</mat-label>
-                      <mat-select formControlName="id_propiedad">
+                      <mat-select formControlName="propiedad_id">
                         <mat-option
                           *ngFor="let item of array_id_propiedades"
-                          [value]="item.id_propiedad"
+                          [value]="item.propiedad_id"
                           >{{ item.nombre }}</mat-option
                         >
                       </mat-select>
@@ -85,16 +85,16 @@
                         <span class="img-p-sp mr-2"
                           ><img
                             class="img-prop shadow"
-                            [src]="item.info_huesped.picture"
-                            [title]="item.info_huesped.nombre_huesped"
+                            [src]="item.huesped_info.picture"
+                            [title]="item.huesped_info.nombre_huesped"
                         /></span>
-                        {{ item.info_huesped.nombre_huesped.split(" ")[0] }}
+                        {{ item.huesped_info.nombre_huesped.split(" ")[0] }}
                       </td>
-                      <td *ngIf="item.confirmada == 0">
+                      <td *ngIf="item.reserva_confirmada == 0">
                         <button
                           mat-raised-button
                           type="button"
-                          (click)="confirmarReserva(item.id_reserva)"
+                          (click)="confirmarReserva(item.id_reserva, i)"
                         >
                           <span
                             class="material-icons md-24 d-block"
@@ -106,7 +106,7 @@
                         <button
                           mat-raised-button
                           type="button"
-                          (click)="rechazarReserva(item.id_reserva)"
+                          (click)="rechazarReserva(item.id_reserva, i)"
                         >
                           <span
                             class="material-icons md-24 d-block"
@@ -114,6 +114,17 @@
                           >
                             clear
                           </span>
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          *ngIf="evaluarEstadoPago(item.info_mp)"
+                          mat-stroked-button
+                          style="width: 100% !important"
+                          (click)="openDialog(item, 'propietario')"
+                          type="button"
+                        >
+                          Huesped
                         </button>
                       </td>
                     </tr>
@@ -192,7 +203,8 @@
                       <th scope="row">{{ i + 1 }}</th>
                       <td>
                         <a [routerLink]="['/propiedad', item.propiedad_id]">{{
-                          item.nombre_propiedad | titlecase
+                          item.caracteristicas_propiedad.nombre_propiedad
+                            | titlecase
                         }}</a>
                       </td>
                       <td>
@@ -201,11 +213,11 @@
                       </td>
                       <td>{{ item.precio | currency }}</td>
 
-                      <td *ngIf="item.confirmada == 0">No</td>
-                      <td *ngIf="item.confirmada == 1">Si</td>
+                      <td *ngIf="item.reserva_confirmada == 0">No</td>
+                      <td *ngIf="item.reserva_confirmada == 1">Si</td>
                       <td>
                         <button
-                          *ngIf="item.confirmada == 0"
+                          *ngIf="item.reserva_confirmada == 0"
                           mat-flat-button
                           mat-dialog-close
                           style="background: #009ee3 !important"
@@ -215,22 +227,20 @@
                         </button>
 
                         <app-mercadopago-button
-                          *ngIf="item.confirmada == 1"
-                          [informacion_propiedad]="item"
+                          *ngIf="item.reserva_confirmada == 1 && !item.info_mp"
+                          [propiedad]="item"
                         ></app-mercadopago-button>
-                      </td>
-
-                      <td>
                         <button
+                          *ngIf="evaluarEstadoPago(item.info_mp)"
                           mat-stroked-button
                           style="width: 100% !important"
-                          (click)="openDialog(item)"
+                          (click)="openDialog(item, 'huesped')"
                           type="button"
                         >
                           Propietario
                         </button>
                       </td>
-                      <td *ngIf="item.info_mp">info-mp</td>
+                      <!-- <td *ngIf="item.info_mp">info-mp</td> -->
                     </tr>
                   </tbody>
                 </table>

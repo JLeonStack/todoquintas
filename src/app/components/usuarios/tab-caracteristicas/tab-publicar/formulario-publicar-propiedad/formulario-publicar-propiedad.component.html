@@ -27,7 +27,7 @@
             <div class="underline-p">
               <mat-form-field>
                 <mat-label class="text-white">Propiedad</mat-label>
-                <mat-select formControlName="propiedad">
+                <mat-select formControlName="tipo_propiedad">
                   <mat-option value="quinta">Quinta</mat-option>
                   <mat-option value="cabana">Cabaña</mat-option>
                   <mat-option value="ccountry">Casa country</mat-option>
@@ -554,7 +554,7 @@
                 <mat-label>Dirección</mat-label>
                 <input
                   matInput
-                  formControlName="dirrecion"
+                  formControlName="direccion"
                   placeholder="Ingrese la dirección exacta de su vivienda"
                 />
                 <mat-error *ngIf="nombreNoValidoPropiedad">

@@ -15,7 +15,7 @@ import { usuarioModel } from '../models/usuario.model';
 // Importo servicio
 import { UsuariosService } from '../services/usuarios.service';
 
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, observable, Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +28,17 @@ export class PropiedadesService {
 
   private propiedadesCollectionRef: AngularFirestoreCollection;
 
+  public routerInfo: BehaviorSubject<boolean>;
+
+  public propiedadesPersist: BehaviorSubject<any>;
+
   constructor(
     private firestore: AngularFirestore,
     private _usuariosService: UsuariosService
-  ) {}
+  ) {
+    this.propiedadesPersist = new BehaviorSubject<any>(false);
+    this.routerInfo = new BehaviorSubject<boolean>(false);
+  }
 
   conexiónFirebase() {
     // Obtengo la colección para posteriormente agregar al nuevo usuario a la base de datos de firebase
@@ -185,10 +192,18 @@ export class PropiedadesService {
             }
             // Si la cantidad de documentos coincide con la cantidad de propiedades en el array, procedo a resolver la promesa, retornando la información a la vista.
             if (array_propiedades_user.length == doc.size) {
+              this.setValue(array_propiedades_user);
               resolve(array_propiedades_user);
             }
           });
         });
     });
+  }
+
+  setValue(array_propiedades_user: PropiedadModelGet[]): void {
+    this.propiedadesPersist.next(array_propiedades_user);
+  }
+  getValue(): Observable<PropiedadModelGet[]> {
+    return this.propiedadesPersist.asObservable();
   }
 }

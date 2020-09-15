@@ -63,10 +63,10 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     if (this.propiedad) {
       // console.log('Info propiedad, reservation:', this.propiedad);
 
-      console.log(
-        'Fechas disponibles enviando al date-picker:',
-        this.propiedad.propiedad.fechas_disponibles
-      );
+      // console.log(
+      //   'Fechas disponibles enviando al date-picker:',
+      //   this.propiedad.propiedad.fechas_disponibles
+      // );
 
       this.fechas_disponibles = this.propiedad.propiedad.fechas_disponibles;
     }
@@ -80,14 +80,14 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     this.reservar_permitido_denegado = this.checkCookieAuth0();
   }
 
-  // La siguiente función se encarga de hacer el submit de la reservación.
-  reservarPropiedad() {
+  agregarInfoAReserva(reporteReserva: ReservarPropiedadModel): void {
     let auth0_id_huesped = localStorage.getItem('_u_ky');
 
-    let reporteReserva: ReservarPropiedadModel = this.reservar_data.value;
-
+    // Agrego información del propietario de la vivienda
     reporteReserva.prop_info = this.propiedad.prop_info;
-    reporteReserva.características_propiedad = {
+
+    // Agrego características de la propiedad que se acaba de reservavr
+    reporteReserva.caracteristicas_propiedad = {
       tipo_propiedad: this.propiedad.propiedad.tipo_propiedad,
       nombre_propiedad: this.propiedad.propiedad.nombre_propiedad,
       direccion: this.propiedad.propiedad.direccion,
@@ -95,10 +95,21 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       provincia: this.propiedad.propiedad.provincia,
       coordenadas: this.propiedad.propiedad.coordenadas,
     };
-    reporteReserva.reserva_confirmada = 0;
+    // Seteo el id del usuario propietario
     reporteReserva.user_prop_id = this.propiedad.user_prop_id;
+    // Seteo el id de la propiedad
     reporteReserva.propiedad_id = this.propiedad.propiedad_id;
+    // Seteo el id del huesped
     reporteReserva.huesped_id = auth0_id_huesped;
+    // Establezco en cero una bandera que me indica si la reserva ha sido confirmada por el propietario o no.
+    reporteReserva.reserva_confirmada = 0;
+  }
+  // La siguiente función se encarga de hacer el submit de la reservación.
+  reservarPropiedad(): void {
+    // Declaro una variable normal del tipo ReservarPropiedadModel, y le asigno la información del formulario
+    let reporteReserva: ReservarPropiedadModel = this.reservar_data.value;
+    // A conitnuación ejecuto una función que se encarga de agregar más información al documento reserva.
+    this.agregarInfoAReserva(reporteReserva);
 
     console.log(reporteReserva);
 
@@ -106,8 +117,11 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     this.loading_text = false;
     this.loading_error = false;
 
-    // Si el formulario es válido, es decir, si todos sus campos están completos, procederé a guardar la reserva en firebase.
-    if (this.reservar_data.valid) {
+    // Si el formulario es válido, es decir, si todos sus campos están completos, y a su vez la cantidad de personas a hospedar es distinto a 0, procederé a guardar la reserva en firebase.
+    if (
+      this.reservar_data.valid &&
+      this.reservar_data.get('personas_hospedar').value != 0
+    ) {
       this.loading_text = false;
       // Si el formulario está completo, desactivo el mensaje de error
       this.loading_error = false;
@@ -115,20 +129,18 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       this.loading = true;
 
       // Llamo al service para que guarde en firebase la reserva
-      let reservarPromise = this._reservacionService.reservarPropiedad(
-        this.reservar_data.value
-      );
       // Como se retorna una promeso, decido capturar lo que me devuelve, de tal forma que cuando se acabe de guardar la reservación, puedo desactivar el loading, y mostrar un texto en pantalla indicando que se ha reservado la propiedad correctamente.
-      reservarPromise
+      this._reservacionService
+        .reservarPropiedad(this.reservar_data.value)
         .then((data) => {
-          console.log('Se guardó en firebase');
+          // console.log('Se guardó en firebase');
           this.loading = false;
           this.loading_text = true;
           // console.log(data);
           // Una vez que se ha reservado correctamente, procedo a llevar al usuario al apartado de reservaciones, en la sección de usuario
           setTimeout(() => {
             // this.router.navigate(['/usuario']);
-          }, 1000);
+          }, 500);
         })
         .catch((err) => {
           this.loading_error = true;
@@ -139,7 +151,7 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
   }
 
   // La siguiente función se encarga de la creación de los distintos form-controls.
-  crearFormularioReservacion() {
+  crearFormularioReservacion(): void {
     // A conitnuación creo un grupo con los diferentes controles.
     this.reservar_data = this._formBuilder.group({
       personas_hospedar: [null, Validators.required],
@@ -149,14 +161,23 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     // console.log(this.reservar_data);
   }
 
-  // La siguiente función se encargará de recibir el Output del calendario, el rango de fechas seleccionado en el mismo.
-  recogerFechas(event: any) {
+  // La siguiente función se encargará de recibir el Output del calendario, es decir, el rango de fechas seleccionado en el mismo.
+  recogerFechas(event: { start: string; end: string }): void {
+    // Si el event contiene tanto una fecha de inicio como de fin, procederé a guardar esta información en un formato JSON.
     if (event.start && event.end) {
+      // Almaceno en el siguiente objeto las fechas que vienen en formato extendido:
+      /* Thu Sep 24 2020 00:00:00 GMT-0300 (hora estándar de Argentina) */
+      // A formato JSON: 2020-09-24T03:00:00.000Z
+
       let guardarFecha = {
         start: JSON.parse(JSON.stringify(event.start)),
         end: JSON.parse(JSON.stringify(event.end)),
       };
+
+      // A continuación almaceno el rango de fechas en nuestro formgroup reservar_data;
       this.reservar_data.get('fechas_reservadas').setValue(guardarFecha);
+
+      // A continuación, ejecuto la función calcular rango entre fechas
       this.calcularRangoEntreFechas(guardarFecha);
     }
     if (event.start == null && event.end == null) {
@@ -165,7 +186,7 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
   }
 
   // La siguiente función se encargará de calcular el precio total que se deberá abonar según el rango de fechas, y el precio para cada uno de los períodos.
-  calcularPrecioReservacion() {
+  calcularPrecioReservacion(): void {
     // A continuación almacenaré el precio total que se deberá abonar por los días reservados.
     let precio = 0;
 
@@ -197,11 +218,12 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
 
           // Una vez que se han acumulador todos los días a pagar, y éste coincida con la cantidad de días que efectivamente se quieren reservar, procederé a cortar el ciclo for.
         }
+        // Si la fecha actual del array es igual a la fecha final de este período, procedo a interrupir el bucle para comenzar a calcular los precios en base al siguiente período.
         if (
           new Date(this.array_fechas_json[i]).getTime() ==
           this.fechas_disponibles.fechas[periodo].end.seconds * 1000
         ) {
-          console.log('Encontré una fecha igual a la fecha final de período');
+          // console.log('Encontré una fecha igual a la fecha final de período');
           break;
         }
 
@@ -221,18 +243,23 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       }
     }
 
+    // Almaceno en el formgroup, el precio que se deberá abonar por la vivienda.
     this.reservar_data.get('precio').setValue(precio);
     // console.log('Precio:', precio);
   }
 
   // La siguiente función se encargará de tomar el intervalo de fechas que ha seleccionado el usuario, y desestructurarlo en un array con todas las fechas que componen este intervalo. Es decir:
-  /* Si el usuario selecciona: 1-09-2020 hasta 20-09-2020, el array estará comprendido por cada una de las fechas entre ese intervalo, incluyendo los extremos. */
-  calcularRangoEntreFechas(rango_fecha_usuario) {
+  /* Si el usuario selecciona es: 1-09-2020 hasta 20-09-2020, el array estará comprendido por cada una de las fechas entre ese intervalo, incluyendo los extremos. */
+  calcularRangoEntreFechas(rango_fecha_usuario: {
+    start: string;
+    end: string;
+  }): void {
     // El siguiente es el array que almacenará las fechas en formato yy-mm-dd
     this.array_fechas = [];
 
     // El siguiente es el array con las fechas en formato JSON.
     this.array_fechas_json = [];
+
     /* Tomaré la fecha inicial selecciona por el usuario, que proviene en formato JSON, y la convertiré en formato string, para posteriormente poder utilizar los métodos de un objeto Date. */
     let newDate = new Date(rango_fecha_usuario.start).toString();
 
@@ -260,8 +287,9 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
     var fechaInicio = new Date(fecha_inicio);
     var fechaFin = new Date(fecha_final);
 
-    // Mientras la fecha final sea mayor a la fecha inicial, procederé a ejecutar el ciclo while
+    // Mientras la fecha final sea mayor o igual a la fecha inicial, procederé a ejecutar el ciclo while
     while (fechaFin.getTime() >= fechaInicio.getTime()) {
+      // Agregaré un elemento al array de fechas en formato yy-mm-dd
       this.array_fechas.push(
         `${
           fechaInicio.getFullYear() +
@@ -271,20 +299,21 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
           fechaInicio.getDate()
         }`
       );
-      // Agregaré un elemento al array de fechas en formato yy-mm-dd
 
+      // Incremento en uno la fecha para poder convertir la siguiente en formato yy-mm-dd
       fechaInicio.setDate(fechaInicio.getDate() + 1);
     }
 
     /* A continuación lo que haré será recorrer todo el array de fechas en formato yy-mm-dd y paso a convertirlas en formato JSON: 2020-09-08T03:00:00.000Z */
 
+    // Debido a que no se pagará el día final de checkout, no se convertirá la última fecha del array.
     for (let i = 0; i < this.array_fechas.length - 1; i++) {
       this.array_fechas_json[i] = JSON.parse(
         JSON.stringify(new Date(this.array_fechas[i]))
       );
     }
 
-    console.log(this.array_fechas_json);
+    // console.log(this.array_fechas_json);
 
     this.calcularPrecioReservacion();
   }
