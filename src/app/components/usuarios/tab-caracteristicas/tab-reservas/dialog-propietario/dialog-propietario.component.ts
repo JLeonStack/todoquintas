@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
+
+// Librerías para el dialog
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+// Modelo de datos
 import { ReservarPropiedadcModel } from '../../../../../models/reservar.model';
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
 @Component({
   selector: 'app-dialog-propietario',
   templateUrl: './dialog-propietario.component.html',

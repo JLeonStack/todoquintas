@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+// Importanciones para manejar los formularios
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 // Servicio encargado de devolver las provincias y ciudades a los inputs a la hora de indicar la ubicación de la propiedad.
@@ -8,6 +10,7 @@ import { PropiedadesService } from '../../../../../services/propiedades.service'
 // Me subscribo al observable a la espera de cambios
 import { Subscription } from 'rxjs';
 
+// Modelo de datos
 import { PropiedadModel } from '../../../../../models/propiedad.model';
 
 @Component({
@@ -114,17 +117,60 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
     // Cuando el formulario sea válido, procederé a publicar la propiedad
     if (this.prop_data.valid) {
+      let validacion = this.validarFormulario(this.prop_data.value);
+      if (validacion) {
+        console.log('Se puede publicar');
+        this._propiedadesService
+          .publicarPropiedad(publicar_propiedad_objeto, this.files)
+          .then((data: boolean) => {
+            // Procedo a desactivar el loading
+            if (data) {
+            }
+          })
+          .catch((err: boolean) => {
+            if (err) {
+              console.log(err);
+            }
+          });
+      } else {
+        console.log('Hay campos incompletos');
+      }
+    } else {
+      console.log('Hay campos incompletos');
     }
-
-    console.log(publicar_propiedad_objeto);
-
-    this._propiedadesService.publicarPropiedad(
-      publicar_propiedad_objeto,
-      this.files
-    );
-    // this._propiedadesService.getPropiedad();
   }
 
+  validarFormulario(propiedad: any) {
+    if (propiedad.nombre_propiedad == '') {
+      return false;
+    } else if (propiedad.descripcion == '') {
+      return false;
+    } else if (propiedad.metros_cuadrado == null) {
+      return false;
+    } else if (propiedad.metros_cuadrado_cubiertos == null) {
+      return false;
+    } else if (propiedad.capacidad_alojamiento == 0) {
+      return false;
+    } else if (propiedad.dormitorios == 0) {
+      return false;
+    } else if (propiedad.banos == 0) {
+      return false;
+    } else if (propiedad.provincia == '') {
+      return false;
+    } else if (propiedad.ciudad == '') {
+      return false;
+    } else if (propiedad.direccion == '') {
+      return false;
+    } else if (propiedad.fechas_disponibles.precios[0] == null) {
+      return false;
+    } else if (propiedad.fechas_disponibles.fechas[0] == null) {
+      return false;
+    } else if (this.files.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   // La siguiente función se encargará de crear el formulario con cada uno de los controles.
   crearFormulario() {
     this.prop_data = this._formBuilder.group({
@@ -163,9 +209,11 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
         ],
       ],
       fechas_disponibles: this._formBuilder.group({
-        precios: this._formBuilder.array([[0]]),
+        precios: this._formBuilder.array([[]]),
         fechas: this._formBuilder.array([[]]),
       }),
+
+      reserva_veinte_pciento: [false, Validators.required],
     });
   }
 
@@ -332,4 +380,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
 
   descripcion_ayuda_descripcion_propiedad =
     'Describe lo que hace única a tu propiedad y por qué los usuarios deberían escogerla.';
+
+  descripcion_ayuda_veinte_porciento =
+    'Los huéspedes abonarán el 20% de la reserva a través de MercadoPago, y el otro 80% en efectivo al llegar a la propiedad';
 }

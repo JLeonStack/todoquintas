@@ -10,7 +10,7 @@ import { ListingHomesComponent } from './pages/listing-homes/listing-homes.compo
 import { PropiedadPageComponent } from './pages/propiedad/propiedad-page.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
-import { ProcessPaymentComponent } from "./pages/process-payment/process-payment.component";
+import { ProcessPaymentComponent } from './pages/process-payment/process-payment.component';
 
 const ROUTES: Routes = [
   { path: '', component: HomeComponent },
@@ -22,7 +22,7 @@ const ROUTES: Routes = [
 
   // Rutas donde se mostrará la información del usuario, y la capacidad de publicar o seguir la reserva de una propiedad
   {
-    path: 'usuario',
+    path: 'usuario/:seccion',
     component: UsuariosComponent,
     canActivate: [AuthGuard],
   },

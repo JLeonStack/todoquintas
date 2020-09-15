@@ -10,17 +10,17 @@
 }
 
 .seccion-formulario-reservacion {
-  height: 1500px;
+  height: 1800px;
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .seccion-formulario-reservacion {
-    height: 500px;
+    height: 700px;
   }
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .seccion-formulario-reservacion {
-    height: 500px;
+    height: 700px;
   }
 }
 .titulo-reserv {

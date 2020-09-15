@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// Esta importanción me permite poder captar los parámetros que envíe por url y procesarlos.
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-tab-caracteristicas',
   templateUrl: './tab-caracteristicas.component.html',
@@ -73,7 +76,24 @@ export class TabCaracteristicasComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  public tab_index;
 
-  ngOnInit(): void {}
+  constructor(private _activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this._activatedRoute.params.subscribe((params: { seccion: string }) => {
+      // A continuación, en base a lo que desee veer el usuario, se seleccionará una tab en particular.
+      if (params.seccion == 'favoritos') {
+        this.tab_index = 0;
+      } else if (params.seccion == 'propiedades') {
+        this.tab_index = 1;
+      } else if (params.seccion == 'publicar') {
+        this.tab_index = 2;
+      } else if (params.seccion == 'reservas') {
+        this.tab_index = 3;
+      } else if (params.seccion == 'datos') {
+        this.tab_index = 4;
+      }
+    });
+  }
 }

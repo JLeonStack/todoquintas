@@ -720,6 +720,23 @@
             <hr />
             <div class="row justify-content-end">
               <div
+                class="col-6 d-flex align-items-center justify-content-start"
+              >
+                <span class="material-icons bac-c-m"> payment </span>
+                <mat-checkbox
+                  class="example-margin"
+                  formControlName="reserva_veinte_pciento"
+                  >Reserva 20%</mat-checkbox
+                >
+                <span
+                  [matTooltip]="descripcion_ayuda_veinte_porciento"
+                  matTooltipPosition="right"
+                  class="ml-2 material-icons"
+                >
+                  help_outline
+                </span>
+              </div>
+              <div
                 class="col-12 col-lg-6 d-flex align-items-center justify-content-end"
               >
                 <button

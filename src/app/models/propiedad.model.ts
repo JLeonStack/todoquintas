@@ -29,6 +29,7 @@ export class PropiedadModel {
     direccion: string;
     coordenadas: object;
     fechas_disponibles: object;
+    reserva_veinte_pciento: boolean;
   };
   public user_prop_id: string;
   public img_f: string[];
@@ -66,6 +67,7 @@ export class PropiedadModelGet {
     direccion: string;
     coordenadas: object;
     fechas_disponibles: object;
+    reserva_veinte_pciento: boolean;
   };
   public prop_info: {
     sub: string; // id del usuario Auth0
@@ -111,6 +113,7 @@ export class PropiedadCaracteristicas {
   public direccion: string;
   public coordenadas: object;
   public fechas_disponibles: object;
+  public reserva_veinte_pciento: boolean;
 }
 
 // El siguiente es el mooelo encargado de mostrar  la propiedad según el id de la ruta en la página /propiedad
@@ -150,6 +153,7 @@ export class PropiedadIndividualGetModel {
       }[];
       precios: string[];
     };
+    reserva_veinte_pciento: boolean;
   };
   public prop_info: {
     sub: string; // id del usuario Auth0

@@ -23,7 +23,10 @@
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a href="#" class="nav-link color-item" [routerLink]="['/usuario']"
+          <a
+            href="#"
+            class="nav-link color-item"
+            [routerLink]="['/usuario', 'publicar']"
             >Publicá una propiedad</a
           >
         </li>
@@ -51,16 +54,36 @@
 
           <!-- Menú -->
           <mat-menu #menu="matMenu" yPosition="above">
-            <button mat-menu-item class="button-d-fle-item">
+            <button
+              mat-menu-item
+              class="button-d-fle-item"
+              [routerLink]="['/usuario', 'favoritos']"
+            >
               <span class="material-icons iconos-nav-user"> favorite </span>
               <span>Favoritos</span>
             </button>
-            <button mat-menu-item class="button-d-fle-item">
+            <button
+              mat-menu-item
+              class="button-d-fle-item"
+              [routerLink]="['/usuario', 'reservas']"
+            >
+              <span class="material-icons iconos-nav-user"> event </span>
+              <span>Reservas</span>
+            </button>
+            <button
+              mat-menu-item
+              class="button-d-fle-item"
+              [routerLink]="['/usuario', 'propiedades']"
+            >
               <span class="material-icons iconos-nav-user"> home </span>
               <span>Propiedades</span>
             </button>
             <hr class="my-1 mx-3 p-0" />
-            <button mat-menu-item class="button-d-fle-item">
+            <button
+              mat-menu-item
+              class="button-d-fle-item"
+              [routerLink]="['/usuario', 'datos']"
+            >
               <span class="material-icons iconos-nav-user">
                 admin_panel_settings
               </span>

@@ -15,7 +15,7 @@ import { usuarioModel } from '../models/usuario.model';
 // Importo servicio
 import { UsuariosService } from '../services/usuarios.service';
 
-import { BehaviorSubject, observable, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,7 @@ export class PropiedadesService {
 
   private propiedadesCollectionRef: AngularFirestoreCollection;
 
-  public routerInfo: BehaviorSubject<boolean>;
-
+  // La siguiente es una propiedad que mantendrá las propiedades que tenga un anfitrión en forma persistente para ser utilizado en otros sitios
   public propiedadesPersist: BehaviorSubject<any>;
 
   constructor(
@@ -37,7 +36,6 @@ export class PropiedadesService {
     private _usuariosService: UsuariosService
   ) {
     this.propiedadesPersist = new BehaviorSubject<any>(false);
-    this.routerInfo = new BehaviorSubject<boolean>(false);
   }
 
   conexiónFirebase() {
@@ -122,49 +120,60 @@ export class PropiedadesService {
     });
   }
 
+  // La siguiente función se encargará de publicar la propiedad en firebase
   publicarPropiedad(propiedad: PropiedadModel, files) {
     this.verificarConexionFirebase();
-    // Compruebo que efectivamente se hayan enviados fotos, de lo contrario no haré ninguna petición a firebase
-    if (files.length != 0) {
-      // Cuando se hayan terminado de cargar las imágenes publicaré la propiedad añadiéndole el array de direcciones de imágenes
-      this.cargarImagenesFirebase(files, propiedad).then((response: any) => {
-        let response_size_fit = [];
 
-        // Recorreré cada una de las ubicaciones de las imágenes en el servidor para poder añadirles a los nombres de las imágenes la nueva extensión.
-        for (const item of response) {
-          console.log(item);
-          let obtener_id_auth = item.split('?');
-          let obtener_nombre = obtener_id_auth[0].split('%');
-          console.log(obtener_nombre);
+    return new Promise((resolve, reject) => {
+      // Compruebo que efectivamente se hayan enviados fotos, de lo contrario no haré ninguna petición a firebase
+      if (files.length != 0) {
+        // Cuando se hayan terminado de cargar las imágenes publicaré la propiedad añadiéndole el array de direcciones de imágenes
+        this.cargarImagenesFirebase(files, propiedad).then((response: any) => {
+          let response_size_fit = [];
 
-          let obtener_extension = obtener_nombre[2].split('.');
-          console.log(obtener_extension);
-          let nombre_completo_con_extension = `${obtener_nombre[0]}%${obtener_nombre[1]}%${obtener_extension[0]}_800x800.${obtener_extension[1]}?${obtener_id_auth[1]}`;
+          // Recorreré cada una de las ubicaciones de las imágenes en el servidor para poder añadirles a los nombres de las imágenes la nueva extensión.
+          for (const item of response) {
+            console.log(item);
+            let obtener_id_auth = item.split('?');
+            let obtener_nombre = obtener_id_auth[0].split('%');
+            console.log(obtener_nombre);
 
-          response_size_fit.push(nombre_completo_con_extension);
-        }
+            let obtener_extension = obtener_nombre[2].split('.');
+            console.log(obtener_extension);
+            let nombre_completo_con_extension = `${obtener_nombre[0]}%${obtener_nombre[1]}%${obtener_extension[0]}_800x800.${obtener_extension[1]}?${obtener_id_auth[1]}`;
 
-        // Agrego la propiedad img_f a las propiedades para almacenar las direcciones de las fotos que el usuario ha subido
-        propiedad['img_f'] = response_size_fit;
-        // console.log(propiedad['img_f']);
+            response_size_fit.push(nombre_completo_con_extension);
+          }
 
-        // A continuación obtengo el id del propietario a través del localstorage
-        let id_propietario = localStorage.getItem('_u_ky');
+          // Agrego la propiedad img_f a las propiedades para almacenar las direcciones de las fotos que el usuario ha subido
+          propiedad['img_f'] = response_size_fit;
+          // console.log(propiedad['img_f']);
 
-        // ? Realizo una petición al servicio de usuario con el objetivo de guardar en la propiedad toda la información del usuario para, de esta manera, poder desplegarla correctamente a la hora de mostrar las cards, y las visualizaciones de propiedades. [Evitar dos llamadas]
-        this._usuariosService
-          .retrieveUserInfo(id_propietario)
-          .then((user: usuarioModel) => {
-            // Agrego una propiedad denominada prop_info, la cual tendrá toda la información del usuario propietario.
-            propiedad['prop_info'] = { ...user };
+          // A continuación obtengo el id del propietario a través del localstorage
+          let id_propietario = localStorage.getItem('_u_ky');
 
-            // Agrego un nuevo documento a la colección con los campos correspondientes a la variable propiedad.
-            this.propiedadesCollectionRef.add({ ...propiedad });
-          });
-      });
-    } else {
-      // console.log('No se subió ninguna imagen');
-    }
+          // ? Realizo una petición al servicio de usuario con el objetivo de guardar en la propiedad toda la información del usuario para, de esta manera, poder desplegarla correctamente a la hora de mostrar las cards, y las visualizaciones de propiedades. [Evitar dos llamadas]
+          this._usuariosService
+            .retrieveUserInfo(id_propietario)
+            .then((user: usuarioModel) => {
+              // Agrego una propiedad denominada prop_info, la cual tendrá toda la información del usuario propietario.
+              propiedad['prop_info'] = { ...user };
+
+              // Agrego un nuevo documento a la colección con los campos correspondientes a la variable propiedad.
+              this.propiedadesCollectionRef
+                .add({ ...propiedad })
+                .then(() => {
+                  resolve(true);
+                })
+                .catch((err) => {
+                  reject(false);
+                });
+            });
+        });
+      } else {
+        // console.log('No se subió ninguna imagen');
+      }
+    });
   }
 
   // Con el siguiente método obtendré las diferentes propiedades alojadas en la base de datos.

@@ -26,10 +26,46 @@
 <hr class="mb-5 separacion-filtro-color" />
 
 <mat-dialog-content class="mat-typography">
-  <app-chat [reserva]="reserva"></app-chat>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 my-3">
+        <app-chat [reserva]="reserva"></app-chat>
+      </div>
+      <div class="col-12 col-md-6 my-3">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center">
+            <p class="d-flex align-items-center text-center parrafo-ciudad-p">
+              <span class="material-icons bac-c-m mr-2"> house </span>
+              {{
+                this.reserva.caracteristicas_propiedad.nombre_propiedad
+                  | titlecase
+              }}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="text-center parrafo-ciudad-p">
+              <i
+                class="fa fa-map-marker mr-2"
+                style="color: #02a69a !important"
+              ></i
+              >{{ this.reserva.caracteristicas_propiedad.ciudad | titlecase }},
+              {{
+                this.reserva.caracteristicas_propiedad.provincia | titlecase
+              }}.
+              {{ this.reserva.caracteristicas_propiedad.direccion | titlecase }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <p>
-    The metadata for a service class provides the information Angular needs to
-    make it available to components through Dependency Injection (DI).
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis
+    necessitatibus exercitationem commodi. Voluptatum, fugiat magni similique
+    odit mollitia, repellat pariatur at perferendis impedit libero, quibusdam
+    culpa vel laboriosam possimus tempore!
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

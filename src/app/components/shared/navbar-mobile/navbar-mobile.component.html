@@ -27,7 +27,11 @@
     <div
       class="col-4 p-0 m-0 d-flex justify-content-center border-right border-left"
     >
-      <a mat-button class="d-flex link-nav" [routerLink]="['/usuario']">
+      <a
+        mat-button
+        class="d-flex link-nav"
+        [routerLink]="['/usuario', 'public']"
+      >
         <span
           class="material-icons md-24 mr-2"
           style="color: #00a699; font-size: 25px !important"
@@ -74,17 +78,38 @@
           </span>
         </a>
 
+        <!-- Menú -->
         <mat-menu #menu="matMenu" yPosition="above">
-          <button mat-menu-item class="button-d-fle-item">
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'favoritos']"
+          >
             <span class="material-icons iconos-nav-user"> favorite </span>
             <span>Favoritos</span>
           </button>
-          <button mat-menu-item class="button-d-fle-item">
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'reservas']"
+          >
+            <span class="material-icons iconos-nav-user"> event </span>
+            <span>Reservas</span>
+          </button>
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'propiedades']"
+          >
             <span class="material-icons iconos-nav-user"> home </span>
             <span>Propiedades</span>
           </button>
           <hr class="my-1 mx-3 p-0" />
-          <button mat-menu-item class="button-d-fle-item">
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'datos']"
+          >
             <span class="material-icons iconos-nav-user">
               admin_panel_settings
             </span>
@@ -100,6 +125,7 @@
             <span>Cerrar Sesión</span>
           </button>
         </mat-menu>
+        <!-- Menú -->
       </div>
     </div>
   </div>
@@ -119,7 +145,11 @@
       </a>
     </div>
     <div class="col-3 p-0 m-0 justify-content-center border-right border-left">
-      <a mat-icon-button class="link-nav" [routerLink]="['/usuario']">
+      <a
+        mat-icon-button
+        class="link-nav"
+        [routerLink]="['/usuario', 'publicar']"
+      >
         <span
           class="material-icons md-24"
           style="color: #00a699; font-size: 25px !important"
@@ -130,7 +160,11 @@
       </a>
     </div>
     <div class="col-3 p-0 m-0 justify-content-center border-right border-left">
-      <a mat-icon-button class="link-nav" [routerLink]="['/usuario']">
+      <a
+        mat-icon-button
+        class="link-nav"
+        [routerLink]="['/usuario', 'favoritos']"
+      >
         <!-- <span class="ingresar">Favoritos</span> -->
         <span
           class="material-icons md-24"
@@ -160,16 +194,36 @@
 
         <!-- Menú -->
         <mat-menu #menu="matMenu" yPosition="above">
-          <button mat-menu-item class="button-d-fle-item">
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'favoritos']"
+          >
             <span class="material-icons iconos-nav-user"> favorite </span>
             <span>Favoritos</span>
           </button>
-          <button mat-menu-item class="button-d-fle-item">
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'reservas']"
+          >
+            <span class="material-icons iconos-nav-user"> event </span>
+            <span>Reservas</span>
+          </button>
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'propiedades']"
+          >
             <span class="material-icons iconos-nav-user"> home </span>
             <span>Propiedades</span>
           </button>
           <hr class="my-1 mx-3 p-0" />
-          <button mat-menu-item class="button-d-fle-item">
+          <button
+            mat-menu-item
+            class="button-d-fle-item"
+            [routerLink]="['/usuario', 'datos']"
+          >
             <span class="material-icons iconos-nav-user">
               admin_panel_settings
             </span>
