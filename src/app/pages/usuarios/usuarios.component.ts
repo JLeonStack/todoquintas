@@ -50,7 +50,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Si no existe el usuario almacenado en base de datos, entonces procederé a recibir la información de Auth0, y verificar si el usuario existe.
-    if (!localStorage.getItem('user_ex')) {
+    if (localStorage.getItem('_u_ky') == null) {
       this.auth0Subscription = this.auth.userProfile$.subscribe(
         (usuarioAuth: usuarioModel) => {
           // Realizo una pequeña validación, asegurándome que obtengo los datos provenientes de auth0.

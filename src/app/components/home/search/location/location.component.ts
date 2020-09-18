@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+// Serviviocs
 import { LugaresSearchUbicacionService } from '../../../../services/lugares-search-ubicacion.service';
 
 @Component({
@@ -26,11 +27,13 @@ export class LocationComponent implements OnInit {
 
   // Lifecycle
   ngOnInit(): void {
+    // Cuando detecte cambios en el form-control procederé a solicitar una petición a la API REST con el objetivo de devolver las sugerencias en base a las letras introducidas
     this.myControl.valueChanges.subscribe((letra) => {
       if (letra != '') {
         this._lugaresSearchUbicacionService
           .obtenerLugar(letra)
           .subscribe((data: any) => {
+            // console.log(data);
             this.options = [];
 
             for (let index = 0; index < data.suggestions.length; index++) {

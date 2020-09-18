@@ -78,6 +78,11 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
 
     // Chequeo si existe la cookie de Auth0 en el sistema, para determinar si debo o no permitir reservar al usuario.
     this.reservar_permitido_denegado = this.checkCookieAuth0();
+
+    // Agrego una validación más: Si no existe un user_id almacenado en el localstorage, entonces, no dejaré reservar a la persona que ingrese. De esta manera, evito que alguien, ante la eliminación de caché, pueda reservar sin tener un user_id asociado.
+    if (!localStorage.getItem('_u_ky')) {
+      this.reservar_permitido_denegado = false;
+    }
   }
 
   agregarInfoAReserva(reporteReserva: ReservarPropiedadModel): void {
@@ -139,7 +144,7 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
           // console.log(data);
           // Una vez que se ha reservado correctamente, procedo a llevar al usuario al apartado de reservaciones, en la sección de usuario
           setTimeout(() => {
-            // this.router.navigate(['/usuario']);
+            this.router.navigate(['/usuario/reservas']);
           }, 500);
         })
         .catch((err) => {

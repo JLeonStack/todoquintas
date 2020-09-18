@@ -9,7 +9,7 @@ import {
 // Importo modelo de datos
 import { usuarioModel } from '../models/usuario.model';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,12 @@ export class UsuariosService {
 
   public usuarios: Observable<any>;
 
-  constructor(private firestore: AngularFirestore) {}
+  public persistirUserId: BehaviorSubject<any>;
+
+  constructor(private firestore: AngularFirestore) {
+    this.persistirUserId = new BehaviorSubject<any>(false);
+    this.setValue(localStorage.getItem('_u_ky'));
+  }
 
   conexiónFirebase() {
     // A continuación creo una referencia a la colección usuarios
@@ -59,6 +64,8 @@ export class UsuariosService {
             email_verified: usuario.email_verified,
             picture: usuario.picture,
             updated_at: usuario.updated_at,
+            fecha_nacimiento: null,
+            telefono: null,
           };
 
           // A continuación vuelvo a hacer referencia a la colección de usuarios, en esta ocasión, para almacenar un nuevo usuario id, y le mandaré un objeto con la información de auth0.
@@ -68,6 +75,7 @@ export class UsuariosService {
             .then(() => {
               // Almaceno en el localStorage el id del usuario
               this.setUserIdLocalStorage(id_auth);
+              this.setValue(id_auth);
 
               // console.log('Se ha guardado el usuario en firebase');
             })
@@ -77,6 +85,7 @@ export class UsuariosService {
         } else {
           // Almaceno en el localStorage el id del usuario
           this.setUserIdLocalStorage(id_auth);
+          this.setValue(id_auth);
         }
       })
       .catch((error) => {
@@ -105,5 +114,12 @@ export class UsuariosService {
           }
         });
     });
+  }
+
+  setValue(user_id: string): void {
+    this.persistirUserId.next(user_id);
+  }
+  getValue(): Observable<any> {
+    return this.persistirUserId.asObservable();
   }
 }

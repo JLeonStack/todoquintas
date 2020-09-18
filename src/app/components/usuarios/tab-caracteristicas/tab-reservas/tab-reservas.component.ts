@@ -60,6 +60,7 @@ export class TabReservasComponent implements OnInit, OnDestroy {
     this._propiedadesService
       .getValue()
       .subscribe((data: PropiedadModelGet[]) => {
+        this.array_id_propiedades = [];
         console.log(data);
         // La siguiente función se encargará de extraer el id y el nombre de la propiedad para poder buscar las reservaciones hechas a la misma.
         this.extraerIdPropiedades(data);

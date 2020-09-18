@@ -64,8 +64,7 @@ button:focus {
   height: 60% !important;
 }
 
-::ng-deep.mat-mini-fab{
+::ng-deep.mat-mini-fab {
   width: 45px !important;
   height: 45px !important;
-
 }
