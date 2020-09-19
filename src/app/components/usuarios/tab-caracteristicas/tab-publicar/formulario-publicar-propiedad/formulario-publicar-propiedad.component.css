@@ -24,9 +24,6 @@
   margin: 0 4px;
   color: rgba(0, 0, 0, 0.42);
 }
-:host ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
-  color: #02a69a !important;
-}
 
 .mat-form-field {
   display: inline-block;

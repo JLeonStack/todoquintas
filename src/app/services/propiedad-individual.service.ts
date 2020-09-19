@@ -11,7 +11,7 @@ import {
 export class PropiedadIndividualService {
   propiedadCollectionRef: AngularFirestoreCollection;
 
-  constructor(public firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) {}
 
   // La siguiente función realizo una conexión a firebase.
   conexiónFirebase() {

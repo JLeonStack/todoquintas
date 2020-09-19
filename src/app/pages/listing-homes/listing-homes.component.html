@@ -3,9 +3,13 @@
 
 <app-navbar-mobile *ngIf="navbar_mobile"></app-navbar-mobile>
 
-<app-header-listado-c></app-header-listado-c>
+<app-header-listado-c
+  [provincia_buscada]="provincia_buscada"
+></app-header-listado-c>
 
 <app-search-mobile *ngIf="navbar_mobile"></app-search-mobile>
 
-<app-sidenav></app-sidenav>
+<app-sidenav
+  [ciudad_provincia_ubicacion]="ciudad_provincia_ubicacion"
+></app-sidenav>
 <app-footer></app-footer>

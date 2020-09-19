@@ -5,10 +5,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HeaderComponent } from './home/header/header.component';
 import { SearchComponent } from './home/search/search.component';
-import { LocationComponent } from './home/search/location/location.component';
 import { LocationmComponent } from './home/search-mobile/location/location-m.component';
-import { PropiedadComponent } from './home/search/propiedad/propiedad.component';
-import { HuespedesComponent } from './home/search/huespedes/huespedes.component';
 import { NavbarMobileComponent } from './shared/navbar-mobile/navbar-mobile.component';
 import { SearchMobileComponent } from './home/search-mobile/search-mobile.component';
 import { PropiedadDestacadasComponent } from './home/propiedad-destacadas/propiedad-destacadas.component';
@@ -71,9 +68,7 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     NavbarComponent,
     HeaderComponent,
     SearchComponent,
-    LocationComponent,
-    PropiedadComponent,
-    HuespedesComponent,
+
     NavbarMobileComponent,
     SearchMobileComponent,
     LocationmComponent,
@@ -119,9 +114,7 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     NavbarComponent,
     HeaderComponent,
     SearchComponent,
-    LocationComponent,
-    PropiedadComponent,
-    HuespedesComponent,
+
     NavbarMobileComponent,
     SearchMobileComponent,
     LocationmComponent,
