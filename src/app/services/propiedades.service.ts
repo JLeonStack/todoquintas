@@ -59,22 +59,29 @@ export class PropiedadesService {
 
       let arrayDireccionesURLImagenes = [];
 
-      let primera_imagen = imagenes[0].name;
+      let primera_imagen = imagenes[0].name.replace(/ /g, '');
       let nombre_primera_imagen = primera_imagen.split('.');
 
       // El siguiente ciclo for recorrerá cada una de las imágenes colocadas en el drag&Drop y las subirá al servidor.
       for (const item of imagenes) {
-        console.log(item);
+        console.log('Itemm imagen', item);
 
+        let file = new File([item], `${item.name.replace(/ /g, '')}`, {
+          type: item.type,
+        });
+
+        console.log(file);
         // En la siguiente constante que será del tipo UploadTask, almacenaré la referencia de ruta inicial y a su vez
 
         /* https://firebase.google.com/docs/storage/web/upload-files#top_of_page */
 
         const uploadTask: firebase.storage.UploadTask = storageRef
           .child(
-            `${this.CARPETA_IMAGENES}/${propiedad.user_prop_id}/${item.name}`
+            `${this.CARPETA_IMAGENES}/${
+              propiedad.user_prop_id
+            }/${item.name.replace(/ /g, '')}`
           )
-          .put(item);
+          .put(file);
 
         uploadTask.on(
           'state_changed',
@@ -102,6 +109,7 @@ export class PropiedadesService {
 
                   // El siguiente algoritmo se encargará de colocar en primer lugar la imagen que fue ingresada primera por el usuario
                   for (let i = 0; i < arrayDireccionesURLImagenes.length; i++) {
+                    console.log('item 1');
                     if (
                       arrayDireccionesURLImagenes[i].includes(
                         nombre_primera_imagen[0]
@@ -109,6 +117,7 @@ export class PropiedadesService {
                     ) {
                       let eliminado = arrayDireccionesURLImagenes.splice(i, 1);
                       arrayDireccionesURLImagenes.unshift(eliminado[0]);
+                      // console.log(arrayDireccionesURLImagenes);
                       resolve(arrayDireccionesURLImagenes);
                     }
                   }
@@ -124,6 +133,7 @@ export class PropiedadesService {
   publicarPropiedad(propiedad: PropiedadModel, files) {
     this.verificarConexionFirebase();
 
+    console.log(files);
     return new Promise((resolve, reject) => {
       // Compruebo que efectivamente se hayan enviados fotos, de lo contrario no haré ninguna petición a firebase
       if (files.length != 0) {
@@ -147,7 +157,7 @@ export class PropiedadesService {
 
           // Agrego la propiedad img_f a las propiedades para almacenar las direcciones de las fotos que el usuario ha subido
           propiedad['img_f'] = response_size_fit;
-          // console.log(propiedad['img_f']);
+          console.log(propiedad['img_f']);
 
           // A continuación obtengo el id del propietario a través del localstorage
           let id_propietario = localStorage.getItem('_u_ky');
@@ -166,6 +176,7 @@ export class PropiedadesService {
                   resolve(true);
                 })
                 .catch((err) => {
+                  console.log(err);
                   reject(false);
                 });
             });

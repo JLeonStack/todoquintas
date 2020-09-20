@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -68,7 +69,6 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     NavbarComponent,
     HeaderComponent,
     SearchComponent,
-
     NavbarMobileComponent,
     SearchMobileComponent,
     LocationmComponent,
@@ -83,11 +83,9 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     HeaderListadoCComponent,
     FiltrosSidenavComponent,
     SelectPropiedadFComponent,
-
     ReservationDialogComponent,
     DatePickerReservaComponent,
     PropiedadDetallesListComponent,
-
     SeccionPropiedadLComponent,
     PropiedadesRelacionadasComponent,
     NavbarEPropComponent,
@@ -114,7 +112,6 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     NavbarComponent,
     HeaderComponent,
     SearchComponent,
-
     NavbarMobileComponent,
     SearchMobileComponent,
     LocationmComponent,
@@ -129,11 +126,9 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     HeaderListadoCComponent,
     FiltrosSidenavComponent,
     SelectPropiedadFComponent,
-
     ReservationDialogComponent,
     DatePickerReservaComponent,
     PropiedadDetallesListComponent,
-
     SeccionPropiedadLComponent,
     PropiedadesRelacionadasComponent,
     NavbarEPropComponent,
@@ -162,6 +157,7 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     MaterialModule,
     LayoutModule,
     NgxDropzoneModule,
+    InfiniteScrollModule,
   ],
   // Aquí irán los componentes pertenecientes a los cuerpos de los cuadros de diálogos.
   entryComponents: [TerminosCondicionesComponent, PoliticaPrivacidadComponent],

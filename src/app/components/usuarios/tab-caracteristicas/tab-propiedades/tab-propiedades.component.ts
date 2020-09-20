@@ -13,6 +13,9 @@ import { Subscription } from 'rxjs';
 // Importo modelo de datos
 import { usuarioModel } from '../../../../models/usuario.model';
 
+// Rutas
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-tab-propiedades',
   templateUrl: './tab-propiedades.component.html',
@@ -28,7 +31,8 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
 
   constructor(
     private _propiedadesService: PropiedadesService,
-    private auth: AuthService
+    private auth: AuthService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -102,5 +106,18 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
 
   numSequence(n: number): Array<number> {
     return Array(n);
+  }
+
+  editarPropiedad(id_prop) {
+    this._router.navigate(['/usuario/propiedades']);
+    setTimeout(() => {
+      this._router.navigate(['/usuario/publicar'], {
+        queryParams: {
+          edit: true,
+          propiedad_id: id_prop,
+        },
+      });
+    }, 100);
+    console.log(id_prop);
   }
 }

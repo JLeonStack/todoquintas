@@ -13,6 +13,10 @@ mat-sidenav-content {
   background-color: white;
 }
 
+.ubicacion {
+  text-align: end !important;
+}
+
 /* 
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
@@ -21,11 +25,18 @@ mat-sidenav-content {
   mat-sidenav {
     width: 50% !important;
   }
+  .ubicacion {
+    text-align: end !important;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
   mat-sidenav {
     width: 100% !important;
+  }
+  .ubicacion {
+    text-align: center !important;
+    margin-top: 30px !important;
   }
 }
 
@@ -37,6 +48,10 @@ mat-sidenav-content {
 @media (min-width: 320px) and (max-width: 480px) {
   mat-sidenav {
     width: 100% !important;
+  }
+  .ubicacion {
+    text-align: center !important;
+    margin-top: 30px !important;
   }
 }
 

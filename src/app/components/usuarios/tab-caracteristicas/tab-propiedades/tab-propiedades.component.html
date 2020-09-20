@@ -44,15 +44,19 @@
             <div class="col-md-12 text-center pb-3">
               <div class="row">
                 <div class="col-6">
-                  <button mat-raised-button type="button">
+                  <button
+                    mat-raised-button
+                    type="button"
+                    (click)="editarPropiedad(propiedad.propiedad_id)"
+                  >
                     Editar Propiedad
                   </button>
                 </div>
-                <div class="col-6">
+                <!-- <div class="col-6">
                   <button mat-raised-button type="button">
                     Eliminar Propiedad
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

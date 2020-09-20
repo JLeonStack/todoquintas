@@ -1,6 +1,6 @@
 {
   "name": "todoquintas",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "prod": "ng build --prod",
     "ng": "ng",
@@ -36,6 +36,7 @@
     "leaflet-geosearch": "^3.0.6",
     "moment": "^2.27.0",
     "ngx-dropzone": "^2.2.2",
+    "ngx-infinite-scroll": "^9.1.0",
     "rxjs": "~6.5.5",
     "save": "^2.4.0",
     "scriptjs": "^2.5.9",

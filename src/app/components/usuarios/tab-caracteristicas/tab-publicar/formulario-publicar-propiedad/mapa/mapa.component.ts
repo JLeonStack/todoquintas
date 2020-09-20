@@ -36,13 +36,15 @@ export class MapaComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.coordeanadasSubscripcion = this._GeorefArgService.AsignarCoordenadas$.subscribe(
       (data: any) => {
-        if (this.contador != 0) {
-          this.map.remove();
-        }
-        this.coordenadas = data;
-        this.map = L.map('mapid').setView(this.coordenadas, 10);
-        this.iniciarMapa(this.map);
-        this.contador++;
+        setTimeout(() => {
+          if (this.contador != 0) {
+            this.map.remove();
+          }
+          this.coordenadas = data;
+          this.map = L.map('mapid').setView(this.coordenadas, 10);
+          this.iniciarMapa(this.map);
+          this.contador++;
+        }, 1000);
       }
     );
   }

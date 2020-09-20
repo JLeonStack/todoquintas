@@ -35,6 +35,8 @@ export class TabReservasComponent implements OnInit, OnDestroy {
 
   propiedad_seleccionada: FormGroup;
 
+  getValuePropiedad: Subscription;
+
   // La siguiente propiedad se encargará de gestionar las reservas enviadas por los usuarios, particularmente, si éstas están confirmadas o no.
   reserva_seleccionada: FormGroup;
 
@@ -57,7 +59,7 @@ export class TabReservasComponent implements OnInit, OnDestroy {
     // En primer lugar, obtendré las propiedades del usuario para posteriormente extraer los id's, y los nombres de la mismas con el objetivo de realizar una petición a firebase para obtener las reservas y posteriormente imprimir la información de las reservas en las tablas.
 
     // En este caso, me subscribiré a un observador que se encontrará escuchando los cambios que se produzcan en una variable, que cargará la información de las propiedades que tenga el usuario.
-    this._propiedadesService
+    this.getValuePropiedad = this._propiedadesService
       .getValue()
       .subscribe((data: PropiedadModelGet[]) => {
         this.array_id_propiedades = [];
@@ -117,7 +119,9 @@ export class TabReservasComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.getValuePropiedad.unsubscribe();
+  }
 
   // En la siguiente función extraigo el id de la propiedad y el nombre de la misma, en primer lugar para enviarlo a firebase, y en segundo lugar, para posteriormente imprimirla en la tabla de reserva.
   extraerIdPropiedades(propiedades: PropiedadModelGet[]) {

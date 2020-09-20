@@ -5,12 +5,12 @@
   .mat-checkbox-ripple
   .mat-ripple-element {
   opacity: 0.03 !important;
-  background-color: #49c5b6 !important;
+  background-color: #02a69a !important;
 }
 
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-  background-color: #49c5b6;
+  background-color: #02a69a;
 }
 /* CSS para los checkbox */
 
@@ -20,27 +20,27 @@
   ::ng-deep
   .mat-slide-toggle.mat-checked:not(.mat-disabled)
   .mat-slide-toggle-bar {
-  background-color: #49c5b6;
+  background-color: #02a69a;
 }
 
 :host
   ::ng-deep
   .mat-slide-toggle.mat-checked:not(.mat-disabled)
   .mat-slide-toggle-thumb {
-  background-color: #49c5b6;
+  background-color: #02a69a;
 }
 
 /* Estas características modifican el color de los slide toggle  */
 
 .separacion-filtro-color {
-  background-color: #49c5b6;
+  background-color: #02a69a;
 }
 
 /* PARRAFO FILTRO */
 .p-filtro {
   font-size: 21px;
   font-weight: 300;
-  color: #49c5b6;
+  color: #02a69a;
 }
 /* PARRAFO FILTRO */
 
@@ -82,4 +82,131 @@
     font-size: 12px !important;
     font-weight: 500 !important;
   }
+}
+
+:host ::ng-deep.mat-select {
+  color: white !important;
+}
+
+::placeholder {
+  color: #ccd1d9;
+}
+
+.not-empty-select.mat-selected {
+  color: black !important;
+}
+
+:host /deep/ .mat-select-value-text {
+  color: black !important;
+}
+
+/* Select input  */
+:host ::ng-deep .mat-select-arrow {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid;
+  margin: 0 4px;
+  color: black;
+}
+:host ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #02a69a !important;
+}
+
+.mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+:host ::ng-deep .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #02a69a !important;
+}
+
+:host ::ng-deep.underline-p .mat-form-field .mat-form-field-underline {
+  /*change color of underline*/
+  background-color: black !important;
+}
+
+:host ::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: #02a69a !important;
+}
+
+:host ::ng-deep.mat-option::selection {
+  color: #02a69a;
+}
+:host ::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #02a69a !important;
+}
+
+:host ::ng-deep.mat-option.mat-active {
+  color: #02a69a !important;
+}
+
+/* range number input */
+
+/* Input range numérico */
+::ng-deep.range-number {
+  font-size: 18px;
+  font-weight: 400 !important;
+  height: 4rem;
+  padding: 0 4rem;
+  border-radius: 2rem;
+  border: 0;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 10px 65px -10px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: lighter;
+}
+
+.input-group {
+  border-radius: 2rem;
+}
+
+::ng-deep.range-number:focus {
+  outline: none;
+  box-shadow: 0 5px 55px -10px rgba(0, 0, 0, 0.2), 0 0 4px #02a69a; /* Allows border radius on focus */
+}
+
+.boton-input {
+  color: black;
+  position: relative;
+  /* width: 2.8rem; */
+  width: 2rem;
+  height: 2rem;
+  top: 0.6rem;
+  /* display: block; */
+  padding: 0;
+  border: 0;
+  border-color: #02a69a !important;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-indent: 100%;
+  border-radius: 1.4rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  opacity: 0.5;
+}
+
+.plus-btn {
+  background: url("/assets/mas_verde.svg") no-repeat 0 0;
+  background-size: 20px 40px;
+  background-position: center;
+  /* background-color: #02A69A; */
+  margin-right: 5px;
+}
+
+.minus-btn {
+  background: url("/assets/menos_verde.svg") no-repeat 0 0;
+  background-size: 20px 40px;
+  background-position: center;
+  /* background-color: #02A69A; */
+  margin-left: 5px;
 }

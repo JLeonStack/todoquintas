@@ -83,7 +83,7 @@ export class SearchComponent implements OnInit {
     this.search_form = this._fb.group({
       ubicacion: ['', Validators.required],
       huespedes: ['1', Validators.required],
-      propiedad: ['quinta', Validators.required],
+      propiedad: ['cualquiera', Validators.required],
     });
   }
 

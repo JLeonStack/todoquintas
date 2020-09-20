@@ -54,6 +54,7 @@ export class DatePickerIntervaloDispPropiedadComponent
   }
 
   ngOnInit(): void {
+    console.log('Min Date', nuevoMinDate);
     if (this.nuevoMinDate['end'] != null) {
       // console.log('Ng On Init Datepicker', this.nuevoMinDate);
       // console.log(this.nuevoMinDate);

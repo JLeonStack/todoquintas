@@ -54,8 +54,10 @@ export class ListingHomesComponent implements OnInit {
         this.busqueda.ubicacion
       );
 
-      // Procedo a obtener las propiedades que se ajusten a la búsqueda realizada por el usuario
-      this._lugaresSearchUbicacionService.getPropiedad(this.busqueda);
+      if (this.busqueda.filtro != 'true') {
+        // A continuación, realizo una petición a firebase enviando las query's de la url como parámetro, de tal forma que, esta función actualice la variable observador de las propiedades.
+        this._lugaresSearchUbicacionService.getPropiedad(this.busqueda);
+      }
     });
   }
 

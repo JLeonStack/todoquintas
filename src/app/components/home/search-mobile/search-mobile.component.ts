@@ -84,10 +84,11 @@ export class SearchMobileComponent implements OnInit {
     this.search_form = this._fb.group({
       ubicacion: ['', Validators.required],
       huespedes: ['1', Validators.required],
-      propiedad: ['quinta', Validators.required],
+      propiedad: ['cualquiera', Validators.required],
     });
   }
 
+  // Con la siguiente función retorno el control que gestionará el input mat-autocomplete de ubicación en la versión móvil
   obtenerControl() {
     return this.search_form.get('ubicacion');
   }

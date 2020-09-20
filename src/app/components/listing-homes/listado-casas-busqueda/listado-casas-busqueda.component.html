@@ -1,5 +1,18 @@
+<hr class="separacion-filtro-color" />
+
 <div class="container mt-5">
+  <div class="row justify-content-center align-items-center" *ngIf="loading">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 text-center">
+      <span class="lds-ellipsis"
+        ><div></div>
+        <div></div>
+        <div></div>
+        <div></div
+      ></span>
+    </div>
+  </div>
   <div class="row">
+    <!-- Sin virtual scroll -->
     <div
       class="col-12 col-sm-12 col-md-6 col-lg-4"
       *ngFor="let propiedad of propiedades"
@@ -7,6 +20,29 @@
       <app-tarjeta-propiedad-b
         [propiedad]="propiedad"
       ></app-tarjeta-propiedad-b>
+    </div>
+  </div>
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()"
+  ></div>
+
+  <div
+    class="row justify-content-center align-items-center"
+    *ngIf="no_search_prop"
+    style="min-height: 350px !important"
+  >
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 text-center">
+      <p class="text-center m-0 p-0 p-filtro">Lo sentimos,</p>
+      <p class="text-center p-filtro">no se han encontrado propiedades</p>
+      <img
+        src="../../../assets//images//icono2.png"
+        alt=""
+        width="150"
+        height="150"
+      />
     </div>
   </div>
 </div>

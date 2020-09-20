@@ -151,7 +151,7 @@ ol {
 .sl-thumb-slider .sl-thumb {
   height: 120px;
   cursor: pointer;
-  background: #000;
+  background: white;
   background-size: cover;
   position: relative;
 }
@@ -163,7 +163,7 @@ ol {
   height: 100%;
   left: 0;
   top: 0;
-  background: #000;
+  background: white;
   opacity: 0.6;
 }
 
@@ -723,12 +723,18 @@ ol {
     font-size: 16px;
     margin-right: 20px;
   }
+  .sl-thumb-slider .sl-thumb {
+    height: 50px;
+  }
 }
 
 @media only screen and (max-width: 370px) {
   .room-info .rf-left,
   .room-info .rf-right {
     float: none;
+  }
+  .sl-thumb-slider .sl-thumb {
+    height: 40px;
   }
 }
 
