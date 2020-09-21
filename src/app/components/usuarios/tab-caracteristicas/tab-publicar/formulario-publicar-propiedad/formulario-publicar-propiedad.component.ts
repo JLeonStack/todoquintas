@@ -51,6 +51,15 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   mensaje_error_campos = false;
   boton_publicar_bandera = false;
 
+  // Este objeto es utilizado par almacenar las fechas provenientes del datepicker y, al mismo tiempo, retornar al componente datepicker de las fechas seleccionadas para restablecerlas.
+  guardarFecha: Object = {
+    start: null,
+    end: null,
+  };
+
+  editar = true;
+  modo_edicion = false;
+  query: { edit: string; propiedad_id: string };
   // En el constructor inializaré el servicio y el formBuilder.
   constructor(
     private _formBuilder: FormBuilder,
@@ -82,7 +91,9 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     // Para evitar posibles llamadas duplicadas me voy a desubscribir de cada uno de los subscribe con los cuales recibod información del servicio.
     this.provinciaSubscripcion.unsubscribe();
     this.recogerCoordenadasSubscripcion.unsubscribe();
-    this.getValuePropiedad.unsubscribe();
+    if (this.getValuePropiedad) {
+      this.getValuePropiedad.unsubscribe();
+    }
   }
 
   // La siguiente función se encarga de setear todos los campos del formulario con la información de la propiedad para poder editarla.
@@ -129,6 +140,9 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     this.prop_data.get('provincia').setValue(propiedad.propiedad.provincia);
     this.prop_data.get('direccion').setValue(propiedad.propiedad.direccion);
     this.prop_data.get('coordenadas').setValue(propiedad.propiedad.coordenadas);
+    this.prop_data
+      .get('reserva_veinte_pciento')
+      .setValue(propiedad.propiedad.reserva_veinte_pciento);
 
     // Emito las coordenadas al mapa para situarlo en la localización correcta
     this._georefArgService.AsignarCoordenadas$.emit([
@@ -136,33 +150,40 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       propiedad.propiedad.coordenadas.lng,
     ]);
 
-    console.log(propiedad.propiedad.fechas_disponibles);
+    console.log(propiedad.propiedad.fechas_disponibles.fechas);
+    // El siguiente for añadirá a los formArray cada uno de los controles con sus respectivos valores.
     for (
       let i = 0;
       i < propiedad.propiedad.fechas_disponibles.fechas.length;
       i++
     ) {
-      console.log(propiedad.propiedad.fechas_disponibles.fechas[i]);
+      // A continuación procesaré la información proveniente de la propiead para convertir la fecha en formato de segundos a JSON
+      let fecha_inicial = new Date(
+        propiedad.propiedad.fechas_disponibles.fechas[i].start.seconds * 1000
+      );
+      let fecha_final = new Date(
+        propiedad.propiedad.fechas_disponibles.fechas[i].end.seconds * 1000
+      );
+
+      // Almaceno en el apartado de fechas el valor en JSON.
+      propiedad.propiedad.fechas_disponibles.fechas[i].start = JSON.parse(
+        JSON.stringify(fecha_inicial)
+      );
+      // Almaceno en el apartado de fechas el valor en JSON.
+
+      propiedad.propiedad.fechas_disponibles.fechas[i].end = JSON.parse(
+        JSON.stringify(fecha_final)
+      );
+
       (this.prop_data
         .get('fechas_disponibles')
         .get('fechas') as FormArray).push(
         this._formBuilder.control(
-          {
-            start: '2020-09-20T03:00:00.000Z',
-            end: '2020-09-30T03:00:00.000Z',
-          },
+          propiedad.propiedad.fechas_disponibles.fechas[i],
           Validators.required
         )
       );
-      let controles = (this.prop_data
-        .get('fechas_disponibles')
-        .get('fechas') as FormArray).controls;
 
-      // console.log(controles);
-      if (controles[controles.length - 1].value != null) {
-        this.guardarFecha = controles[controles.length - 1].value;
-        // console.log(this.guardarFecha);
-      }
       (this.prop_data
         .get('fechas_disponibles')
         .get('precios') as FormArray).push(
@@ -172,12 +193,6 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
         )
       );
     }
-    // this.prop_data
-    //   .get('fechas_disponibles')
-    //   .get('fechas')
-    //   .setValue(propiedad.propiedad.fechas_disponibles.fechas);
-
-    // console.log(this.prop_data.get('fechas_disponibles').value);
   }
 
   ngOnInit(): void {
@@ -185,9 +200,21 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     this._activatedRoute.queryParamMap.subscribe((params: any) => {
       console.log(params);
 
+      // Obtengo los parámetros que vienen por url
       var query: { edit: string; propiedad_id: string } = params.params;
+      this.query = params.params;
 
+      // Si recibo una confirmación de editar, procedo a subscribirme a la variable que persiste los datos de la propiedad para mostrar en cada input la correspondiente información.
       if (query.edit == 'true') {
+        this.modo_edicion = true;
+        this.files.push(new File([], 'test'));
+        this.editar = false;
+        (this.prop_data
+          .get('fechas_disponibles')
+          .get('fechas') as FormArray).removeAt(0);
+        (this.prop_data
+          .get('fechas_disponibles')
+          .get('precios') as FormArray).removeAt(0);
         // Me subscribo a la variable que almacena las propiedades
         this.getValuePropiedad = this._propiedadesService
           .getValue()
@@ -195,6 +222,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
             // Si obtengo data de la variable procederé a obtener el id de la propiedad
             if (data) {
               console.log('Query', query);
+
               // A continuación filtro la propiedad que se quiere editar dentro del array de propiedades y la almaceno en una variable temporal
               let propiedadEditar = Object.values(data).filter(
                 (item) => item.propiedad_id == query.propiedad_id
@@ -204,8 +232,27 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
               this.cargarFormularioEditar(propiedadEditar[0]);
             }
           });
+      } else {
+        this.crearFormulario();
+        this.files = [];
+        // En caso de que no se detecte la intención de editar, crearé dos controles con valores nulos para poder realizar una publicación.
+
+        /* Formcontrol de fecha */
+        (this.prop_data
+          .get('fechas_disponibles')
+          .get('fechas') as FormArray).push(
+          this._formBuilder.control([], Validators.required)
+        );
+
+        /* Formcontrol de precio */
+        (this.prop_data
+          .get('fechas_disponibles')
+          .get('precios') as FormArray).push(
+          this._formBuilder.control([], Validators.required)
+        );
       }
     });
+
     // Cada vez que el usuario seleccione una provincia en particular, me subscribé a los cambios del input para ejecutar el siguiente conjunto de instrucciones
     this.prop_data.controls.provincia.valueChanges.subscribe((provincia) => {
       // Lo que haré será recorrer cada una de las provincias en busca de aquella que coincida con la seleccionada en el input select-
@@ -242,6 +289,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
   guardarFormulario() {
     this.mensaje_error_campos = false;
     this.loading_cargar_propiedad = false;
+    this.prop_data.value.ciudad = this.prop_data.value.ciudad.toLowerCase();
     console.log(this.prop_data.value);
     // Creo un objeto temporal para colocar la información del usuario
     let publicar_propiedad_objeto: PropiedadModel = {
@@ -249,7 +297,7 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       propiedad: {
         ...this.prop_data.value,
       },
-      calificacion: [1],
+      calificacion: [0],
       img_f: [],
     };
 
@@ -260,24 +308,46 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
         console.log('Se puede publicar');
         this.loading_cargar_propiedad = true;
         this.boton_publicar_bandera = true;
-        this._propiedadesService
-          .publicarPropiedad(publicar_propiedad_objeto, this.files)
-          .then((data: boolean) => {
-            // Procedo a desactivar el loading
-            if (data) {
+
+        // Si estamos en modo edición, actualizaré la propiedad
+        if (this.modo_edicion) {
+          let actualizar_propiedad = {
+            propiedad: {
+              ...this.prop_data.value,
+            },
+          };
+          this._propiedadesService
+            .actualizarPropiedad(actualizar_propiedad, this.query.propiedad_id)
+            .then((data) => {
+              // Procedo a desactivar el loading
               console.log('data publicar,', data);
               this.loading_cargar_propiedad = false;
               this._router.navigate(['/usuario', 'propiedades']);
               setTimeout(() => {
                 window.location.reload();
               }, 500);
-            }
-          })
-          .catch((err: boolean) => {
-            if (err) {
-              console.log(err);
-            }
-          });
+            });
+          console.log('Modo edición');
+        } else {
+          this._propiedadesService
+            .publicarPropiedad(publicar_propiedad_objeto, this.files)
+            .then((data: boolean) => {
+              // Procedo a desactivar el loading
+              if (data) {
+                console.log('data publicar,', data);
+                this.loading_cargar_propiedad = false;
+                this._router.navigate(['/usuario', 'propiedades']);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500);
+              }
+            })
+            .catch((err: boolean) => {
+              if (err) {
+                console.log(err);
+              }
+            });
+        }
       } else {
         this.mensaje_error_campos = true;
         console.log('Hay campos incompletos');
@@ -390,6 +460,12 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       .get('precios') as FormArray).controls;
   }
 
+  // A continuación retornaré
+  getFecha(i) {
+    return (this.prop_data.get('fechas_disponibles').get('fechas') as FormArray)
+      .controls[i].value;
+  }
+
   incrementarInput(caracteristica: object) {
     // Obtengo el valor almacenado en el formGroup.
     let valor = this.prop_data.get(Object.keys(caracteristica)[0]).value;
@@ -418,6 +494,9 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
     }
   }
 
+  retornarMinusculas(str) {
+    return str.toLowerCase();
+  }
   // La siguiente función se encargará de agregar los nuevos controles al array de precios y de fechas.
   agregarPeriodo() {
     // Agrego el nuevo control al array precios.
@@ -466,12 +545,6 @@ export class FormularioPublicarPropiedadComponent implements OnInit {
       // console.log(this.guardarFecha);
     }
   }
-
-  // Este objeto es utilizado par almacenar las fechas provenientes del datepicker y, al mismo tiempo, retornar al componente datepicker de las fechas seleccionadas para restablecerlas.
-  guardarFecha: Object = {
-    start: null,
-    end: null,
-  };
 
   vectorFechas = [];
   // La siguiente función se encargará de recibir el Output del calendario, el rango de fechas seleccionado en el mismo.

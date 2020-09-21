@@ -29,6 +29,8 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
   // La siguiente es la subscripción de Auth0.
   private auth0Subscription: Subscription;
 
+  mostrarMensaje = false;
+
   constructor(
     private _propiedadesService: PropiedadesService,
     private auth: AuthService,
@@ -47,9 +49,11 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
           console.log(data);
           // Asigno a la propiedad data, la información proveniente de firebase
           this.propiedades = data;
-
           // Proceso la información para poder mostrarla correctamente en pantalla.
           this.procesarDatos(this.propiedades);
+        })
+        .catch((err) => {
+          this.mostrarMensaje = true;
         });
     } else {
       this.auth0Subscription = this.auth.userProfile$.subscribe(
@@ -67,8 +71,15 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
                 // Asigno a la propiedad data, la información proveniente de firebase
                 this.propiedades = data;
 
+                if (this.propiedades.length == 0) {
+                  this.mostrarMensaje = true;
+                }
+
                 // Proceso la información para poder mostrarla correctamente en pantalla.
                 this.procesarDatos(this.propiedades);
+              })
+              .catch((err) => {
+                this.mostrarMensaje = true;
               });
           }
         }
@@ -117,7 +128,26 @@ export class TabPropiedadesComponent implements OnInit, OnDestroy {
           propiedad_id: id_prop,
         },
       });
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     }, 100);
     console.log(id_prop);
+  }
+
+  eliminarPropiedad(id_prop) {
+    var opcion = confirm('¿Desea eliminar esta propiedad?');
+    if (opcion == true) {
+      this._propiedadesService.eliminarPropiedad(id_prop).then(() => {
+        setTimeout(() => {
+          this._router.navigate(['/usuario/propiedades']);
+          setTimeout(() => {
+            location.reload();
+          }, 100);
+        }, 100);
+      });
+    } else {
+      console.log('Se ha rechazado');
+    }
   }
 }

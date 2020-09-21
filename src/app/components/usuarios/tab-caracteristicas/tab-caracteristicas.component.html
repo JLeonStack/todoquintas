@@ -14,16 +14,8 @@
               Favoritos
             </div>
           </ng-template>
-          <div class="row mt-5 m-0 p-0">
-            <div
-              class="col-12 col-sm-12 col-md-6 col-lg-4"
-              *ngFor="let propiedad of propiedades"
-            >
-              <app-card-favorito-user
-                [propiedad]="propiedad"
-              ></app-card-favorito-user>
-            </div>
-          </div>
+
+          <app-tab-favoritos></app-tab-favoritos>
         </mat-tab>
 
         <mat-tab>

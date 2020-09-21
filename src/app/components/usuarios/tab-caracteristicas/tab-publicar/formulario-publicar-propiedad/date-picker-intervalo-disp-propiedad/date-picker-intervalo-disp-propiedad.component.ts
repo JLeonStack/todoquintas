@@ -8,7 +8,11 @@ import {
   Input,
 } from '@angular/core';
 
+// Imports para los formularios
 import { FormGroup, FormBuilder } from '@angular/forms';
+
+// Router
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Importo el header que tendrá le datepicker
 
@@ -29,6 +33,7 @@ export class DatePickerIntervaloDispPropiedadComponent
   @Output() recogerFechaEvent: EventEmitter<Object>;
 
   @Input() public nuevoMinDate: any;
+  @Input() public dateEdit: any;
 
   // Declaro una propiedad que contendrá el encabezado de nuestro calendario.
   headerDateRangePicker = HeaderDatePickerIntervaloDispPropiedadComponent;
@@ -46,7 +51,10 @@ export class DatePickerIntervaloDispPropiedadComponent
 
   // Constructor
   // Declararé el servicio para poder utilizarlo
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this.recogerFechaEvent = new EventEmitter();
 
     // Ejecuto el método que se encarga se configurar las fechas mínimas y máximas que admite el calendario
@@ -54,7 +62,12 @@ export class DatePickerIntervaloDispPropiedadComponent
   }
 
   ngOnInit(): void {
-    console.log('Min Date', nuevoMinDate);
+    this._activatedRoute.queryParamMap.subscribe((params: any) => {
+      if (params.params.edit == 'true') {
+        this.range.get('start').setValue(this.dateEdit.start);
+        this.range.get('end').setValue(this.dateEdit.end);
+      }
+    });
     if (this.nuevoMinDate['end'] != null) {
       // console.log('Ng On Init Datepicker', this.nuevoMinDate);
       // console.log(this.nuevoMinDate);

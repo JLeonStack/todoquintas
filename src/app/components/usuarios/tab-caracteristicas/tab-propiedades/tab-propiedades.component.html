@@ -1,3 +1,24 @@
+<div class="container" *ngIf="mostrarMensaje">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-12">
+      <div class="row my-5">
+        <div class="col-12 text-center">
+          <img
+            src="../../../assets//images//icono2.png"
+            alt=""
+            width="300"
+            height="300"
+          />
+          <p class="p-filtro mt-4">No tenés ninguna propiedad publicada</p>
+          <p class="p-filtro m-0 p-0" style="font-size: 16px !important">
+            ¡Publicá tu primera propiedad!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="row row mt-5 m-0 p-0">
     <div
@@ -52,11 +73,15 @@
                     Editar Propiedad
                   </button>
                 </div>
-                <!-- <div class="col-6">
-                  <button mat-raised-button type="button">
+                <div class="col-6">
+                  <button
+                    mat-raised-button
+                    type="button"
+                    (click)="eliminarPropiedad(propiedad.propiedad_id)"
+                  >
                     Eliminar Propiedad
                   </button>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>

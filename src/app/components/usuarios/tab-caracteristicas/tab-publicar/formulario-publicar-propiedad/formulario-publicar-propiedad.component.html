@@ -675,6 +675,7 @@
                         <app-date-picker-intervalo-disp-propiedad
                           (recogerFechaEvent)="recogerFechas($event, i)"
                           [nuevoMinDate]="guardarFecha"
+                          [dateEdit]="getFecha(i)"
                         ></app-date-picker-intervalo-disp-propiedad>
                       </div>
 
@@ -770,7 +771,12 @@
 
         <!-- Input Metros cuadrados -->
         <div class="form-group row justify-content-center mt-5">
-          <div class="col-12 col-lg-6">
+          <div class="col-12 col-lg-6" *ngIf="!editar">
+            <p class="text-center">
+              Lo sentimos, no es posible actualizar las imágenes de su propiedad
+            </p>
+          </div>
+          <div class="col-12 col-lg-6" *ngIf="editar">
             <p class="text-center">
               Seleccione las imágenes de su propiedad y colóquelas en el
               siguiente recuadro
@@ -867,7 +873,7 @@
   </div>
 </form>
 
-<hr />
+<!-- <hr />
 <pre>
   Estado del formulario {{ prop_data.valid }}
   <br>
@@ -876,4 +882,4 @@
 
 <pre>
   {{ prop_data.value | json }}
-</pre>
+</pre> -->

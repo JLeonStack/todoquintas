@@ -145,3 +145,14 @@
 ::ng-deep.bac-c-m {
   color: #02a69a;
 }
+
+/* PARRAFO FILTRO */
+.p-filtro {
+  font-size: 21px;
+  font-weight: 300;
+  color: #02a69a;
+}
+/* PARRAFO FILTRO */
+.separacion-filtro-color {
+  background-color: #02a69a;
+}

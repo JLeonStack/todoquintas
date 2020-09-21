@@ -199,7 +199,9 @@ export class PropiedadesService {
         .then((doc) => {
           // Creo una variable temporal denominada array, para almacenar las propiedades que devuelva la consulta.
           let array_propiedades_user = [];
-
+          if (doc.empty) {
+            reject(false);
+          }
           // Recorro el documento que devuelve la base datos.
           doc.forEach((data) => {
             // Pregunto si existe información en cada uno de los documentos de propiedades que estoy recorriendo
@@ -216,6 +218,33 @@ export class PropiedadesService {
               resolve(array_propiedades_user);
             }
           });
+        });
+    });
+  }
+
+  actualizarPropiedad(propiedad, id_propiedad) {
+    this.verificarConexionFirebase();
+
+    return new Promise((resolve, reject) => {
+      this.propiedadesCollectionRef
+        .doc(id_propiedad)
+        .update(propiedad)
+        .then((data) => {
+          console.log('actulizando', data);
+          resolve(data);
+        });
+    });
+  }
+
+  eliminarPropiedad(id_propiedad) {
+    this.verificarConexionFirebase();
+
+    return new Promise((resolve, reject) => {
+      this.propiedadesCollectionRef
+        .doc(id_propiedad)
+        .delete()
+        .then((data) => {
+          resolve(data);
         });
     });
   }
