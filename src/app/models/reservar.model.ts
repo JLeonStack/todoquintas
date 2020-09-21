@@ -3,6 +3,7 @@ export class ReservarPropiedadModel {
   public personas_hospedar: number;
   public fechas_reservadas: object;
   public precio: number;
+  public precio_reserva?: number;
   public prop_info: {
     sub: string; // id del usuario Auth0
     name: string; // nombre completo
@@ -34,6 +35,7 @@ export class ReservarPropiedadcModel {
   public personas_hospedar: number;
   public fechas_reservadas: object;
   public precio: number;
+  public precio_reserva?: number;
   public prop_info: {
     sub: string; // id del usuario Auth0
     name: string; // nombre completo
@@ -67,6 +69,7 @@ export class ReservarPropiedadMPModel {
   public personas_hospedar: number;
   public fechas_reservadas: object;
   public precio: number;
+  public precio_reserva?: number;
   public prop_info: {
     sub: string; // id del usuario Auth0
     name: string; // nombre completo
@@ -101,6 +104,7 @@ export class ReservarPropiedadMPcModel {
   public personas_hospedar: number;
   public fechas_reservadas: object;
   public precio: number;
+  public precio_reserva?: number;
   public prop_info: {
     sub: string; // id del usuario Auth0
     name: string; // nombre completo

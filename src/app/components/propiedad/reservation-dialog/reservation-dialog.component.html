@@ -81,10 +81,24 @@
 
           <h5 class="h5-size">
             <span class="material-icons bac-c-m mr-2"> attach_money </span>
-            <span style="font-weight: 600" class="mr-3">{{
-              reservar_data.get("precio").value | currency: "":""
-            }}</span>
+            <span
+              style="font-weight: 600"
+              class="mr-3"
+              [ngStyle]="{
+                'text-decoration': colorClase(
+                  reservar_data.get('precio_reserva').value
+                )
+              }"
+              >{{ reservar_data.get("precio").value | currency: "":"" }}</span
+            >
             Total
+          </h5>
+          <h5 class="h5-size">
+            <span class="material-icons bac-c-m mr-2"> attach_money </span>
+            <span style="font-weight: 600" class="mr-3">{{
+              reservar_data.get("precio_reserva").value | currency: "":""
+            }}</span>
+            Reserva
           </h5>
         </div>
       </div>

@@ -162,6 +162,7 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       personas_hospedar: [null, Validators.required],
       fechas_reservadas: [null, Validators.required],
       precio: [null, Validators.required],
+      precio_reserva: [null],
     });
     // console.log(this.reservar_data);
   }
@@ -248,8 +249,21 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
       }
     }
 
+    if (this.propiedad.propiedad.reserva_veinte_pciento) {
+      let precio_veinte_p = precio * 0.2;
+      let comision = precio * 0.03;
+
+      var precio_final = precio_veinte_p + comision;
+      console.log(precio_veinte_p);
+      console.log(comision);
+      console.log('Esta propiedad tiene una reserva de 20%');
+      this.reservar_data.get('precio_reserva').setValue(precio_final);
+    }
     // Almaceno en el formgroup, el precio que se deberá abonar por la vivienda.
-    this.reservar_data.get('precio').setValue(precio);
+    let comision = precio * 0.03;
+    let precio_total = precio + comision;
+
+    this.reservar_data.get('precio').setValue(precio_total);
     // console.log('Precio:', precio);
   }
 
@@ -417,6 +431,12 @@ export class ReservationDialogComponent implements OnInit, OnChanges {
 
       // Actualizo el valor almacenado en el formGroup
       this.reservar_data.patchValue(objeto);
+    }
+  }
+
+  colorClase(precio_reserva) {
+    if (precio_reserva > 0) {
+      return 'line-through  ';
     }
   }
 }

@@ -64,7 +64,8 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Fechas</th>
-                      <th scope="col">Valor por reservación</th>
+                      <th scope="col">Valor total por reservación</th>
+                      <th scope="col">Pago por reservación(20%)</th>
                       <th scope="col">Huésped</th>
                       <th scope="col">Acción</th>
                     </tr>
@@ -81,6 +82,15 @@
                         {{ item.fechas_reservadas.end | date }}
                       </td>
                       <td>{{ item.precio | currency }}</td>
+                      <td>
+                        {{
+                          (item.precio_reserva != null
+                            ? item.precio_reserva
+                            : ""
+                          ) | currency
+                        }}
+                        {{ item.precio_reserva == null ? "No" : "" }}
+                      </td>
                       <td>
                         <span class="img-p-sp mr-2"
                           ><img
@@ -189,7 +199,8 @@
                       <th scope="col">#</th>
                       <th scope="col">Propiedad</th>
                       <th scope="col">Fechas</th>
-                      <th scope="col">Valor por reservación</th>
+                      <th scope="col">Valor total por reservación</th>
+                      <th scope="col">Pago por reservación(20%)</th>
                       <th scope="col">Confirmada</th>
                       <th scope="col">Pagar</th>
                     </tr>
@@ -212,6 +223,15 @@
                         {{ item.fechas_reservadas.end | date }}
                       </td>
                       <td>{{ item.precio | currency }}</td>
+                      <td>
+                        {{
+                          (item.precio_reserva != null
+                            ? item.precio_reserva
+                            : ""
+                          ) | currency
+                        }}
+                        {{ item.precio_reserva == null ? "No" : "" }}
+                      </td>
 
                       <td *ngIf="item.reserva_confirmada == 0">No</td>
                       <td *ngIf="item.reserva_confirmada == 1">Si</td>

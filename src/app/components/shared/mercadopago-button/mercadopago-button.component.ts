@@ -7,7 +7,7 @@ import { get } from 'scriptjs';
 @Component({
   selector: 'app-mercadopago-button',
   templateUrl: './mercadopago-button.component.html',
-  styleUrls: ['./mercadopago-button.component.scss'],
+  styleUrls: ['./mercadopago-button.component.css'],
 })
 export class MercadoPagoButtonComponent implements OnInit {
   init_point: any;
@@ -53,7 +53,11 @@ export class MercadoPagoButtonComponent implements OnInit {
   ngOnInit(): void {
     if (this.propiedad) {
       // Almaceno distinta información en la preferencia correspondiente a la propiedad.
-      this.preference.items[0].unit_price = this.propiedad.precio;
+      if (this.propiedad.precio_reserva != null) {
+        this.preference.items[0].unit_price = this.propiedad.precio_reserva;
+      } else {
+        this.preference.items[0].unit_price = this.propiedad.precio;
+      }
       this.preference.items[0].title = this.propiedad.caracteristicas_propiedad.nombre_propiedad;
       this.preference.items[0].id = this.propiedad.id_reserva;
       this.preference.items[0].description = `Id Propiedad: ${this.propiedad.propiedad_id}\n Nombre Usuario: ${this.propiedad.huesped_info.nombre_huesped}\n User_id: ${this.propiedad.huesped_id}`;
