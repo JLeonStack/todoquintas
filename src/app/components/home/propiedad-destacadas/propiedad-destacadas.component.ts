@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { PropiedadesHomeService } from '../../../services/propiedades-home.service';
+import { PropiedadIndividualGetModel } from '../../../models/propiedad.model';
 declare var $: any;
 
 export interface Propiedad {
@@ -17,7 +20,7 @@ export interface Propiedad {
   styleUrls: ['./propiedad-destacadas.component.css'],
 })
 export class PropiedadDestacadasComponent implements OnInit {
-  propiedades: Propiedad[] = [
+  propiedades2: Propiedad[] = [
     {
       id: 1,
       nombre: 'Estancias del Pilar',
@@ -92,39 +95,61 @@ export class PropiedadDestacadasComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  propiedades: PropiedadIndividualGetModel[];
+
+  constructor(private _propiedadesHomeService: PropiedadesHomeService) {}
 
   numSequence(n: number): Array<number> {
     return Array(n);
   }
 
   ngOnInit(): void {
-    // Activo el carousel
-    $(document).ready(function () {
-      $('.carousel-properties').owlCarousel({
-        center: true,
-        loop: true,
-        items: 1,
-        margin: 30,
-        stagePadding: 0,
-        nav: true,
-        dots: true,
-        navText: [
-          '<span class="material-icons">keyboard_arrow_left</span>',
-          '<span class="material-icons" >keyboard_arrow_right</span>',
-        ],
-        responsive: {
-          0: {
-            items: 1,
-          },
-          600: {
-            items: 2,
-          },
-          1000: {
-            items: 3,
-          },
-        },
+    this._propiedadesHomeService
+      .getPropiedades()
+      .then((data: PropiedadIndividualGetModel[]) => {
+        this.propiedades = data;
+        console.log(this.propiedades);
+        this.iniciarCarousel();
       });
-    });
+    // Activo el carousel
+  }
+
+  iniciarCarousel() {
+    setTimeout(() => {
+      $(document).ready(function () {
+        $('.carousel-properties').owlCarousel({
+          center: true,
+          loop: true,
+          items: 1,
+          margin: 30,
+          stagePadding: 0,
+          nav: true,
+          dots: true,
+          navText: [
+            '<span class="material-icons">keyboard_arrow_left</span>',
+            '<span class="material-icons" >keyboard_arrow_right</span>',
+          ],
+          responsive: {
+            0: {
+              items: 1,
+            },
+            600: {
+              items: 2,
+            },
+            1000: {
+              items: 3,
+            },
+          },
+        });
+      });
+    }, 100);
+  }
+  // La siguiente función retornará un color en caso de que no exista una piscina.
+  colorClase(activado) {
+    if (activado) {
+      return '';
+    } else {
+      return '#CB3234';
+    }
   }
 }

@@ -1,0 +1,163 @@
+<div class="container" style="z-index: 0 !important">
+  <section class="ftco-section goto-here" style="padding: 3em 0">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div
+          class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5"
+        >
+          <span class="subheading mb-4"
+            >Estamos en toda
+            <u style="text-decoration: none; border-bottom: 1px solid #00a699"
+              >Argentina</u
+            >
+          </span>
+          <h2 class="mb-2">Buenos Aires</h2>
+          <hr class="separacion-filtro-color" />
+        </div>
+      </div>
+      <!-- Buenos Aires -->
+      <div class="row propiedad-destacadas-carousel">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-4"
+          *ngFor="let propiedad of buenos_aires"
+        >
+          <app-tarjeta-propiedad-b
+            [propiedad]="propiedad"
+          ></app-tarjeta-propiedad-b>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100% !important; background: #02a69a !important"
+            type="submit"
+          >
+            Más propiedades
+          </button>
+        </div>
+      </div>
+      <!-- Buenos Aires -->
+
+      <div class="row justify-content-center mt-5">
+        <div
+          class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5"
+        >
+          <h2 class="mb-2">Córdoba</h2>
+          <hr class="separacion-filtro-color" />
+        </div>
+      </div>
+      <!-- Córdoba -->
+      <div class="row propiedad-destacadas-carousel">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-4"
+          *ngFor="let propiedad of cordoba"
+        >
+          <app-tarjeta-propiedad-b
+            [propiedad]="propiedad"
+          ></app-tarjeta-propiedad-b>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100% !important; background: #02a69a !important"
+            type="submit"
+          >
+            Más propiedades
+          </button>
+        </div>
+      </div>
+      <!-- Córdoba -->
+
+      <div class="row justify-content-center mt-5">
+        <div
+          class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5"
+        >
+          <h2 class="mb-2">Río Negro</h2>
+          <hr class="separacion-filtro-color" />
+        </div>
+      </div>
+      <!-- Río negro -->
+      <div class="row propiedad-destacadas-carousel">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-4"
+          *ngFor="let propiedad of rio_negro"
+        >
+          <app-tarjeta-propiedad-b
+            [propiedad]="propiedad"
+          ></app-tarjeta-propiedad-b>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100% !important; background: #02a69a !important"
+            type="submit"
+          >
+            Más propiedades
+          </button>
+        </div>
+      </div>
+      <!-- Río negro -->
+
+      <div class="row justify-content-center mt-5">
+        <div
+          class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5"
+        >
+          <h2 class="mb-2">Neuquén</h2>
+          <hr class="separacion-filtro-color" />
+        </div>
+      </div>
+      <!-- Neuquén -->
+      <div class="row propiedad-destacadas-carousel mt-5">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-4"
+          *ngFor="let propiedad of neuquen"
+        >
+          <app-tarjeta-propiedad-b
+            [propiedad]="propiedad"
+          ></app-tarjeta-propiedad-b>
+        </div>
+      </div>
+      <!-- Neuquén -->
+      <div class="row justify-content-center">
+        <div
+          class="col-md-12 heading-section text-center animate__animated animate__fadeIn mb-5"
+        >
+          <h2 class="mb-2">Corrientes</h2>
+          <hr class="separacion-filtro-color" />
+        </div>
+      </div>
+      <!-- Corrientes -->
+      <div class="row propiedad-destacadas-carousel">
+        <div
+          class="col-12 col-sm-12 col-md-6 col-lg-4"
+          *ngFor="let propiedad of corrientes"
+        >
+          <app-tarjeta-propiedad-b
+            [propiedad]="propiedad"
+          ></app-tarjeta-propiedad-b>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+          <button
+            mat-flat-button
+            color="primary"
+            style="width: 100% !important; background: #02a69a !important"
+            type="submit"
+          >
+            Más propiedades
+          </button>
+        </div>
+      </div>
+      <!-- Corrientes -->
+    </div>
+  </section>
+</div>

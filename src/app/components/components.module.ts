@@ -62,6 +62,7 @@ import { DialogPrecioComponent } from './propiedad/reservation-dialog/dialog-pre
 import { MercadoPagoButtonComponent } from './shared/mercadopago-button/mercadopago-button.component';
 import { DialogPropietarioComponent } from './usuarios/tab-caracteristicas/tab-reservas/dialog-propietario/dialog-propietario.component';
 import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/chat.component';
+import { PropiedadesNuevasComponent } from './home/propiedades-nuevas/propiedades-nuevas.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     MercadoPagoButtonComponent,
     DialogPropietarioComponent,
     ChatComponent,
+    PropiedadesNuevasComponent,
   ],
   exports: [
     FooterComponent,
@@ -147,6 +149,7 @@ import { ChatComponent } from './usuarios/tab-caracteristicas/tab-reservas/chat/
     MercadoPagoButtonComponent,
     DialogPropietarioComponent,
     ChatComponent,
+    PropiedadesNuevasComponent,
   ],
   imports: [
     CommonModule,

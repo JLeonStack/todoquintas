@@ -1,4 +1,4 @@
-<div class="container" style="z-index: 0 !important;">
+<div class="container" style="z-index: 0 !important">
   <section class="ftco-section goto-here">
     <div class="container">
       <div class="row justify-content-center">
@@ -7,7 +7,7 @@
         >
           <span class="subheading mb-4"
             >Una experiencia calificada por nuestros
-            <u style="text-decoration: none; border-bottom: 1px solid #00a699;"
+            <u style="text-decoration: none; border-bottom: 1px solid #00a699"
               >usuarios</u
             >
           </span>
@@ -21,23 +21,17 @@
             <!-- Primer item -->
             <div class="item" *ngFor="let propiedad of propiedades">
               <div class="property-wrap animate__animated animate__fadeIn">
-                <button
-                  mat-icon-button
-                  color="warn"
-                  style="position: absolute;"
-                >
-                  <span class="material-icons">
-                    favorite
-                  </span>
+                <button mat-icon-button color="warn" style="position: absolute">
+                  <span class="material-icons"> favorite </span>
                 </button>
                 <a
-                  [routerLink]="['/propiedad', '1']"
+                  [routerLink]="['/propiedad', propiedad.propiedad_id]"
                   class="img"
                   [ngStyle]="{
-                    'background-image': 'url(' + propiedad.imagen + ')'
+                    'background-image': 'url(' + propiedad.img_f[0] + ')'
                   }"
                 >
-                  <div
+                  <!-- <div
                     class="rent-sale"
                     *ngIf="propiedad.estado == 'disponible'"
                   >
@@ -53,26 +47,29 @@
                     <span class="sale">
                       {{ propiedad.estado | titlecase }}
                     </span>
-                  </div>
+                  </div> -->
 
                   <p class="price d-flex justify-content-between">
                     <span class="orig-price"
-                      >${{ propiedad.precio }}<small> / día</small></span
+                      >${{ propiedad.propiedad.fechas_disponibles.precios[0]
+                      }}<small> / día</small></span
                     >
                     <span class="img-p-sp"
                       ><img
                         class="img-prop shadow"
-                        src="assets/images/des/image_6.jpg"
-                        title="Julian D."
+                        [src]="propiedad.prop_info.picture"
                     /></span>
                   </p>
                 </a>
                 <div class="feature-text border-0">
                   <div class="text-center feature-title">
-                    <h5>{{ propiedad.nombre | titlecase }}</h5>
+                    <h5>
+                      {{ propiedad.propiedad.nombre_propiedad | titlecase }}
+                    </h5>
                     <p>
                       <i class="fa fa-map-marker"></i>
-                      {{ propiedad.ubicacion | titlecase }}
+                      {{ propiedad.propiedad.ciudad | titlecase }},
+                      {{ propiedad.propiedad.provincia | titlecase }}
                     </p>
                   </div>
                   <div class="col-md-12 text-center text-warning">
@@ -88,27 +85,42 @@
                           <span class="material-icons bac-c-m mr-2">
                             tab_unselected
                           </span>
-                          200m <sup>2</sup>
+                          {{ propiedad.propiedad.metros_cuadrado_cubiertos }}m
+                          <sup>2</sup>
                         </p>
 
                         <p class="d-flex align-items-center">
                           <span class="material-icons bac-c-m mr-2">
                             person_add
                           </span>
-                          10 personas
+                          {{ propiedad.propiedad.capacidad_alojamiento }}
+                          personas
                         </p>
                       </div>
                       <div class="rf-right">
-                        <p class="d-flex align-items-center">
-                          <span class="material-icons bac-c-m mr-2">
-                            waves </span
-                          >1 piscina
+                        <!-- Apto piscina -->
+                        <p
+                          class="d-flex align-items-center"
+                          [ngStyle]="{
+                            color: colorClase(propiedad.propiedad.piscina)
+                          }"
+                        >
+                          <span
+                            class="material-icons bac-c-m mr-2"
+                            [ngStyle]="{
+                              color: colorClase(propiedad.propiedad.piscina)
+                            }"
+                          >
+                            waves
+                          </span>
+                          Piscina
                         </p>
+                        <!-- Apto piscina -->
                         <p class="d-flex align-items-center">
                           <span class="material-icons bac-c-m mr-2">
                             bathtub
                           </span>
-                          2 baños
+                          {{ propiedad.propiedad.banos }} baños
                         </p>
                       </div>
                     </div>
@@ -119,21 +131,21 @@
                             mat-icon-button
                             color="warn"
                             class="modif-but"
+                            disabled
                           >
-                            <span class="material-icons">
-                              favorite
-                            </span>
+                            <span class="material-icons"> favorite </span>
                           </button>
                         </div>
                         <div class="col-3">
                           <button
                             mat-icon-button
                             class="modif-but"
-                            [routerLink]="['/propiedad', propiedad.id]"
+                            [routerLink]="[
+                              '/propiedad',
+                              propiedad.propiedad_id
+                            ]"
                           >
-                            <span class="material-icons">
-                              navigate_next
-                            </span>
+                            <span class="material-icons"> navigate_next </span>
                           </button>
                         </div>
                       </div>
